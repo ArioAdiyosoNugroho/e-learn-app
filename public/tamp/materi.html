@@ -56,16 +56,7 @@
                 radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
         }
 
-        /* .hero-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-        } */
-         @keyframes gridMove {
+        @keyframes gridMove {
             0% { transform: translate(0, 0); }
             100% { transform: translate(50px, 50px); }
         }
@@ -95,25 +86,44 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* Material Cards */
+        /* Modern Material Cards */
         .material-card {
             background: white;
-            border-radius: 16px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border: 1px solid var(--gray-200);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .material-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
         }
 
         .material-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
             border-color: var(--primary);
         }
 
+        .material-card:hover::before {
+            opacity: 1;
+        }
+
         .card-header {
-            height: 180px;
+            height: 200px;
             position: relative;
             overflow: hidden;
-            border-radius: 16px 16px 0 0;
+            border-radius: 20px 20px 0 0;
         }
 
         .card-header::after {
@@ -123,21 +133,264 @@
             background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
         }
 
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .material-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-actions {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .action-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+        }
+
         /* Badge Styles */
         .badge {
-            padding: 4px 12px;
-            border-radius: 6px;
+            padding: 6px 14px;
+            border-radius: 10px;
             font-size: 0.75rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+            backdrop-filter: blur(10px);
         }
 
-        /* Filter Bar */
+        /* Modern Filter Bar */
         .filter-bar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 4px;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-tab {
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--gray-600);
+            white-space: nowrap;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .filter-tab:hover::before {
+            left: 100%;
+        }
+
+        .filter-tab:hover {
             background: white;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            color: var(--gray-700);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow:
+                0 4px 12px rgba(37, 99, 235, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .view-toggle {
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            height: 36px;
+        }
+
+        .view-btn {
+            padding: 0 12px;
+            background: white;
+            color: var(--gray-600);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .view-btn:hover::before {
+            left: 100%;
+        }
+
+        .view-btn:hover {
+            background: var(--gray-50);
+            color: var(--gray-700);
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom Select Modern */
+        .select-custom {
+            padding: 8px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            background: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            transition: all 0.2s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+            padding-right: 32px;
+            cursor: pointer;
+            min-width: 120px;
+            height: 36px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .select-custom:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.1),
+                0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .select-custom:hover {
+            border-color: var(--gray-300);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Filter Chip Modern */
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #e0f2fe 100%);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-chip:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+        }
+
+        .filter-chip i {
+            font-size: 0.6rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .filter-chip:hover i {
+            opacity: 1;
         }
 
         /* Button Styles */
@@ -243,28 +496,6 @@
             50% { transform: translate(-30px, -30px); }
         }
 
-        /* Select Styles */
-        .select-custom {
-            padding: 10px 16px;
-            border: 1px solid var(--gray-200);
-            border-radius: 8px;
-            background: white;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--gray-700);
-            transition: all 0.3s ease;
-        }
-
-        .select-custom:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .select-custom:hover {
-            border-color: var(--gray-300);
-        }
-
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
@@ -331,6 +562,53 @@
             bottom: 20%;
             left: 15%;
             animation-delay: -4s;
+        }
+
+        /* Expandable Filter Section */
+        .expandable-filters {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .expandable-filters.expanded {
+            max-height: 150px;
+        }
+
+        /* Badge for active filters count */
+        .filter-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Glassmorphism effect for expand button */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
         }
     </style>
 </head>
@@ -665,51 +943,137 @@
       </div>
     </section>
 
-    <!-- Filter Bar -->
-    <section class="sticky top-[70px] z-30 py-4 px-4 filter-bar">
+    <!-- Modern Filter Bar -->
+    <section class="sticky top-[70px] z-30 py-6 px-4">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
-                <div class="flex flex-wrap items-center gap-3">
-                    <span class="text-sm font-semibold text-gray-700">Filter:</span>
+            <div class="filter-bar p-4">
+                <!-- Main Filter Row -->
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                    <!-- Left Section: Search and Main Filters -->
+                    <div class="flex flex-col md:flex-row gap-3 flex-1 min-w-0">
+                        <!-- Search Input -->
+                        <div class="relative flex-shrink-0">
+                            <input type="text" class="search-input" placeholder="Cari materi...">
+                            <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs"></i>
+                        </div>
 
-                    <select class="select-custom">
-                        <option>Semua Kategori</option>
-                        <option>Matematika</option>
-                        <option>Fisika</option>
-                        <option>Kimia</option>
-                        <option>Biologi</option>
-                        <option>Bahasa Indonesia</option>
-                    </select>
+                        <!-- Main Filter Tabs -->
+                        <div class="flex-1 min-w-0">
+                            <div class="filter-tabs">
+                                <button class="filter-tab active" data-filter="all">
+                                    <i class="fas fa-th-large text-xs"></i>
+                                    Semua Materi
+                                </button>
+                                <button class="filter-tab" data-filter="matematika">
+                                    <i class="fas fa-calculator text-xs"></i>
+                                    Matematika
+                                </button>
+                                <button class="filter-tab" data-filter="fisika">
+                                    <i class="fas fa-atom text-xs"></i>
+                                    Fisika
+                                </button>
+                                <button class="filter-tab" data-filter="kimia">
+                                    <i class="fas fa-flask text-xs"></i>
+                                    Kimia
+                                </button>
+                                <button class="filter-tab" data-filter="biologi">
+                                    <i class="fas fa-dna text-xs"></i>
+                                    Biologi
+                                </button>
+                                <button class="filter-tab" data-filter="bahasa">
+                                    <i class="fas fa-language text-xs"></i>
+                                    Bahasa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
 
-                    <select class="select-custom">
-                        <option>Semua Tingkat</option>
-                        <option>SD</option>
-                        <option>SMP</option>
-                        <option>SMA</option>
-                    </select>
+                    <!-- Right Section: Sort, View, and Expand -->
+                    <div class="flex items-center gap-3">
+                        <!-- Sort Options -->
+                        <div class="relative">
+                            <select class="select-custom">
+                                <option>Terpopuler</option>
+                                <option>Terbaru</option>
+                                <option>Rating Tertinggi</option>
+                                <option>Durasi Terpendek</option>
+                            </select>
+                        </div>
 
-                    <select class="select-custom">
-                        <option>Semua Kesulitan</option>
-                        <option>Mudah</option>
-                        <option>Menengah</option>
-                        <option>Sulit</option>
-                    </select>
+                        <!-- View Toggle -->
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+
+                        <!-- Expand Filters Button -->
+                        <button class="relative p-2 glass-btn rounded-lg text-gray-600 hover:text-gray-800 transition-all duration-200" id="expand-filters">
+                            <i class="fas fa-sliders-h text-sm"></i>
+                            <span class="filter-badge">2</span>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <select class="select-custom">
-                        <option>Terpopuler</option>
-                        <option>Terbaru</option>
-                        <option>Rating Tertinggi</option>
-                    </select>
+                <!-- Expandable Filter Section -->
+                <div class="expandable-filters mt-3 pt-3 border-t border-gray-100" id="expandable-filters">
+                    <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+                        <div class="flex flex-col md:flex-row md:items-center gap-3 flex-1">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Filter Lanjutan:</span>
 
-                    <div class="flex rounded-lg overflow-hidden border border-gray-200">
-                        <button class="px-3 py-2 bg-blue-600 text-white">
-                            <i class="fas fa-th-large"></i>
-                        </button>
-                        <button class="px-3 py-2 bg-white text-gray-600 hover:bg-gray-50">
-                            <i class="fas fa-list"></i>
-                        </button>
+                                <select class="select-custom">
+                                    <option>Semua Tingkat</option>
+                                    <option>SD</option>
+                                    <option>SMP</option>
+                                    <option>SMA</option>
+                                </select>
+
+                                <select class="select-custom">
+                                    <option>Semua Kesulitan</option>
+                                    <option>Mudah</option>
+                                    <option>Menengah</option>
+                                    <option>Sulit</option>
+                                </select>
+
+                                <select class="select-custom">
+                                    <option>Semua Durasi</option>
+                                    <option>< 30 menit</option>
+                                    <option>30-60 menit</option>
+                                    <option>> 60 menit</option>
+                                </select>
+                            </div>
+
+                            <!-- Active Filters -->
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-gray-500">Filter aktif:</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <div class="filter-chip fade-in">
+                                        <span>Matematika</span>
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="filter-chip fade-in">
+                                        <span>SMP</span>
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex items-center gap-2">
+                            <button class="btn btn-outline text-sm">
+                                <i class="fas fa-redo-alt"></i>
+                                Reset Filter
+                            </button>
+                            <button class="btn btn-primary text-sm">
+                                <i class="fas fa-check"></i>
+                                Terapkan Filter
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -722,38 +1086,43 @@
             <!-- Section Header -->
             <div class="text-center mb-10 reveal">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-3">Materi Pilihan</h2>
-                <p class="text-gray-600">Dipilih     khusus untuk meningkatkan pemahaman Anda</p>
+                <p class="text-gray-600">Dipilih khusus untuk meningkatkan pemahaman Anda</p>
             </div>
 
             <!-- Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Card 1 -->
-                <div class="material-card reveal">
-                    <div class="card-header bg-gradient-to-br from-blue-500 to-blue-700">
+                <div class="material-card reveal" data-category="matematika">
+                    <div class="card-header">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                             alt="Aljabar Linear" class="card-image">
                         <div class="absolute top-4 left-4 z-10">
                             <span class="badge bg-white/90 text-blue-700">Matematika</span>
                         </div>
                         <div class="absolute top-4 right-4 z-10">
                             <span class="badge bg-green-500 text-white">Mudah</span>
                         </div>
-                        <div class="absolute bottom-4 right-4 z-10">
-                            <button class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                        <div class="card-actions">
+                            <button class="action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                            <button class="play-btn">
                                 <i class="fas fa-play text-blue-600 ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-5">
-                        <div class="mb-3">
+                    <div class="p-6 relative z-10">
+                        <div class="mb-4">
                             <span class="badge bg-blue-50 text-blue-700">
                                 <i class="fas fa-check-circle"></i>Selesai
                             </span>
                         </div>
 
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">Aljabar Linear & Matriks</h3>
-                        <p class="text-sm text-gray-600 mb-4">Pelajari konsep matriks dan vektor dengan pendekatan visual</p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Aljabar Linear & Matriks</h3>
+                        <p class="text-gray-600 mb-5">Pelajari konsep matriks dan vektor dengan pendekatan visual yang mudah dipahami.</p>
 
-                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
-                            <div class="flex items-center gap-3 text-xs text-gray-500">
+                        <div class="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
                                 <div class="flex items-center gap-1">
                                     <i class="far fa-clock"></i>
                                     <span>60m</span>
@@ -762,55 +1131,60 @@
                                     <i class="fas fa-star text-yellow-400"></i>
                                     <span class="font-semibold">4.8</span>
                                 </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-users"></i>
+                                    <span>1,234</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2 text-xs text-gray-500">
-                                <i class="fas fa-users"></i>
-                                <span>1,234 siswa</span>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <span class="text-blue-600 font-bold text-sm">BS</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-800">Pak Budi</p>
+                                    <p class="text-xs text-gray-500">M.Pd</p>
+                                </div>
                             </div>
-                            <button class="btn btn-primary text-xs py-2 px-4">Mulai</button>
+                            <button class="btn btn-primary text-sm py-2 px-4">Mulai</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="material-card reveal">
-                    <div class="card-header bg-gradient-to-br from-purple-500 to-indigo-700">
+                <!-- Card 2 -->
+                <div class="material-card reveal" data-category="fisika">
+                    <div class="card-header">
+                        <img src="https://images.unsplash.com/photo-1636466497217-26a8cbeaf0aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80"
+                             alt="Hukum Newton" class="card-image">
                         <div class="absolute top-4 left-4 z-10">
                             <span class="badge bg-white/90 text-purple-700">Fisika</span>
                         </div>
                         <div class="absolute top-4 right-4 z-10">
                             <span class="badge bg-red-500 text-white">Sulit</span>
                         </div>
-                        <div class="absolute bottom-4 right-4 z-10">
-                            <button class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                        <div class="card-actions">
+                            <button class="action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                            <button class="play-btn">
                                 <i class="fas fa-play text-purple-600 ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-5">
-                        <div class="mb-3">
+                    <div class="p-6 relative z-10">
+                        <div class="mb-4">
                             <span class="badge bg-blue-50 text-blue-700">
                                 <i class="fas fa-check-circle"></i>Selesai
                             </span>
                         </div>
 
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">Hukum Newton & Gerak</h3>
-                        <p class="text-sm text-gray-600 mb-4">Pahami tiga hukum gerak dengan simulasi fisika interaktif</p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Hukum Newton & Gerak</h3>
+                        <p class="text-gray-600 mb-5">Pahami tiga hukum gerak dengan simulasi fisika interaktif yang menarik.</p>
 
-                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-9 h-9 rounded-full bg-purple-100 flex items-center justify-center">
-                                    <span class="text-purple-600 font-bold text-xs">BR</span>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-semibold text-gray-800">Bu Rina</p>
-                                    <p class="text-xs text-gray-500">M.Pd</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 text-xs text-gray-500">
+                        <div class="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
                                 <div class="flex items-center gap-1">
                                     <i class="far fa-clock"></i>
                                     <span>50m</span>
@@ -819,57 +1193,60 @@
                                     <i class="fas fa-star text-yellow-400"></i>
                                     <span class="font-semibold">5.0</span>
                                 </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-users"></i>
+                                    <span>987</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                                    <div class="h-full bg-purple-600 rounded-full" style="width: 100%"></div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                                    <span class="text-purple-600 font-bold text-sm">BR</span>
                                 </div>
-                                <span class="text-xs font-semibold text-gray-600">100%</span>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-800">Bu Rina</p>
+                                    <p class="text-xs text-gray-500">M.Pd</p>
+                                </div>
                             </div>
-                            <button class="btn btn-primary text-xs py-2 px-4">Review</button>
+                            <button class="btn btn-primary text-sm py-2 px-4">Review</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 4 -->
-                <div class="material-card reveal">
-                    <div class="card-header bg-gradient-to-br from-orange-500 to-red-600">
+                <!-- Card 3 -->
+                <div class="material-card reveal" data-category="kimia">
+                    <div class="card-header">
+                        <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                             alt="Struktur Atom" class="card-image">
                         <div class="absolute top-4 left-4 z-10">
                             <span class="badge bg-white/90 text-orange-700">Kimia</span>
                         </div>
                         <div class="absolute top-4 right-4 z-10">
                             <span class="badge bg-yellow-500 text-white">Menengah</span>
                         </div>
-                        <div class="absolute bottom-4 right-4 z-10">
-                            <button class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                        <div class="card-actions">
+                            <button class="action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                            <button class="play-btn">
                                 <i class="fas fa-play text-orange-600 ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-5">
-                        <div class="mb-3">
+                    <div class="p-6 relative z-10">
+                        <div class="mb-4">
                             <span class="badge bg-blue-50 text-blue-700">
                                 <i class="fas fa-play-circle"></i>Berlangsung
                             </span>
                         </div>
 
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">Struktur Atom & Tabel Periodik</h3>
-                        <p class="text-sm text-gray-600 mb-4">Pelajari konsep atom dengan visualisasi 3D yang menarik</p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Struktur Atom & Tabel Periodik</h3>
+                        <p class="text-gray-600 mb-5">Pelajari konsep atom dengan visualisasi 3D yang menarik dan interaktif.</p>
 
-                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center">
-                                    <span class="text-orange-600 font-bold text-xs">PA</span>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-semibold text-gray-800">Pak Andi</p>
-                                    <p class="text-xs text-gray-500">M.Pd</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 text-xs text-gray-500">
+                        <div class="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
                                 <div class="flex items-center gap-1">
                                     <i class="far fa-clock"></i>
                                     <span>55m</span>
@@ -878,57 +1255,57 @@
                                     <i class="fas fa-star text-yellow-400"></i>
                                     <span class="font-semibold">4.7</span>
                                 </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-users"></i>
+                                    <span>1,543</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
                                     <div class="h-full bg-orange-600 rounded-full" style="width: 65%"></div>
                                 </div>
                                 <span class="text-xs font-semibold text-gray-600">65%</span>
                             </div>
-                            <button class="btn btn-primary text-xs py-2 px-4">Lanjut</button>
+                            <button class="btn btn-primary text-sm py-2 px-4">Lanjut</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 5 -->
-                <div class="material-card reveal">
-                    <div class="card-header bg-gradient-to-br from-red-500 to-rose-700">
+                <!-- Card 4 -->
+                <div class="material-card reveal" data-category="sejarah">
+                    <div class="card-header">
+                        <img src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                             alt="Perang Dunia II" class="card-image">
                         <div class="absolute top-4 left-4 z-10">
                             <span class="badge bg-white/90 text-red-700">Sejarah</span>
                         </div>
                         <div class="absolute top-4 right-4 z-10">
                             <span class="badge bg-green-500 text-white">Mudah</span>
                         </div>
-                        <div class="absolute bottom-4 right-4 z-10">
-                            <button class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                        <div class="card-actions">
+                            <button class="action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                            <button class="play-btn">
                                 <i class="fas fa-play text-red-600 ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-5">
-                        <div class="mb-3">
+                    <div class="p-6 relative z-10">
+                        <div class="mb-4">
                             <span class="badge bg-yellow-50 text-yellow-700">
                                 <i class="fas fa-crown"></i>Premium
                             </span>
                         </div>
 
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">Perang Dunia II</h3>
-                        <p class="text-sm text-gray-600 mb-4">Jelajahi peristiwa penting PD II dengan timeline interaktif</p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Perang Dunia II</h3>
+                        <p class="text-gray-600 mb-5">Jelajahi peristiwa penting PD II dengan timeline interaktif dan dokumenter eksklusif.</p>
 
-                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center">
-                                    <span class="text-red-600 font-bold text-xs">BM</span>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-semibold text-gray-800">Bu Maya</p>
-                                    <p class="text-xs text-gray-500">S.Pd</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 text-xs text-gray-500">
+                        <div class="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
                                 <div class="flex items-center gap-1">
                                     <i class="far fa-clock"></i>
                                     <span>40m</span>
@@ -937,55 +1314,60 @@
                                     <i class="fas fa-star text-yellow-400"></i>
                                     <span class="font-semibold">4.9</span>
                                 </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-users"></i>
+                                    <span>892</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2 text-xs text-gray-500">
-                                <i class="fas fa-users"></i>
-                                <span>892 siswa</span>
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                                    <span class="text-red-600 font-bold text-sm">BM</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-800">Bu Maya</p>
+                                    <p class="text-xs text-gray-500">S.Pd</p>
+                                </div>
                             </div>
-                            <button class="btn btn-primary text-xs py-2 px-4">Mulai</button>
+                            <button class="btn btn-primary text-sm py-2 px-4">Mulai</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 6 -->
-                <div class="material-card reveal">
-                    <div class="card-header bg-gradient-to-br from-indigo-500 to-cyan-600">
+                <!-- Card 5 -->
+                <div class="material-card reveal" data-category="bahasa">
+                    <div class="card-header">
+                        <img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1073&q=80"
+                             alt="Tata Bahasa" class="card-image">
                         <div class="absolute top-4 left-4 z-10">
                             <span class="badge bg-white/90 text-indigo-700">Bahasa</span>
                         </div>
                         <div class="absolute top-4 right-4 z-10">
                             <span class="badge bg-green-500 text-white">Mudah</span>
                         </div>
-                        <div class="absolute bottom-4 right-4 z-10">
-                            <button class="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                        <div class="card-actions">
+                            <button class="action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                            <button class="play-btn">
                                 <i class="fas fa-play text-indigo-600 ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-5">
-                        <div class="mb-3">
+                    <div class="p-6 relative z-10">
+                        <div class="mb-4">
                             <span class="badge bg-blue-50 text-blue-700">
                                 <i class="fas fa-play-circle"></i>Berlangsung
                             </span>
                         </div>
 
-                        <h3 class="text-lg font-bold text-gray-800 mb-2">Tata Bahasa & EYD</h3>
-                        <p class="text-sm text-gray-600 mb-4">Tingkatkan pemahaman tata bahasa Indonesia dan EYD</p>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Tata Bahasa & EYD</h3>
+                        <p class="text-gray-600 mb-5">Tingkatkan pemahaman tata bahasa Indonesia dan EYD dengan contoh praktis.</p>
 
-                        <div class="flex items-center justify-between mb-4 pb-4 border-b border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center">
-                                    <span class="text-indigo-600 font-bold text-xs">BD</span>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-semibold text-gray-800">Bu Dian</p>
-                                    <p class="text-xs text-gray-500">M.Pd</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-3 text-xs text-gray-500">
+                        <div class="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
                                 <div class="flex items-center gap-1">
                                     <i class="far fa-clock"></i>
                                     <span>35m</span>
@@ -994,24 +1376,87 @@
                                     <i class="fas fa-star text-yellow-400"></i>
                                     <span class="font-semibold">4.8</span>
                                 </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-users"></i>
+                                    <span>1,120</span>
+                                </div>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <div class="w-16 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                                <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
                                     <div class="h-full bg-indigo-600 rounded-full" style="width: 45%"></div>
                                 </div>
                                 <span class="text-xs font-semibold text-gray-600">45%</span>
                             </div>
-                            <button class="btn btn-primary text-xs py-2 px-4">Lanjut</button>
+                            <button class="btn btn-primary text-sm py-2 px-4">Lanjut</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="material-card reveal" data-category="biologi">
+                    <div class="card-header">
+                        <img src="https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1208&q=80"
+                             alt="Sistem Pencernaan" class="card-image">
+                        <div class="absolute top-4 left-4 z-10">
+                            <span class="badge bg-white/90 text-green-700">Biologi</span>
+                        </div>
+                        <div class="absolute top-4 right-4 z-10">
+                            <span class="badge bg-yellow-500 text-white">Menengah</span>
+                        </div>
+                        <div class="card-actions">
+                            <button class="action-btn">
+                                <i class="far fa-bookmark"></i>
+                            </button>
+                            <button class="play-btn">
+                                <i class="fas fa-play text-green-600 ml-0.5"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <div class="mb-4">
+                            <span class="badge bg-blue-50 text-blue-700">
+                                <i class="fas fa-play-circle"></i>Berlangsung
+                            </span>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">Sistem Pencernaan Manusia</h3>
+                        <p class="text-gray-600 mb-5">Eksplorasi sistem pencernaan dengan diagram interaktif dan penjelasan mendalam.</p>
+
+                        <div class="flex items-center justify-between mb-5 pb-5 border-b border-gray-100">
+                            <div class="flex items-center gap-3 text-sm text-gray-500">
+                                <div class="flex items-center gap-1">
+                                    <i class="far fa-clock"></i>
+                                    <span>45m</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <span class="font-semibold">4.6</span>
+                                </div>
+                                <div class="flex items-center gap-1">
+                                    <i class="fas fa-users"></i>
+                                    <span>876</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-20 h-2 bg-gray-100 rounded-full overflow-hidden">
+                                    <div class="h-full bg-green-600 rounded-full" style="width: 30%"></div>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-600">30%</span>
+                            </div>
+                            <button class="btn btn-primary text-sm py-2 px-4">Lanjut</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Load More -->
-            <div class="text-center mt-10 reveal">
+            <div class="text-center mt-12 reveal">
                 <button class="btn btn-outline">
                     <i class="fas fa-plus-circle"></i>
                     <span>Muat Lebih Banyak</span>
@@ -1160,17 +1605,92 @@
                 }, 500);
             }
 
-            // Filter bar scroll effect
-            const filterBar = document.querySelector('.filter-bar');
-            if (filterBar) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 100) {
-                        filterBar.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-                    } else {
-                        filterBar.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
-                    }
+            // Filter functionality
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const materialCards = document.querySelectorAll('.material-card');
+
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    filterTabs.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+
+                    const filterValue = tab.getAttribute('data-filter');
+
+                    // Filter cards
+                    materialCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
                 });
-            }
+            });
+
+            // View toggle functionality
+            const viewButtons = document.querySelectorAll('.view-btn');
+
+            viewButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                });
+            });
+
+            // Filter chips close functionality
+            const filterChips = document.querySelectorAll('.filter-chip i');
+
+            filterChips.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    this.parentElement.style.opacity = '0';
+                    setTimeout(() => {
+                        this.parentElement.remove();
+                    }, 200);
+                });
+            });
+
+            // Expandable filters functionality
+            const expandButton = document.getElementById('expand-filters');
+            const expandableSection = document.getElementById('expandable-filters');
+
+            expandButton.addEventListener('click', () => {
+                expandableSection.classList.toggle('expanded');
+
+                // Rotate icon when expanded
+                const icon = expandButton.querySelector('i');
+                if (expandableSection.classList.contains('expanded')) {
+                    icon.style.transform = 'rotate(90deg)';
+                    expandButton.classList.add('bg-blue-50', 'text-blue-600');
+                } else {
+                    icon.style.transform = 'rotate(0deg)';
+                    expandButton.classList.remove('bg-blue-50', 'text-blue-600');
+                }
+            });
+
+            // Terapkan Filter button functionality
+            const applyFilterBtn = document.querySelector('.btn-primary');
+            applyFilterBtn.addEventListener('click', () => {
+                // Close the expanded section after applying filters
+                expandableSection.classList.remove('expanded');
+                const icon = expandButton.querySelector('i');
+                icon.style.transform = 'rotate(0deg)';
+                expandButton.classList.remove('bg-blue-50', 'text-blue-600');
+
+                // Add a subtle animation to the button
+                applyFilterBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    applyFilterBtn.style.transform = 'scale(1)';
+                }, 150);
+
+                // Here you would implement filter application logic
+                console.log('Filters applied');
+            });
         });
     </script>
 </body>
