@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuis Interaktif | EduQuiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script
+      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        :root {
+            --accent: #06b6d4;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+        }
+
+        body {
+            background: var(--gray-50);
+        }
+
+        /* Hero Section dengan Pattern */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Search Box */
+        .search-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-box:focus-within {
+            transform: translateY(-2px);
+            box-shadow:
+                0 25px 50px rgba(37, 99, 235, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Stats Card */
+        .stats-container {
+            background: white;
+            border-radius: 23px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modern Quiz Cards */
+        .quiz-card {
+            background: white;
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .quiz-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary);
+        }
+
+        .quiz-card:hover::before {
+            opacity: 1;
+        }
+
+        .quiz-header {
+            height: 160px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .quiz-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+        }
+
+        .quiz-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .quiz-card:hover .quiz-image {
+            transform: scale(1.05);
+        }
+
+        .quiz-actions {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .action-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .play-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Badge Styles */
+        .badge {
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Modern Filter Bar */
+        .filter-bar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 4px;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-tab {
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--gray-600);
+            white-space: nowrap;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .filter-tab:hover::before {
+            left: 100%;
+        }
+
+        .filter-tab:hover {
+            background: white;
+            color: var(--gray-700);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow:
+                0 4px 12px rgba(37, 99, 235, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .view-toggle {
+            display: flex;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            background: white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            height: 36px;
+        }
+
+        .view-btn {
+            padding: 0 12px;
+            background: white;
+            color: var(--gray-600);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .view-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .view-btn:hover::before {
+            left: 100%;
+        }
+
+        .view-btn:hover {
+            background: var(--gray-50);
+            color: var(--gray-700);
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom Select Modern */
+        .select-custom {
+            padding: 8px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            background: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            transition: all 0.2s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+            padding-right: 32px;
+            cursor: pointer;
+            min-width: 120px;
+            height: 36px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .select-custom:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.1),
+                0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .select-custom:hover {
+            border-color: var(--gray-300);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Filter Chip Modern */
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, #e0f2fe 100%);
+            color: var(--primary);
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-chip:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+        }
+
+        .filter-chip i {
+            font-size: 0.6rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .filter-chip:hover i {
+            opacity: 1;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gray-300);
+            color: var(--gray-700);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        /* Progress Ring */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        /* Category Pills */
+        .category-pill {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .category-pill:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Quick Stats */
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30px, -30px); }
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+        }
+
+        /* Floating Animation for Hero Elements */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(180deg);
+            }
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -2s;
+        }
+
+        .floating-shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: -4s;
+        }
+
+        /* Expandable Filter Section */
+        .expandable-filters {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .expandable-filters.expanded {
+            max-height: 150px;
+        }
+
+        /* Badge for active filters count */
+        .filter-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.65rem;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Glassmorphism effect for expand button */
+        .glass-btn {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 2px 8px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6);
+        }
+
+        /* Quiz-specific styles */
+        .difficulty-badge {
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .difficulty-easy {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .difficulty-medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .difficulty-hard {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+        }
+
+        .quiz-score {
+            font-size: 0.875rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .quiz-progress {
+            height: 6px;
+            border-radius: 3px;
+            background: var(--gray-200);
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .completed-badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .in-progress-badge {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .premium-badge {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+        <lottie-player
+          src="https://assets2.lottiefiles.com/packages/lf20_usmfx6bp.json"
+          background="transparent"
+          speed="1"
+          style="width:400px; height:300px;"
+          loop
+          autoplay>
+        </lottie-player>
+        <p class="mt-5 text-gray-600 text-lg animate-bounce">Memuat pengalaman belajar terbaik...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="main-header">
+        <div class="header-background"></div>
+        <div class="header-container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="../tamp/asset/logo/logo.png" alt="logo">
+                        <div class="logo-glow"></div>
+                    </div>
+                    <span class="logo-text">EduQuiz</span>
+                    <div class="logo-pulse"></div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="navigation">
+                    <a href="index.html" class="nav-item" data-nav="home">
+                        <span class="nav-text">Beranda</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="materi.html" class="nav-item" data-nav="materials">
+                        <span class="nav-text">Materi</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="quiz.html" class="nav-item active" data-nav="quizzes">
+                        <span class="nav-text">Kuiz</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="#teachers" class="nav-item" data-nav="teachers">
+                        <span class="nav-text">Guru</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="#blog" class="nav-item" data-nav="blog">
+                        <span class="nav-text">Blog</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="header-actions">
+                    <!-- Search -->
+                    <div class="search-wrapper">
+                        <button class="search-toggle" id="search-toggle">
+                            <i class="fas fa-search"></i>
+                            <div class="icon-ripple"></div>
+                        </button>
+                        <div class="search-expand" id="search-expand">
+                            <input type="text" placeholder="Cari kuis..." class="search-input">
+                            <button class="search-close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="search-progress"></div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="notifications">
+                        <button class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                            <div class="bell-wave"></div>
+                            <div class="icon-ripple"></div>
+                        </button>
+                        <div class="notification-popup">
+                            <div class="notification-header">
+                                <h4>Notifikasi</h4>
+                                <span class="notification-count">3 baru</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p class="notification-title">Pencapaian Baru!</p>
+                                        <p class="notification-desc">Kamu menyelesaikan kuiz Matematika</p>
+                                        <span class="notification-time">2 menit lalu</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p class="notification-title">Materi Baru</p>
+                                        <p class="notification-desc">Fisika: Hukum Newton tersedia</p>
+                                        <span class="notification-time">1 jam lalu</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="user-menu">
+                        <button class="user-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User">
+                            <div class="user-status"></div>
+                            <div class="avatar-shine"></div>
+                        </button>
+                        <div class="user-dropdown">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="User">
+                                </div>
+                                <div class="user-details">
+                                    <h4>Ahmad Rizki</h4>
+                                    <p>Siswa Premium</p>
+                                    <div class="user-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                        <span>75% selesai</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-items">
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profil Saya</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Progress Belajar</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Pengaturan</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Keluar</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-toggle" id="mobile-toggle">
+                        <span class="toggle-line"></span>
+                        <span class="toggle-line"></span>
+                        <span class="toggle-line"></span>
+                        <div class="toggle-ripple"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-backdrop"></div>
+            <div class="mobile-nav-content">
+                <a href="#home" class="mobile-nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Beranda</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="#materials" class="mobile-nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Materi</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="#quizzes" class="mobile-nav-item active">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <span>Kuiz</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="#teachers" class="mobile-nav-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Guru</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="#blog" class="mobile-nav-item">
+                    <i class="fas fa-blog"></i>
+                    <span>Blog</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section pt-32 pb-40 relative">
+        <div class="hero-pattern"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20 reveal">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <span class="text-white text-sm font-semibold">200+ Kuis Interaktif</span>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight reveal">
+                    Tingkatkan Pemahaman<br/>dengan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">Kuis Interaktif</span>
+                </h1>
+
+                <!-- Description -->
+                <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto reveal">
+                    Uji pengetahuan Anda dengan berbagai kuis menarik yang dirancang khusus untuk mengasah kemampuan dan meningkatkan pemahaman materi.
+                </p>
+
+                <!-- Search Box -->
+                <div class="max-w-2xl mx-auto mb-8 reveal">
+                    <div class="search-box rounded-full p-2 flex flex-col sm:flex-row gap-2 shadow-2xl">
+                        <div class="flex items-center flex-1 px-4 py-3">
+                            <i class="fas fa-search text-gray-400 mr-3 text-lg"></i>
+                            <input type="text"
+                                   placeholder="Cari kuis, kategori, atau topik..."
+                                   class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-base">
+                        </div>
+                        <button class="btn btn-primary rounded-full whitespace-nowrap py-3 px-6">
+                            <i class="fas fa-search mr-2"></i>
+                            <span>Cari Kuis</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kategori Populer -->
+                <div class="flex flex-wrap justify-center items-center gap-3 reveal">
+                    <span class="text-white/80 text-sm">Kategori Populer:</span>
+                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <i class="fas fa-calculator mr-1"></i>Matematika
+                    </button>
+                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <i class="fas fa-atom mr-1"></i>Fisika
+                    </button>
+                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <i class="fas fa-flask mr-1"></i>Kimia
+                    </button>
+                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <i class="fas fa-dna mr-1"></i>Biologi
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modern Curved Bottom -->
+        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gray-50 rounded-t-[40px]"></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats py-20 -mt-[11rem] relative z-20">
+      <div class="container mx-auto px-6">
+        <div class="bg-white/80 backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+
+            <!-- Progress Kuis -->
+            <div class="group">
+              <div class="relative w-24 h-24 mx-auto mb-4">
+                <svg class="w-full h-full" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="45" stroke="#e5e7eb" stroke-width="6" fill="none" />
+                  <circle class="progress-ring-circle" cx="50" cy="50" r="45"
+                    stroke="url(#grad-blue)" stroke-width="6" fill="none"
+                    stroke-linecap="round"
+                    stroke-dasharray="282.74" stroke-dashoffset="84.82"
+                    class="transition-all duration-700" />
+                  <defs>
+                    <linearGradient id="grad-blue" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#3b82f6"/>
+                      <stop offset="100%" stop-color="#60a5fa"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span class="text-2xl font-bold text-gray-800 counter" data-target="65">0</span>
+                  <span class="text-xs text-gray-500">%</span>
+                </div>
+              </div>
+              <p class="text-sm font-semibold text-gray-600">Progress Kuis</p>
+            </div>
+
+            <!-- Kuis Diselesaikan -->
+            <div class="group">
+              <div class="stat-icon bg-gradient-to-br from-blue-100 to-blue-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                <i class="fas fa-trophy text-blue-600 text-2xl"></i>
+              </div>
+              <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="18">0</div>
+              <p class="text-sm font-semibold text-gray-600">Kuis Selesai</p>
+            </div>
+
+            <!-- Skor Rata-rata -->
+            <div class="group">
+              <div class="stat-icon bg-gradient-to-br from-green-100 to-green-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                <i class="fas fa-star text-green-600 text-2xl"></i>
+              </div>
+              <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="85">0</div>
+              <p class="text-sm font-semibold text-gray-600">Skor Rata-rata</p>
+            </div>
+
+            <!-- Waktu Belajar -->
+            <div class="group">
+              <div class="stat-icon bg-gradient-to-br from-purple-100 to-purple-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                <i class="fas fa-clock text-purple-600 text-2xl"></i>
+              </div>
+              <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="42">0</div>
+              <p class="text-sm font-semibold text-gray-600">Jam Belajar</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modern Filter Bar -->
+    <section class="sticky top-[70px] z-30 py-6 px-4">
+        <div class="container mx-auto px-4">
+            <div class="filter-bar p-4">
+                <!-- Main Filter Row -->
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                    <!-- Left Section: Search and Main Filters -->
+                    <div class="flex flex-col md:flex-row gap-3 flex-1 min-w-0">
+                        <!-- Search Input -->
+                        <div class="relative flex-shrink-0">
+                            <input type="text" class="search-input" placeholder="Cari kuis...">
+                            <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs"></i>
+                        </div>
+
+                        <!-- Main Filter Tabs -->
+                        <div class="flex-1 min-w-0">
+                            <div class="filter-tabs">
+                                <button class="filter-tab active" data-filter="all">
+                                    <i class="fas fa-th-large text-xs"></i>
+                                    Semua Kuis
+                                </button>
+                                <button class="filter-tab" data-filter="matematika">
+                                    <i class="fas fa-calculator text-xs"></i>
+                                    Matematika
+                                </button>
+                                <button class="filter-tab" data-filter="fisika">
+                                    <i class="fas fa-atom text-xs"></i>
+                                    Fisika
+                                </button>
+                                <button class="filter-tab" data-filter="kimia">
+                                    <i class="fas fa-flask text-xs"></i>
+                                    Kimia
+                                </button>
+                                <button class="filter-tab" data-filter="biologi">
+                                    <i class="fas fa-dna text-xs"></i>
+                                    Biologi
+                                </button>
+                                <button class="filter-tab" data-filter="bahasa">
+                                    <i class="fas fa-language text-xs"></i>
+                                    Bahasa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Section: Sort, View, and Expand -->
+                    <div class="flex items-center gap-3">
+                        <!-- Sort Options -->
+                        <div class="relative">
+                            <select class="select-custom">
+                                <option>Terpopuler</option>
+                                <option>Terbaru</option>
+                                <option>Tingkat Kesulitan</option>
+                                <option>Durasi Terpendek</option>
+                            </select>
+                        </div>
+
+                        <!-- View Toggle -->
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+
+                        <!-- Expand Filters Button -->
+                        <button class="relative p-2 glass-btn rounded-lg text-gray-600 hover:text-gray-800 transition-all duration-200" id="expand-filters">
+                            <i class="fas fa-sliders-h text-sm"></i>
+                            <span class="filter-badge">2</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Expandable Filter Section -->
+                <div class="expandable-filters mt-3 pt-3 border-t border-gray-100" id="expandable-filters">
+                    <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+                        <div class="flex flex-col md:flex-row md:items-center gap-3 flex-1">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Filter Lanjutan:</span>
+
+                                <select class="select-custom">
+                                    <option>Semua Tingkat</option>
+                                    <option>SD</option>
+                                    <option>SMP</option>
+                                    <option>SMA</option>
+                                </select>
+
+                                <select class="select-custom">
+                                    <option>Semua Kesulitan</option>
+                                    <option>Mudah</option>
+                                    <option>Menengah</option>
+                                    <option>Sulit</option>
+                                </select>
+
+                                <select class="select-custom">
+                                    <option>Semua Status</option>
+                                    <option>Belum Dimulai</option>
+                                    <option>Dalam Proses</option>
+                                    <option>Selesai</option>
+                                </select>
+                            </div>
+
+                            <!-- Active Filters -->
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs text-gray-500">Filter aktif:</span>
+                                <div class="flex flex-wrap gap-2">
+                                    <div class="filter-chip fade-in">
+                                        <span>Matematika</span>
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <div class="filter-chip fade-in">
+                                        <span>SMP</span>
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="flex items-center gap-2">
+                            <button class="btn btn-outline text-sm">
+                                <i class="fas fa-redo-alt"></i>
+                                Reset Filter
+                            </button>
+                            <button class="btn btn-primary text-sm">
+                                <i class="fas fa-check"></i>
+                                Terapkan Filter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Grid -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <!-- Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Quiz Card 1 -->
+                <div class="quiz-card reveal">
+                    <div class="quiz-header bg-gradient-to-r from-blue-500 to-blue-700">
+                        <div class="absolute top-4 left-4">
+                            <span class="badge bg-white/20 text-white">Matematika</span>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="difficulty-badge difficulty-easy">Mudah</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <button class="play-btn">
+                                <i class="fas fa-play text-blue-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Trigonometri Dasar</h3>
+                            <span class="completed-badge">
+                                <i class="fas fa-check-circle text-xs"></i>
+                                Selesai
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Uji pemahaman Anda tentang konsep dasar trigonometri dengan soal bervariasi.</p>
+
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-question-circle"></i>
+                                10 Soal
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-clock"></i>
+                                15 Menit
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-users"></i>
+                                1.5k
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Skor Terakhir</span>
+                                <span class="quiz-score">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    85/100
+                                </span>
+                            </div>
+                            <div class="quiz-progress">
+                                <div class="quiz-progress-fill bg-blue-500" style="width: 85%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                    <span class="text-blue-600 font-bold text-xs">BS</span>
+                                </div>
+                                <span class="text-sm text-gray-600">Pak Budi</span>
+                            </div>
+                            <button class="btn btn-primary text-sm">
+                                <span>Coba Lagi</span>
+                                <i class="fas fa-redo ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Card 2 -->
+                <div class="quiz-card reveal">
+                    <div class="quiz-header bg-gradient-to-r from-purple-500 to-purple-700">
+                        <div class="absolute top-4 left-4">
+                            <span class="badge bg-white/20 text-white">Fisika</span>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="difficulty-badge difficulty-medium">Menengah</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <button class="play-btn">
+                                <i class="fas fa-play text-purple-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Hukum Newton & Gerak</h3>
+                            <span class="in-progress-badge">
+                                <i class="fas fa-play-circle text-xs"></i>
+                                Dalam Proses
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Pahami tiga hukum gerak Newton dengan simulasi fisika interaktif yang menarik.</p>
+
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-question-circle"></i>
+                                12 Soal
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-clock"></i>
+                                20 Menit
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-users"></i>
+                                987
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Progress</span>
+                                <span>6/12 Soal</span>
+                            </div>
+                            <div class="quiz-progress">
+                                <div class="quiz-progress-fill bg-purple-500" style="width: 50%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                                    <span class="text-purple-600 font-bold text-xs">BR</span>
+                                </div>
+                                <span class="text-sm text-gray-600">Bu Rina</span>
+                            </div>
+                            <button class="btn btn-primary text-sm">
+                                <span>Lanjutkan</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Card 3 -->
+                <div class="quiz-card reveal">
+                    <div class="quiz-header bg-gradient-to-r from-green-500 to-green-700">
+                        <div class="absolute top-4 left-4">
+                            <span class="badge bg-white/20 text-white">Biologi</span>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="difficulty-badge difficulty-hard">Sulit</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <button class="play-btn">
+                                <i class="fas fa-play text-green-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Sistem Pencernaan Manusia</h3>
+                            <span class="premium-badge">
+                                <i class="fas fa-crown text-xs"></i>
+                                Premium
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Pelajari organ-organ pencernaan dan proses metabolisme makanan dengan animasi interaktif.</p>
+
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-question-circle"></i>
+                                15 Soal
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-clock"></i>
+                                25 Menit
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-users"></i>
+                                876
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Rating</span>
+                                <span class="quiz-score">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    4.7
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                                    <span class="text-green-600 font-bold text-xs">BS</span>
+                                </div>
+                                <span class="text-sm text-gray-600">Pak Budi</span>
+                            </div>
+                            <button class="btn btn-primary text-sm">
+                                <span>Mulai</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Card 4 -->
+                <div class="quiz-card reveal">
+                    <div class="quiz-header bg-gradient-to-r from-orange-500 to-orange-700">
+                        <div class="absolute top-4 left-4">
+                            <span class="badge bg-white/20 text-white">Kimia</span>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="difficulty-badge difficulty-medium">Menengah</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <button class="play-btn">
+                                <i class="fas fa-play text-orange-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Struktur Atom & Tabel Periodik</h3>
+                            <span class="in-progress-badge">
+                                <i class="fas fa-play-circle text-xs"></i>
+                                Dalam Proses
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Pelajari konsep atom dengan visualisasi 3D yang menarik dan interaktif.</p>
+
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-question-circle"></i>
+                                8 Soal
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-clock"></i>
+                                12 Menit
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-users"></i>
+                                1.5k
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Progress</span>
+                                <span>3/8 Soal</span>
+                            </div>
+                            <div class="quiz-progress">
+                                <div class="quiz-progress-fill bg-orange-500" style="width: 37.5%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
+                                    <span class="text-orange-600 font-bold text-xs">BR</span>
+                                </div>
+                                <span class="text-sm text-gray-600">Bu Rina</span>
+                            </div>
+                            <button class="btn btn-primary text-sm">
+                                <span>Lanjutkan</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Card 5 -->
+                <div class="quiz-card reveal">
+                    <div class="quiz-header bg-gradient-to-r from-red-500 to-red-700">
+                        <div class="absolute top-4 left-4">
+                            <span class="badge bg-white/20 text-white">Sejarah</span>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="difficulty-badge difficulty-easy">Mudah</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <button class="play-btn">
+                                <i class="fas fa-play text-red-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Perang Dunia II</h3>
+                            <span class="completed-badge">
+                                <i class="fas fa-check-circle text-xs"></i>
+                                Selesai
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Jelajahi peristiwa penting PD II dengan timeline interaktif dan dokumenter eksklusif.</p>
+
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-question-circle"></i>
+                                10 Soal
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-clock"></i>
+                                15 Menit
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-users"></i>
+                                892
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Skor Terakhir</span>
+                                <span class="quiz-score">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    92/100
+                                </span>
+                            </div>
+                            <div class="quiz-progress">
+                                <div class="quiz-progress-fill bg-red-500" style="width: 92%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                                    <span class="text-red-600 font-bold text-xs">BM</span>
+                                </div>
+                                <span class="text-sm text-gray-600">Bu Maya</span>
+                            </div>
+                            <button class="btn btn-primary text-sm">
+                                <span>Coba Lagi</span>
+                                <i class="fas fa-redo ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz Card 6 -->
+                <div class="quiz-card reveal">
+                    <div class="quiz-header bg-gradient-to-r from-indigo-500 to-indigo-700">
+                        <div class="absolute top-4 left-4">
+                            <span class="badge bg-white/20 text-white">Bahasa</span>
+                        </div>
+                        <div class="absolute top-4 right-4">
+                            <span class="difficulty-badge difficulty-medium">Menengah</span>
+                        </div>
+                        <div class="absolute bottom-4 right-4">
+                            <button class="play-btn">
+                                <i class="fas fa-play text-indigo-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Tata Bahasa & EYD</h3>
+                            <span class="premium-badge">
+                                <i class="fas fa-crown text-xs"></i>
+                                Premium
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Tingkatkan pemahaman tata bahasa Indonesia dan EYD dengan contoh praktis.</p>
+
+                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-question-circle"></i>
+                                12 Soal
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="far fa-clock"></i>
+                                18 Menit
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i class="fas fa-users"></i>
+                                1.1k
+                            </span>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Rating</span>
+                                <span class="quiz-score">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    4.8
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                                    <span class="text-indigo-600 font-bold text-xs">BS</span>
+                                </div>
+                                <span class="text-sm text-gray-600">Pak Budi</span>
+                            </div>
+                            <button class="btn btn-primary text-sm">
+                                <span>Mulai</span>
+                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-12">
+                <button class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-medium hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
+                    <i class="fas fa-plus-circle mr-2"></i>
+                    Muat Lebih Banyak
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section py-20 relative">
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="max-w-3xl mx-auto reveal">
+                <!-- Badge -->
+                <div class="inline-flex items-center gap-2 px-5 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20">
+                    <i class="fas fa-crown text-yellow-300"></i>
+                    <span class="text-white font-semibold">Tingkatkan Pengalaman Belajar</span>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5">
+                    Siap Mencapai Prestasi Terbaik?
+                </h2>
+
+                <p class="text-lg text-white/90 mb-10">
+                    Akses semua kuis premium dan fitur lengkap dengan berlangganan EduQuiz Premium
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <button class="btn bg-white text-blue-600 hover:bg-gray-50 hover:shadow-lg">
+                        <i class="fas fa-crown"></i>
+                        <span>Upgrade ke Premium</span>
+                    </button>
+                    <button class="btn bg-white/10 text-white border-2 border-white/30 hover:bg-white/20">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Pelajari Lebih Lanjut</span>
+                    </button>
+                </div>
+
+                <!-- Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-1 counter" data-target="200">0</div>
+                        <div class="text-white/80 text-sm font-medium">Kuis Interaktif</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-1 counter" data-target="50">0</div>
+                        <div class="text-white/80 text-sm font-medium">Guru Ahli</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-1 counter" data-target="10000">0</div>
+                        <div class="text-white/80 text-sm font-medium">Siswa Aktif</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
+                        <div class="text-3xl font-bold text-white mb-1">4.9</div>
+                        <div class="text-white/80 text-sm font-medium">Rating</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold">EduQuiz</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-md">Platform belajar interaktif dengan kuiz dan materi dari guru profesional untuk meningkatkan prestasi belajar siswa.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-400 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-pink-600 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-700 transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Tautan Cepat</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tentang Kami</a></li>
+                        <li><a href="materi.html" class="text-gray-400 hover:text-white transition-colors">Materi</a></li>
+                        <li><a href="quiz.html" class="text-gray-400 hover:text-white transition-colors">Kuiz</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guru</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Kategori</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Matematika</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Fisika</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Kimia</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Biologi</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bahasa Indonesia</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Kontak</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-map-marker-alt mr-4 text-blue-500"></i>
+                            <span>Jl. Pendidikan No. 123, Jakarta</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-phone-alt mr-4 text-blue-500"></i>
+                            <span>+62 21 1234 5678</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-envelope mr-4 text-blue-500"></i>
+                            <span>info@eduquiz.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 EduQuiz. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Extended Quiz Page Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Progress ring animation
+            const progressCircle = document.querySelector('.progress-ring-circle');
+            if (progressCircle) {
+                setTimeout(() => {
+                    progressCircle.style.strokeDashoffset = '84.82';
+                }, 500);
+            }
+
+            // Filter functionality
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            const quizCards = document.querySelectorAll('.quiz-card');
+
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    filterTabs.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+
+                    const filterValue = tab.getAttribute('data-filter');
+
+                    // Filter cards
+                    quizCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // View toggle functionality
+            const viewButtons = document.querySelectorAll('.view-btn');
+
+            viewButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                });
+            });
+
+            // Filter chips close functionality
+            const filterChips = document.querySelectorAll('.filter-chip i');
+
+            filterChips.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    this.parentElement.style.opacity = '0';
+                    setTimeout(() => {
+                        this.parentElement.remove();
+                    }, 200);
+                });
+            });
+
+            // Expandable filters functionality
+            const expandButton = document.getElementById('expand-filters');
+            const expandableSection = document.getElementById('expandable-filters');
+
+            expandButton.addEventListener('click', () => {
+                expandableSection.classList.toggle('expanded');
+
+                // Rotate icon when expanded
+                const icon = expandButton.querySelector('i');
+                if (expandableSection.classList.contains('expanded')) {
+                    icon.style.transform = 'rotate(90deg)';
+                    expandButton.classList.add('bg-blue-50', 'text-blue-600');
+                } else {
+                    icon.style.transform = 'rotate(0deg)';
+                    expandButton.classList.remove('bg-blue-50', 'text-blue-600');
+                }
+            });
+
+            // Terapkan Filter button functionality
+            const applyFilterBtn = document.querySelector('.btn-primary');
+            applyFilterBtn.addEventListener('click', () => {
+                // Close the expanded section after applying filters
+                expandableSection.classList.remove('expanded');
+                const icon = expandButton.querySelector('i');
+                icon.style.transform = 'rotate(0deg)';
+                expandButton.classList.remove('bg-blue-50', 'text-blue-600');
+
+                // Add a subtle animation to the button
+                applyFilterBtn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    applyFilterBtn.style.transform = 'scale(1)';
+                }, 150);
+
+                // Here you would implement filter application logic
+                console.log('Filters applied');
+            });
+
+            // Counter animation for stats
+            const counters = document.querySelectorAll('.counter');
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const increment = target / 100;
+
+                const updateCounter = () => {
+                    if (count < target) {
+                        count += increment;
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                updateCounter();
+            });
+
+            // Scroll reveal animation
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+
+            // Initial check
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>
