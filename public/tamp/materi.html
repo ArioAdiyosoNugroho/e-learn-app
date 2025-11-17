@@ -821,24 +821,26 @@
     <!-- Hero Section -->
     <section class="hero-section pt-32 pb-40 relative">
         <div class="hero-pattern"></div>
-        <div class="hero-grid"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
 
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <!-- Badge -->
                 <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20 reveal">
                     <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    <span class="text-white text-sm font-semibold">150+ Materi Berkualitas Tinggi</span>
+                    <span class="text-white text-sm font-semibold">200+ Materi</span>
                 </div>
 
                 <!-- Main Heading -->
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight reveal">
-                    Temukan Materi<br/>Belajar Terbaik
+                    Tingkatkan Pemahaman<br/>dengan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">Kuis Interaktif</span>
                 </h1>
 
                 <!-- Description -->
                 <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto reveal">
-                    Akses koleksi materi pembelajaran interaktif yang dirancang oleh guru profesional untuk kesuksesan akademik Anda
+                    Uji pengetahuan Anda dengan berbagai kuis menarik yang dirancang khusus untuk mengasah kemampuan dan meningkatkan pemahaman materi.
                 </p>
 
                 <!-- Search Box -->
@@ -847,16 +849,17 @@
                         <div class="flex items-center flex-1 px-4 py-3">
                             <i class="fas fa-search text-gray-400 mr-3 text-lg"></i>
                             <input type="text"
-                                   placeholder="Cari materi, kategori, atau guru..."
+                                   placeholder="Cari kuis, kategori, atau topik..."
                                    class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-base">
                         </div>
                         <button class="btn btn-primary rounded-full whitespace-nowrap py-3 px-6">
                             <i class="fas fa-search mr-2"></i>
-                            <span>Cari Materi</span>
+                            <span>Cari Kuis</span>
                         </button>
                     </div>
                 </div>
-                <!-- //populer -->
+
+                <!-- Kategori Populer -->
                 <div class="flex flex-wrap justify-center items-center gap-3 reveal">
                     <span class="text-white/80 text-sm">Kategori Populer:</span>
                     <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
@@ -881,12 +884,12 @@
 
 
     <!-- Stats Section -->
-    <section class="stats py-20 -mt-[11rem] relative z-20">
+    <section class="stats py-20 -mt-[12rem] relative z-20">
       <div class="container mx-auto px-6">
         <div class="bg-white/80 backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
 
-            <!-- Progress -->
+            <!-- Progress Kuis -->
             <div class="group">
               <div class="relative w-24 h-24 mx-auto mb-4">
                 <svg class="w-full h-full" viewBox="0 0 100 100">
@@ -904,38 +907,38 @@
                   </defs>
                 </svg>
                 <div class="absolute inset-0 flex flex-col items-center justify-center">
-                  <span class="text-2xl font-bold text-gray-800 counter" data-target="70">0</span>
+                  <span class="text-2xl font-bold text-gray-800 counter" data-target="65">0</span>
                   <span class="text-xs text-gray-500">%</span>
                 </div>
               </div>
-              <p class="text-sm font-semibold text-gray-600">Progress</p>
+              <p class="text-sm font-semibold text-gray-600">Progress Kuis</p>
             </div>
 
-            <!-- Materi -->
+            <!-- Kuis Diselesaikan -->
             <div class="group">
               <div class="stat-icon bg-gradient-to-br from-blue-100 to-blue-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                <i class="fas fa-book text-blue-600 text-2xl"></i>
-              </div>
-              <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="24">0</div>
-              <p class="text-sm font-semibold text-gray-600">Materi</p>
-            </div>
-
-            <!-- Kuiz -->
-            <div class="group">
-              <div class="stat-icon bg-gradient-to-br from-green-100 to-green-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                <i class="fas fa-trophy text-green-600 text-2xl"></i>
+                <i class="fas fa-trophy text-blue-600 text-2xl"></i>
               </div>
               <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="18">0</div>
-              <p class="text-sm font-semibold text-gray-600">Kuiz</p>
+              <p class="text-sm font-semibold text-gray-600">Kuis Selesai</p>
             </div>
 
-            <!-- Jam -->
+            <!-- Skor Rata-rata -->
+            <div class="group">
+              <div class="stat-icon bg-gradient-to-br from-green-100 to-green-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                <i class="fas fa-star text-green-600 text-2xl"></i>
+              </div>
+              <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="85">0</div>
+              <p class="text-sm font-semibold text-gray-600">Skor Rata-rata</p>
+            </div>
+
+            <!-- Waktu Belajar -->
             <div class="group">
               <div class="stat-icon bg-gradient-to-br from-purple-100 to-purple-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
                 <i class="fas fa-clock text-purple-600 text-2xl"></i>
               </div>
               <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="42">0</div>
-              <p class="text-sm font-semibold text-gray-600">Jam</p>
+              <p class="text-sm font-semibold text-gray-600">Jam Belajar</p>
             </div>
 
           </div>
