@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuis Interaktif | EduQuiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script
-      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
-      type="module"
-    ></script>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
     <link rel="stylesheet" href="css/main.css">
     <style>
         :root {
@@ -57,8 +56,13 @@
         }
 
         @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
         }
 
         /* Search Box */
@@ -84,6 +88,46 @@
             background: white;
             border-radius: 23px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* PIN Quiz Feature Styles */
+        .pin-input-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .pin-input {
+            letter-spacing: 0.25em;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .pin-input:focus {
+            background: white;
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .pin-input::placeholder {
+            letter-spacing: normal;
+            font-weight: normal;
+        }
+
+        .pin-access-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .pin-access-card:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         /* Modern Quiz Cards */
@@ -492,8 +536,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-30px, -30px); }
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(-30px, -30px);
+            }
         }
 
         .btn-primary {
@@ -503,6 +554,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .btn-primary::before {
             content: '';
             position: absolute;
@@ -525,9 +577,12 @@
 
         /* Floating Animation for Hero Elements */
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px) rotate(0deg);
             }
+
             50% {
                 transform: translateY(-10px) rotate(180deg);
             }
@@ -684,16 +739,12 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
-        <lottie-player
-          src="https://assets2.lottiefiles.com/packages/lf20_usmfx6bp.json"
-          background="transparent"
-          speed="1"
-          style="width:400px; height:300px;"
-          loop
-          autoplay>
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
+            speed="1" style="width:400px; height:300px;" loop autoplay>
         </lottie-player>
         <p class="mt-5 text-gray-600 text-lg animate-bounce">Memuat pengalaman belajar terbaik...</p>
     </div>
@@ -730,8 +781,8 @@
                         <div class="nav-indicator"></div>
                         <div class="nav-wave"></div>
                     </a>
-                    <a href="#teachers" class="nav-item" data-nav="teachers">
-                        <span class="nav-text">Guru</span>
+                    <a href="Leaderboard.html" class="nav-item" data-nav="teachers">
+                        <span class="nav-text">Leaderboard</span>
                         <div class="nav-indicator"></div>
                         <div class="nav-wave"></div>
                     </a>
@@ -800,14 +851,16 @@
                     <!-- User Menu -->
                     <div class="user-menu">
                         <button class="user-avatar">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                                alt="User">
                             <div class="user-status"></div>
                             <div class="avatar-shine"></div>
                         </button>
                         <div class="user-dropdown">
                             <div class="user-info">
                                 <div class="user-avatar-large">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="User">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face"
+                                        alt="User">
                                 </div>
                                 <div class="user-details">
                                     <h4>Ahmad Rizki</h4>
@@ -881,9 +934,9 @@
                     <span>Guru</span>
                     <div class="mobile-nav-wave"></div>
                 </a>
-                <a href="#blog" class="mobile-nav-item">
+                <a href="Artikel.html" class="mobile-nav-item">
                     <i class="fas fa-blog"></i>
-                    <span>Blog</span>
+                    <span>Artikel</span>
                     <div class="mobile-nav-wave"></div>
                 </a>
             </div>
@@ -900,37 +953,50 @@
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <!-- Badge -->
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20 reveal">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20 reveal">
                     <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                     <span class="text-white text-sm font-semibold">200+ Kuis Interaktif</span>
                 </div>
 
                 <!-- Main Heading -->
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight reveal">
-                    Tingkatkan Pemahaman<br/>dengan <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">Kuis Interaktif</span>
+                    Tingkatkan Pemahaman<br />dengan <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">Kuis
+                        Interaktif</span>
                 </h1>
 
                 <!-- Description -->
                 <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto reveal">
-                    Uji pengetahuan Anda dengan berbagai kuis menarik yang dirancang khusus untuk mengasah kemampuan dan meningkatkan pemahaman materi.
+                    Uji pengetahuan Anda dengan berbagai kuis menarik yang dirancang khusus untuk mengasah kemampuan dan
+                    meningkatkan pemahaman materi.
                 </p>
 
                 <!-- Search Box -->
+                <!-- Simple PIN Quiz Access -->
                 <div class="max-w-2xl mx-auto mb-8 reveal">
                     <div class="search-box rounded-full p-2 flex flex-col sm:flex-row gap-2 shadow-2xl">
                         <div class="flex items-center flex-1 px-4 py-3">
-                            <i class="fas fa-search text-gray-400 mr-3 text-lg"></i>
-                            <input type="text"
-                                   placeholder="Cari kuis, kategori, atau topik..."
-                                   class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-base">
+                            <i class="fas fa-lock text-gray-400 mr-3 text-lg"></i>
+                            <input type="text" maxlength="6" placeholder="Masukkan 6-digit PIN quiz..."
+                                class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-base tracking-widest font-medium text-center"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="pin-input">
                         </div>
-                        <button class="btn btn-primary rounded-full whitespace-nowrap py-3 px-6">
-                            <i class="fas fa-search mr-2"></i>
-                            <span>Cari Kuis</span>
+                        <button class="btn btn-primary rounded-full whitespace-nowrap py-3 px-6"
+                            onclick="accessPinQuiz()">
+                            <i class="fas fa-arrow-right mr-2"></i>
+                            <span>Masuk Quiz</span>
                         </button>
                     </div>
-                </div>
 
+                    <!-- Info text -->
+                    <div class="text-center mt-3">
+                        <p class="text-white/80 text-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-info-circle"></i>
+                            PIN diberikan oleh guru untuk mengakses quiz private
+                        </p>
+                    </div>
+                </div>
                 <!-- Kategori Populer -->
                 <div class="flex flex-wrap justify-center items-center gap-3 reveal">
                     <span class="text-white/80 text-sm">Kategori Populer:</span>
@@ -956,65 +1022,66 @@
 
     <!-- Stats Section -->
     <section class="stats py-20 -mt-[11rem] relative z-20">
-      <div class="container mx-auto px-6">
-        <div class="bg-white/80 backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="container mx-auto px-6">
+            <div class="bg-white/80 backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
 
-            <!-- Progress Kuis -->
-            <div class="group">
-              <div class="relative w-24 h-24 mx-auto mb-4">
-                <svg class="w-full h-full" viewBox="0 0 100 100">
-                  <circle cx="50" cy="50" r="45" stroke="#e5e7eb" stroke-width="6" fill="none" />
-                  <circle class="progress-ring-circle" cx="50" cy="50" r="45"
-                    stroke="url(#grad-blue)" stroke-width="6" fill="none"
-                    stroke-linecap="round"
-                    stroke-dasharray="282.74" stroke-dashoffset="84.82"
-                    class="transition-all duration-700" />
-                  <defs>
-                    <linearGradient id="grad-blue" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stop-color="#3b82f6"/>
-                      <stop offset="100%" stop-color="#60a5fa"/>
-                    </linearGradient>
-                  </defs>
-                </svg>
-                <div class="absolute inset-0 flex flex-col items-center justify-center">
-                  <span class="text-2xl font-bold text-gray-800 counter" data-target="65">0</span>
-                  <span class="text-xs text-gray-500">%</span>
+                    <!-- Progress Kuis -->
+                    <div class="group">
+                        <div class="relative w-24 h-24 mx-auto mb-4">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" stroke="#e5e7eb" stroke-width="6" fill="none" />
+                                <circle class="progress-ring-circle" cx="50" cy="50" r="45" stroke="url(#grad-blue)"
+                                    stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="282.74"
+                                    stroke-dashoffset="84.82" class="transition-all duration-700" />
+                                <defs>
+                                    <linearGradient id="grad-blue" x1="0" y1="0" x2="1" y2="1">
+                                        <stop offset="0%" stop-color="#3b82f6" />
+                                        <stop offset="100%" stop-color="#60a5fa" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-2xl font-bold text-gray-800 counter" data-target="65">0</span>
+                                <span class="text-xs text-gray-500">%</span>
+                            </div>
+                        </div>
+                        <p class="text-sm font-semibold text-gray-600">Progress Kuis</p>
+                    </div>
+
+                    <!-- Kuis Diselesaikan -->
+                    <div class="group">
+                        <div
+                            class="stat-icon bg-gradient-to-br from-blue-100 to-blue-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                            <i class="fas fa-trophy text-blue-600 text-2xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="18">0</div>
+                        <p class="text-sm font-semibold text-gray-600">Kuis Selesai</p>
+                    </div>
+
+                    <!-- Skor Rata-rata -->
+                    <div class="group">
+                        <div
+                            class="stat-icon bg-gradient-to-br from-green-100 to-green-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                            <i class="fas fa-star text-green-600 text-2xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="85">0</div>
+                        <p class="text-sm font-semibold text-gray-600">Skor Rata-rata</p>
+                    </div>
+
+                    <!-- Waktu Belajar -->
+                    <div class="group">
+                        <div
+                            class="stat-icon bg-gradient-to-br from-purple-100 to-purple-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                            <i class="fas fa-clock text-purple-600 text-2xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="42">0</div>
+                        <p class="text-sm font-semibold text-gray-600">Jam Belajar</p>
+                    </div>
+
                 </div>
-              </div>
-              <p class="text-sm font-semibold text-gray-600">Progress Kuis</p>
             </div>
-
-            <!-- Kuis Diselesaikan -->
-            <div class="group">
-              <div class="stat-icon bg-gradient-to-br from-blue-100 to-blue-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                <i class="fas fa-trophy text-blue-600 text-2xl"></i>
-              </div>
-              <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="18">0</div>
-              <p class="text-sm font-semibold text-gray-600">Kuis Selesai</p>
-            </div>
-
-            <!-- Skor Rata-rata -->
-            <div class="group">
-              <div class="stat-icon bg-gradient-to-br from-green-100 to-green-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                <i class="fas fa-star text-green-600 text-2xl"></i>
-              </div>
-              <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="85">0</div>
-              <p class="text-sm font-semibold text-gray-600">Skor Rata-rata</p>
-            </div>
-
-            <!-- Waktu Belajar -->
-            <div class="group">
-              <div class="stat-icon bg-gradient-to-br from-purple-100 to-purple-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                <i class="fas fa-clock text-purple-600 text-2xl"></i>
-              </div>
-              <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="42">0</div>
-              <p class="text-sm font-semibold text-gray-600">Jam Belajar</p>
-            </div>
-
-          </div>
         </div>
-      </div>
     </section>
 
     <!-- Modern Filter Bar -->
@@ -1028,7 +1095,8 @@
                         <!-- Search Input -->
                         <div class="relative flex-shrink-0">
                             <input type="text" class="search-input" placeholder="Cari kuis...">
-                            <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs"></i>
+                            <i
+                                class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-xs"></i>
                         </div>
 
                         <!-- Main Filter Tabs -->
@@ -1085,7 +1153,9 @@
                         </div>
 
                         <!-- Expand Filters Button -->
-                        <button class="relative p-2 glass-btn rounded-lg text-gray-600 hover:text-gray-800 transition-all duration-200" id="expand-filters">
+                        <button
+                            class="relative p-2 glass-btn rounded-lg text-gray-600 hover:text-gray-800 transition-all duration-200"
+                            id="expand-filters">
                             <i class="fas fa-sliders-h text-sm"></i>
                             <span class="filter-badge">2</span>
                         </button>
@@ -1097,7 +1167,8 @@
                     <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
                         <div class="flex flex-col md:flex-row md:items-center gap-3 flex-1">
                             <div class="flex flex-wrap items-center gap-2">
-                                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Filter Lanjutan:</span>
+                                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Filter
+                                    Lanjutan:</span>
 
                                 <select class="select-custom">
                                     <option>Semua Tingkat</option>
@@ -1158,33 +1229,45 @@
     <section class="py-12">
         <div class="container mx-auto px-4">
             <!-- Grid -->
+            <!-- Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Quiz Card 1 -->
-                <div class="quiz-card reveal">
-                    <div class="quiz-header bg-gradient-to-r from-blue-500 to-blue-700">
-                        <div class="absolute top-4 left-4">
-                            <span class="badge bg-white/20 text-white">Matematika</span>
+                <div
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-blue-100 group">
+                    <div
+                        class="relative w-full h-40 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl mb-4 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
                         </div>
-                        <div class="absolute top-4 right-4">
-                            <span class="difficulty-badge difficulty-easy">Mudah</span>
+                        <div class="absolute top-3 left-3">
+                            <span
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-blue-700 text-xs font-semibold shadow-sm">Matematika</span>
                         </div>
-                        <div class="absolute bottom-4 right-4">
-                            <button class="play-btn">
-                                <i class="fas fa-play text-blue-600"></i>
+                        <div class="absolute top-3 right-3">
+                            <span
+                                class="px-2 py-1 bg-green-500 text-white rounded-lg text-xs font-medium shadow-sm">Mudah</span>
+                        </div>
+                        <div class="absolute bottom-3 right-3">
+                            <button
+                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
+                                <i class="fas fa-play text-blue-600 text-sm ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Trigonometri Dasar</h3>
-                            <span class="completed-badge">
-                                <i class="fas fa-check-circle text-xs"></i>
-                                Selesai
-                            </span>
-                        </div>
-                        <p class="text-gray-600 mb-4">Uji pemahaman Anda tentang konsep dasar trigonometri dengan soal bervariasi.</p>
 
-                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Trigonometri Dasar</h3>
+                        <span
+                            class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="fas fa-check-circle text-xs"></i>
+                            Selesai
+                        </span>
+                    </div>
+
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Uji pemahaman Anda tentang konsep dasar
+                        trigonometri dengan soal bervariasi.</p>
+
+                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-4">
                             <span class="flex items-center gap-1">
                                 <i class="far fa-question-circle"></i>
                                 10 Soal
@@ -1194,65 +1277,80 @@
                                 15 Menit
                             </span>
                             <span class="flex items-center gap-1">
-                                <i class="fas fa-users"></i>
-                                1.5k
+                                <i class="fas fa-star text-yellow-400"></i>
+                                4.8
                             </span>
                         </div>
+                        <span class="flex items-center gap-1">
+                            <i class="fas fa-users"></i>
+                            1.5k
+                        </span>
+                    </div>
 
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm text-gray-600 mb-1">
-                                <span>Skor Terakhir</span>
-                                <span class="quiz-score">
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    85/100
-                                </span>
-                            </div>
-                            <div class="quiz-progress">
-                                <div class="quiz-progress-fill bg-blue-500" style="width: 85%"></div>
-                            </div>
+                    <div class="mb-4 mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Skor Terakhir</span>
+                            <span class="flex items-center gap-1 text-blue-600 font-medium">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                85/100
+                            </span>
                         </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 85%"></div>
+                        </div>
+                    </div>
 
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                    <span class="text-blue-600 font-bold text-xs">BS</span>
-                                </div>
-                                <span class="text-sm text-gray-600">Pak Budi</span>
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
+                                <span class="text-blue-600 font-bold text-xs">BS</span>
                             </div>
-                            <button class="btn btn-primary text-sm">
-                                <span>Coba Lagi</span>
-                                <i class="fas fa-redo ml-1 text-xs"></i>
-                            </button>
+                            <span class="text-xs text-gray-600">Pak Budi</span>
                         </div>
+                        <button
+                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                            Coba Lagi
+                        </button>
                     </div>
                 </div>
 
                 <!-- Quiz Card 2 -->
-                <div class="quiz-card reveal">
-                    <div class="quiz-header bg-gradient-to-r from-purple-500 to-purple-700">
-                        <div class="absolute top-4 left-4">
-                            <span class="badge bg-white/20 text-white">Fisika</span>
+                <div
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-purple-100 group">
+                    <div
+                        class="relative w-full h-40 bg-gradient-to-br from-purple-500 to-indigo-700 rounded-xl mb-4 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
                         </div>
-                        <div class="absolute top-4 right-4">
-                            <span class="difficulty-badge difficulty-medium">Menengah</span>
+                        <div class="absolute top-3 left-3">
+                            <span
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-purple-700 text-xs font-semibold shadow-sm">Fisika</span>
                         </div>
-                        <div class="absolute bottom-4 right-4">
-                            <button class="play-btn">
-                                <i class="fas fa-play text-purple-600"></i>
+                        <div class="absolute top-3 right-3">
+                            <span
+                                class="px-2 py-1 bg-yellow-500 text-white rounded-lg text-xs font-medium shadow-sm">Menengah</span>
+                        </div>
+                        <div class="absolute bottom-3 right-3">
+                            <button
+                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
+                                <i class="fas fa-play text-purple-600 text-sm ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Hukum Newton & Gerak</h3>
-                            <span class="in-progress-badge">
-                                <i class="fas fa-play-circle text-xs"></i>
-                                Dalam Proses
-                            </span>
-                        </div>
-                        <p class="text-gray-600 mb-4">Pahami tiga hukum gerak Newton dengan simulasi fisika interaktif yang menarik.</p>
 
-                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Hukum Newton & Gerak</h3>
+                        <span
+                            class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="fas fa-play-circle text-xs"></i>
+                            Berlangsung
+                        </span>
+                    </div>
+
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Pahami tiga hukum gerak Newton dengan simulasi
+                        fisika interaktif yang menarik.</p>
+
+                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-4">
                             <span class="flex items-center gap-1">
                                 <i class="far fa-question-circle"></i>
                                 12 Soal
@@ -1262,62 +1360,77 @@
                                 20 Menit
                             </span>
                             <span class="flex items-center gap-1">
-                                <i class="fas fa-users"></i>
-                                987
+                                <i class="fas fa-star text-yellow-400"></i>
+                                5.0
                             </span>
                         </div>
+                        <span class="flex items-center gap-1">
+                            <i class="fas fa-users"></i>
+                            987
+                        </span>
+                    </div>
 
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm text-gray-600 mb-1">
-                                <span>Progress</span>
-                                <span>6/12 Soal</span>
-                            </div>
-                            <div class="quiz-progress">
-                                <div class="quiz-progress-fill bg-purple-500" style="width: 50%"></div>
-                            </div>
+                    <div class="mb-4 mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Progress</span>
+                            <span class="font-medium text-purple-600">6/12 Soal</span>
                         </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 50%"></div>
+                        </div>
+                    </div>
 
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
-                                    <span class="text-purple-600 font-bold text-xs">BR</span>
-                                </div>
-                                <span class="text-sm text-gray-600">Bu Rina</span>
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center">
+                                <span class="text-purple-600 font-bold text-xs">BR</span>
                             </div>
-                            <button class="btn btn-primary text-sm">
-                                <span>Lanjutkan</span>
-                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                            </button>
+                            <span class="text-xs text-gray-600">Bu Rina</span>
                         </div>
+                        <button
+                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                            Lanjutkan
+                        </button>
                     </div>
                 </div>
 
                 <!-- Quiz Card 3 -->
-                <div class="quiz-card reveal">
-                    <div class="quiz-header bg-gradient-to-r from-green-500 to-green-700">
-                        <div class="absolute top-4 left-4">
-                            <span class="badge bg-white/20 text-white">Biologi</span>
+                <div
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-green-100 group">
+                    <div
+                        class="relative w-full h-40 bg-gradient-to-br from-green-500 to-emerald-700 rounded-xl mb-4 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
                         </div>
-                        <div class="absolute top-4 right-4">
-                            <span class="difficulty-badge difficulty-hard">Sulit</span>
+                        <div class="absolute top-3 left-3">
+                            <span
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-green-700 text-xs font-semibold shadow-sm">Biologi</span>
                         </div>
-                        <div class="absolute bottom-4 right-4">
-                            <button class="play-btn">
-                                <i class="fas fa-play text-green-600"></i>
+                        <div class="absolute top-3 right-3">
+                            <span
+                                class="px-2 py-1 bg-red-500 text-white rounded-lg text-xs font-medium shadow-sm">Sulit</span>
+                        </div>
+                        <div class="absolute bottom-3 right-3">
+                            <button
+                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
+                                <i class="fas fa-play text-green-600 text-sm ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Sistem Pencernaan Manusia</h3>
-                            <span class="premium-badge">
-                                <i class="fas fa-crown text-xs"></i>
-                                Premium
-                            </span>
-                        </div>
-                        <p class="text-gray-600 mb-4">Pelajari organ-organ pencernaan dan proses metabolisme makanan dengan animasi interaktif.</p>
 
-                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Sistem Pencernaan Manusia</h3>
+                        <span
+                            class="flex items-center gap-1 text-yellow-700 bg-yellow-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="fas fa-crown text-xs"></i>
+                            Premium
+                        </span>
+                    </div>
+
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Pelajari organ-organ pencernaan dan proses
+                        metabolisme makanan dengan animasi interaktif.</p>
+
+                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-4">
                             <span class="flex items-center gap-1">
                                 <i class="far fa-question-circle"></i>
                                 15 Soal
@@ -1327,69 +1440,84 @@
                                 25 Menit
                             </span>
                             <span class="flex items-center gap-1">
-                                <i class="fas fa-users"></i>
-                                876
+                                <i class="fas fa-star text-yellow-400"></i>
+                                4.7
                             </span>
                         </div>
+                        <span class="flex items-center gap-1">
+                            <i class="fas fa-users"></i>
+                            876
+                        </span>
+                    </div>
 
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm text-gray-600 mb-1">
-                                <span>Rating</span>
-                                <span class="quiz-score">
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    4.7
-                                </span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
-                            </div>
+                    <div class="mb-4 mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Rating</span>
+                            <span class="flex items-center gap-1 font-medium text-green-600">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                4.7
+                            </span>
                         </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                        </div>
+                    </div>
 
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-                                    <span class="text-green-600 font-bold text-xs">BS</span>
-                                </div>
-                                <span class="text-sm text-gray-600">Pak Budi</span>
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
+                                <span class="text-green-600 font-bold text-xs">BS</span>
                             </div>
-                            <button class="btn btn-primary text-sm">
-                                <span>Mulai</span>
-                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                            </button>
+                            <span class="text-xs text-gray-600">Pak Budi</span>
                         </div>
+                        <button
+                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                            Mulai
+                        </button>
                     </div>
                 </div>
 
                 <!-- Quiz Card 4 -->
-                <div class="quiz-card reveal">
-                    <div class="quiz-header bg-gradient-to-r from-orange-500 to-orange-700">
-                        <div class="absolute top-4 left-4">
-                            <span class="badge bg-white/20 text-white">Kimia</span>
+                <div
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-orange-100 group">
+                    <div
+                        class="relative w-full h-40 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl mb-4 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
                         </div>
-                        <div class="absolute top-4 right-4">
-                            <span class="difficulty-badge difficulty-medium">Menengah</span>
+                        <div class="absolute top-3 left-3">
+                            <span
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-orange-700 text-xs font-semibold shadow-sm">Kimia</span>
                         </div>
-                        <div class="absolute bottom-4 right-4">
-                            <button class="play-btn">
-                                <i class="fas fa-play text-orange-600"></i>
+                        <div class="absolute top-3 right-3">
+                            <span
+                                class="px-2 py-1 bg-yellow-500 text-white rounded-lg text-xs font-medium shadow-sm">Menengah</span>
+                        </div>
+                        <div class="absolute bottom-3 right-3">
+                            <button
+                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
+                                <i class="fas fa-play text-orange-600 text-sm ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Struktur Atom & Tabel Periodik</h3>
-                            <span class="in-progress-badge">
-                                <i class="fas fa-play-circle text-xs"></i>
-                                Dalam Proses
-                            </span>
-                        </div>
-                        <p class="text-gray-600 mb-4">Pelajari konsep atom dengan visualisasi 3D yang menarik dan interaktif.</p>
 
-                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Struktur Atom & Tabel Periodik</h3>
+                        <span
+                            class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="fas fa-play-circle text-xs"></i>
+                            Berlangsung
+                        </span>
+                    </div>
+
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Pelajari konsep atom dengan visualisasi 3D
+                        yang menarik dan interaktif.</p>
+
+                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-4">
                             <span class="flex items-center gap-1">
                                 <i class="far fa-question-circle"></i>
                                 8 Soal
@@ -1399,62 +1527,77 @@
                                 12 Menit
                             </span>
                             <span class="flex items-center gap-1">
-                                <i class="fas fa-users"></i>
-                                1.5k
+                                <i class="fas fa-star text-yellow-400"></i>
+                                4.7
                             </span>
                         </div>
+                        <span class="flex items-center gap-1">
+                            <i class="fas fa-users"></i>
+                            1.5k
+                        </span>
+                    </div>
 
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm text-gray-600 mb-1">
-                                <span>Progress</span>
-                                <span>3/8 Soal</span>
-                            </div>
-                            <div class="quiz-progress">
-                                <div class="quiz-progress-fill bg-orange-500" style="width: 37.5%"></div>
-                            </div>
+                    <div class="mb-4 mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Progress</span>
+                            <span class="font-medium text-orange-600">3/8 Soal</span>
                         </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 37.5%"></div>
+                        </div>
+                    </div>
 
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
-                                    <span class="text-orange-600 font-bold text-xs">BR</span>
-                                </div>
-                                <span class="text-sm text-gray-600">Bu Rina</span>
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
+                                <span class="text-orange-600 font-bold text-xs">BR</span>
                             </div>
-                            <button class="btn btn-primary text-sm">
-                                <span>Lanjutkan</span>
-                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                            </button>
+                            <span class="text-xs text-gray-600">Bu Rina</span>
                         </div>
+                        <button
+                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                            Lanjutkan
+                        </button>
                     </div>
                 </div>
 
                 <!-- Quiz Card 5 -->
-                <div class="quiz-card reveal">
-                    <div class="quiz-header bg-gradient-to-r from-red-500 to-red-700">
-                        <div class="absolute top-4 left-4">
-                            <span class="badge bg-white/20 text-white">Sejarah</span>
+                <div
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-red-100 group">
+                    <div
+                        class="relative w-full h-40 bg-gradient-to-br from-red-500 to-rose-700 rounded-xl mb-4 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
                         </div>
-                        <div class="absolute top-4 right-4">
-                            <span class="difficulty-badge difficulty-easy">Mudah</span>
+                        <div class="absolute top-3 left-3">
+                            <span
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-red-700 text-xs font-semibold shadow-sm">Sejarah</span>
                         </div>
-                        <div class="absolute bottom-4 right-4">
-                            <button class="play-btn">
-                                <i class="fas fa-play text-red-600"></i>
+                        <div class="absolute top-3 right-3">
+                            <span
+                                class="px-2 py-1 bg-green-500 text-white rounded-lg text-xs font-medium shadow-sm">Mudah</span>
+                        </div>
+                        <div class="absolute bottom-3 right-3">
+                            <button
+                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
+                                <i class="fas fa-play text-red-600 text-sm ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Perang Dunia II</h3>
-                            <span class="completed-badge">
-                                <i class="fas fa-check-circle text-xs"></i>
-                                Selesai
-                            </span>
-                        </div>
-                        <p class="text-gray-600 mb-4">Jelajahi peristiwa penting PD II dengan timeline interaktif dan dokumenter eksklusif.</p>
 
-                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Perang Dunia II</h3>
+                        <span
+                            class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="fas fa-check-circle text-xs"></i>
+                            Selesai
+                        </span>
+                    </div>
+
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Jelajahi peristiwa penting PD II dengan
+                        timeline interaktif dan dokumenter eksklusif.</p>
+
+                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-4">
                             <span class="flex items-center gap-1">
                                 <i class="far fa-question-circle"></i>
                                 10 Soal
@@ -1464,65 +1607,80 @@
                                 15 Menit
                             </span>
                             <span class="flex items-center gap-1">
-                                <i class="fas fa-users"></i>
-                                892
+                                <i class="fas fa-star text-yellow-400"></i>
+                                4.9
                             </span>
                         </div>
+                        <span class="flex items-center gap-1">
+                            <i class="fas fa-users"></i>
+                            892
+                        </span>
+                    </div>
 
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm text-gray-600 mb-1">
-                                <span>Skor Terakhir</span>
-                                <span class="quiz-score">
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    92/100
-                                </span>
-                            </div>
-                            <div class="quiz-progress">
-                                <div class="quiz-progress-fill bg-red-500" style="width: 92%"></div>
-                            </div>
+                    <div class="mb-4 mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Skor Terakhir</span>
+                            <span class="flex items-center gap-1 text-blue-600 font-medium">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                92/100
+                            </span>
                         </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-red-500 h-2 rounded-full" style="width: 92%"></div>
+                        </div>
+                    </div>
 
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
-                                    <span class="text-red-600 font-bold text-xs">BM</span>
-                                </div>
-                                <span class="text-sm text-gray-600">Bu Maya</span>
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center">
+                                <span class="text-red-600 font-bold text-xs">BM</span>
                             </div>
-                            <button class="btn btn-primary text-sm">
-                                <span>Coba Lagi</span>
-                                <i class="fas fa-redo ml-1 text-xs"></i>
-                            </button>
+                            <span class="text-xs text-gray-600">Bu Maya</span>
                         </div>
+                        <button
+                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                            Coba Lagi
+                        </button>
                     </div>
                 </div>
 
                 <!-- Quiz Card 6 -->
-                <div class="quiz-card reveal">
-                    <div class="quiz-header bg-gradient-to-r from-indigo-500 to-indigo-700">
-                        <div class="absolute top-4 left-4">
-                            <span class="badge bg-white/20 text-white">Bahasa</span>
+                <div
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-indigo-100 group">
+                    <div
+                        class="relative w-full h-40 bg-gradient-to-br from-indigo-500 to-cyan-600 rounded-xl mb-4 overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
                         </div>
-                        <div class="absolute top-4 right-4">
-                            <span class="difficulty-badge difficulty-medium">Menengah</span>
+                        <div class="absolute top-3 left-3">
+                            <span
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-indigo-700 text-xs font-semibold shadow-sm">Bahasa</span>
                         </div>
-                        <div class="absolute bottom-4 right-4">
-                            <button class="play-btn">
-                                <i class="fas fa-play text-indigo-600"></i>
+                        <div class="absolute top-3 right-3">
+                            <span
+                                class="px-2 py-1 bg-green-500 text-white rounded-lg text-xs font-medium shadow-sm">Mudah</span>
+                        </div>
+                        <div class="absolute bottom-3 right-3">
+                            <button
+                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
+                                <i class="fas fa-play text-indigo-600 text-sm ml-0.5"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="flex items-start justify-between mb-3">
-                            <h3 class="text-xl font-semibold text-gray-800 flex-1 pr-2">Tata Bahasa & EYD</h3>
-                            <span class="premium-badge">
-                                <i class="fas fa-crown text-xs"></i>
-                                Premium
-                            </span>
-                        </div>
-                        <p class="text-gray-600 mb-4">Tingkatkan pemahaman tata bahasa Indonesia dan EYD dengan contoh praktis.</p>
 
-                        <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div class="flex items-start justify-between mb-3">
+                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Tata Bahasa & EYD</h3>
+                        <span
+                            class="flex items-center gap-1 text-yellow-700 bg-yellow-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="fas fa-crown text-xs"></i>
+                            Premium
+                        </span>
+                    </div>
+
+                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Tingkatkan pemahaman tata bahasa Indonesia dan
+                        EYD dengan contoh praktis.</p>
+
+                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-4">
                             <span class="flex items-center gap-1">
                                 <i class="far fa-question-circle"></i>
                                 12 Soal
@@ -1532,129 +1690,87 @@
                                 18 Menit
                             </span>
                             <span class="flex items-center gap-1">
-                                <i class="fas fa-users"></i>
-                                1.1k
+                                <i class="fas fa-star text-yellow-400"></i>
+                                4.8
                             </span>
                         </div>
+                        <span class="flex items-center gap-1">
+                            <i class="fas fa-users"></i>
+                            1.1k
+                        </span>
+                    </div>
 
-                        <div class="mb-4">
-                            <div class="flex justify-between text-sm text-gray-600 mb-1">
-                                <span>Rating</span>
-                                <span class="quiz-score">
-                                    <i class="fas fa-star text-yellow-400"></i>
-                                    4.8
-                                </span>
-                            </div>
-                            <div class="flex items-center gap-1">
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                                <i class="fas fa-star text-yellow-400 text-sm"></i>
-                            </div>
+                    <div class="mb-4 mt-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>Rating</span>
+                            <span class="flex items-center gap-1 font-medium text-indigo-600">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                4.8
+                            </span>
                         </div>
+                        <div class="flex items-center gap-1">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                        </div>
+                    </div>
 
-                        <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
-                                    <span class="text-indigo-600 font-bold text-xs">BS</span>
-                                </div>
-                                <span class="text-sm text-gray-600">Pak Budi</span>
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-2">
+                            <div class="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center">
+                                <span class="text-indigo-600 font-bold text-xs">BS</span>
                             </div>
-                            <button class="btn btn-primary text-sm">
-                                <span>Mulai</span>
-                                <i class="fas fa-arrow-right ml-1 text-xs"></i>
-                            </button>
+                            <span class="text-xs text-gray-600">Pak Budi</span>
                         </div>
+                        <button
+                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
+                            Mulai
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- Load More -->
             <div class="text-center mt-12">
-                <button class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-medium hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
+                <button
+                    class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-medium hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
                     <i class="fas fa-plus-circle mr-2"></i>
                     Muat Lebih Banyak
                 </button>
             </div>
         </div>
     </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section py-20 relative">
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <div class="max-w-3xl mx-auto reveal">
-                <!-- Badge -->
-                <div class="inline-flex items-center gap-2 px-5 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20">
-                    <i class="fas fa-crown text-yellow-300"></i>
-                    <span class="text-white font-semibold">Tingkatkan Pengalaman Belajar</span>
-                </div>
-
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5">
-                    Siap Mencapai Prestasi Terbaik?
-                </h2>
-
-                <p class="text-lg text-white/90 mb-10">
-                    Akses semua kuis premium dan fitur lengkap dengan berlangganan EduQuiz Premium
-                </p>
-
-                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                    <button class="btn bg-white text-blue-600 hover:bg-gray-50 hover:shadow-lg">
-                        <i class="fas fa-crown"></i>
-                        <span>Upgrade ke Premium</span>
-                    </button>
-                    <button class="btn bg-white/10 text-white border-2 border-white/30 hover:bg-white/20">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Pelajari Lebih Lanjut</span>
-                    </button>
-                </div>
-
-                <!-- Stats -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
-                        <div class="text-3xl font-bold text-white mb-1 counter" data-target="200">0</div>
-                        <div class="text-white/80 text-sm font-medium">Kuis Interaktif</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
-                        <div class="text-3xl font-bold text-white mb-1 counter" data-target="50">0</div>
-                        <div class="text-white/80 text-sm font-medium">Guru Ahli</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
-                        <div class="text-3xl font-bold text-white mb-1 counter" data-target="10000">0</div>
-                        <div class="text-white/80 text-sm font-medium">Siswa Aktif</div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-5 border border-white/20">
-                        <div class="text-3xl font-bold text-white mb-1">4.9</div>
-                        <div class="text-white/80 text-sm font-medium">Rating</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
     <footer class="bg-gray-900 text-white pt-16 pb-8">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
                 <div class="lg:col-span-2">
                     <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
                             <i class="fas fa-graduation-cap text-white text-xl"></i>
                         </div>
                         <span class="text-2xl font-bold">EduQuiz</span>
                     </div>
-                    <p class="text-gray-400 mb-6 max-w-md">Platform belajar interaktif dengan kuiz dan materi dari guru profesional untuk meningkatkan prestasi belajar siswa.</p>
+                    <p class="text-gray-400 mb-6 max-w-md">Platform belajar interaktif dengan kuiz dan materi dari guru
+                        profesional untuk meningkatkan prestasi belajar siswa.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-colors">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-400 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-400 transition-colors">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-pink-600 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-pink-600 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-700 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-700 transition-colors">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
@@ -1663,9 +1779,11 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-6">Tautan Cepat</h3>
                     <ul class="space-y-3">
-                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Beranda</a>
+                        </li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tentang Kami</a></li>
-                        <li><a href="materi.html" class="text-gray-400 hover:text-white transition-colors">Materi</a></li>
+                        <li><a href="materi.html" class="text-gray-400 hover:text-white transition-colors">Materi</a>
+                        </li>
                         <li><a href="quiz.html" class="text-gray-400 hover:text-white transition-colors">Kuiz</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Guru</a></li>
                     </ul>
@@ -1678,7 +1796,8 @@
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Fisika</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Kimia</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Biologi</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bahasa Indonesia</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bahasa Indonesia</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -1710,7 +1829,7 @@
     <script src="js/main.js"></script>
     <script>
         // Extended Quiz Page Functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Progress ring animation
             const progressCircle = document.querySelector('.progress-ring-circle');
             if (progressCircle) {
@@ -1761,7 +1880,7 @@
             const filterChips = document.querySelectorAll('.filter-chip i');
 
             filterChips.forEach(icon => {
-                icon.addEventListener('click', function() {
+                icon.addEventListener('click', function () {
                     this.parentElement.style.opacity = '0';
                     setTimeout(() => {
                         this.parentElement.remove();
@@ -1846,6 +1965,69 @@
             // Initial check
             revealOnScroll();
         });
+
+
+        function accessPinQuiz() {
+            const pinInput = document.getElementById('pin-input');
+            const pin = pinInput.value.trim();
+            const button = document.querySelector('button[onclick="accessPinQuiz()"]');
+
+            if (pin.length !== 6) {
+                // Show error effect
+                pinInput.style.color = '#ef4444';
+                pinInput.style.border = '2px solid #ef4444';
+
+                // Reset after 1.5 seconds
+                setTimeout(() => {
+                    pinInput.style.color = '';
+                    pinInput.style.border = '';
+                }, 1500);
+                return;
+            }
+
+            // Valid PIN - show loading state
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i><span>Memproses...</span>';
+            button.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                // Success - redirect or show success
+                console.log('Accessing quiz with PIN:', pin);
+
+                // Reset button
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.disabled = false;
+                    pinInput.value = '';
+                }, 1000);
+            }, 1500);
+        }
+
+        // Auto-focus and Enter key support
+        document.addEventListener('DOMContentLoaded', function () {
+            const pinInput = document.getElementById('pin-input');
+
+            // Auto-focus
+            pinInput.focus();
+
+            // Enter key support
+            pinInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    accessPinQuiz();
+                }
+            });
+
+            // Visual feedback on input
+            pinInput.addEventListener('input', function () {
+                if (this.value.length === 6) {
+                    this.style.color = '#10b981';
+                } else {
+                    this.style.color = '#1f2937';
+                }
+            });
+        });
     </script>
 </body>
+
 </html>

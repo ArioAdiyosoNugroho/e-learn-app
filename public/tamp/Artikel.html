@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel EduQuiz | EduQuiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script
+      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
+      type="module"
+    ></script>
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        :root {
+            --accent: #06b6d4;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+        }
+
+        body {
+            background: var(--gray-50);
+        }
+
+        /* Hero Section dengan Pattern */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
+        }
+
+        /* Floating Animation for Hero Elements */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(180deg);
+            }
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -2s;
+        }
+
+        .floating-shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: -4s;
+        }
+
+        /* Modern Curved Bottom */
+        .hero-curve {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 16px;
+            background: var(--gray-50);
+            border-radius: 40px 40px 0 0;
+        }
+
+        /* Article Card Styles */
+        .article-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .article-image {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover .article-image {
+            transform: scale(1.05);
+        }
+
+        .category-badge {
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Stats Card */
+        .stats-container {
+            background: white;
+            border-radius: 23px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow:
+                0 4px 20px rgba(0, 0, 0, 0.08),
+                0 0 0 1px rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 4px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding: 4px;
+        }
+
+        .filter-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-tab {
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            background: rgba(255, 255, 255, 0.6);
+            color: var(--gray-600);
+            white-space: nowrap;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .filter-tab:hover::before {
+            left: 100%;
+        }
+
+        .filter-tab:hover {
+            background: white;
+            color: var(--gray-700);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow:
+                0 4px 12px rgba(37, 99, 235, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom Select Modern */
+        .select-custom {
+            padding: 8px 12px;
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            background: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gray-700);
+            transition: all 0.2s ease;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 12px;
+            padding-right: 32px;
+            cursor: pointer;
+            min-width: 120px;
+            height: 36px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .select-custom:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow:
+                0 0 0 3px rgba(37, 99, 235, 0.1),
+                0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .select-custom:hover {
+            border-color: var(--gray-300);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Quick Stats */
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Trending Badge */
+        .trending-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+            z-index: 10;
+        }
+
+        /* Author Avatar */
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--gray-200);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+        <lottie-player
+          src="https://assets2.lottiefiles.com/packages/lf20_usmfx6bp.json"
+          background="transparent"
+          speed="1"
+          style="width:400px; height:300px;"
+          loop
+          autoplay>
+        </lottie-player>
+        <p class="mt-5 text-gray-600 text-lg animate-bounce">Memuat pengalaman belajar terbaik...</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header" id="main-header">
+        <div class="header-background"></div>
+        <div class="header-container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="../tamp/asset/logo/logo.png" alt="logo">
+                        <div class="logo-glow"></div>
+                    </div>
+                    <span class="logo-text">EduQuiz</span>
+                    <div class="logo-pulse"></div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="navigation">
+                    <a href="index.html" class="nav-item" data-nav="home">
+                        <span class="nav-text">Beranda</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="materi.html" class="nav-item" data-nav="materials">
+                        <span class="nav-text">Materi</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="quiz.html" class="nav-item" data-nav="quizzes">
+                        <span class="nav-text">Kuiz</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="Leaderboard.html" class="nav-item" data-nav="teachers">
+                        <span class="nav-text">Leaderboard</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="Artikel.html" class="nav-item active" data-nav="blog">
+                        <span class="nav-text">Artikel</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="header-actions">
+                    <!-- Search -->
+                    <div class="search-wrapper">
+                        <button class="search-toggle" id="search-toggle">
+                            <i class="fas fa-search"></i>
+                            <div class="icon-ripple"></div>
+                        </button>
+                        <div class="search-expand" id="search-expand">
+                            <input type="text" placeholder="Cari artikel..." class="search-input">
+                            <button class="search-close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="search-progress"></div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="notifications">
+                        <button class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                            <div class="bell-wave"></div>
+                            <div class="icon-ripple"></div>
+                        </button>
+                        <div class="notification-popup">
+                            <div class="notification-header">
+                                <h4>Notifikasi</h4>
+                                <span class="notification-count">3 baru</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p class="notification-title">Pencapaian Baru!</p>
+                                        <p class="notification-desc">Kamu menyelesaikan kuiz Matematika</p>
+                                        <span class="notification-time">2 menit lalu</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p class="notification-title">Materi Baru</p>
+                                        <p class="notification-desc">Fisika: Hukum Newton tersedia</p>
+                                        <span class="notification-time">1 jam lalu</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="user-menu">
+                        <button class="user-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User">
+                            <div class="user-status"></div>
+                            <div class="avatar-shine"></div>
+                        </button>
+                        <div class="user-dropdown">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="User">
+                                </div>
+                                <div class="user-details">
+                                    <h4>Ahmad Rizki</h4>
+                                    <p>Siswa Premium</p>
+                                    <div class="user-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                        <span>75% selesai</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-items">
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profil Saya</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Progress Belajar</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Pengaturan</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Keluar</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-toggle" id="mobile-toggle">
+                        <span class="toggle-line"></span>
+                        <span class="toggle-line"></span>
+                        <span class="toggle-line"></span>
+                        <div class="toggle-ripple"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-backdrop"></div>
+            <div class="mobile-nav-content">
+                <a href="index.html" class="mobile-nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>Beranda</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="materi.html" class="mobile-nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Materi</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="quiz.html" class="mobile-nav-item">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <span>Kuiz</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="Leaderboard.html" class="mobile-nav-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>Leaderboard</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="Artikel.html" class="mobile-nav-item active">
+                    <i class="fas fa-blog"></i>
+                    <span>Artikel</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section pt-32 pb-40 relative">
+        <div class="hero-pattern"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20 reveal">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    <span class="text-white text-sm font-semibold">150+ Artikel Edukasi</span>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight reveal">
+                    Artikel <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">Edukasi</span><br />EduQuiz
+                </h1>
+
+                <!-- Description -->
+                <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto reveal">
+                    Temukan artikel menarik seputar pendidikan, tips belajar, dan informasi terkini untuk meningkatkan pengetahuan dan prestasi belajar Anda.
+                </p>
+
+                <!-- Search Box -->
+                <div class="max-w-2xl mx-auto mb-8 reveal">
+                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
+                        <div class="flex items-center">
+                            <i class="fas fa-search text-white/70 ml-3 mr-3"></i>
+                            <input type="text" placeholder="Cari artikel berdasarkan topik, kata kunci..."
+                                class="flex-1 bg-transparent outline-none text-white placeholder-white/70 text-base">
+                            <button class="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
+                                <i class="fas fa-search mr-2"></i>
+                                Cari
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kategori Populer -->
+                <div class="flex flex-wrap justify-center items-center gap-3 reveal">
+                    <span class="text-white/80 text-sm">Kategori Populer:</span>
+                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <i class="fas fa-lightbulb mr-1"></i>Tips Belajar
+                    </button>
+                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <i class="fas fa-graduation-cap mr-1"></i>Pendidikan
+                    </button>
+                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <i class="fas fa-brain mr-1"></i>Psikologi Belajar
+                    </button>
+                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
+                        <i class="fas fa-chart-line mr-1"></i>Strategi Ujian
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modern Curved Bottom -->
+        <div class="hero-curve"></div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats py-20 -mt-[11rem] relative z-20">
+        <div class="container mx-auto px-6">
+            <div class="bg-white/80 backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+
+                    <!-- Total Artikel -->
+                    <div class="group">
+                        <div
+                            class="stat-icon bg-gradient-to-br from-blue-100 to-blue-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                            <i class="fas fa-newspaper text-blue-600 text-2xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="156">0</div>
+                        <p class="text-sm font-semibold text-gray-600">Total Artikel</p>
+                    </div>
+
+                    <!-- Pembaca Aktif -->
+                    <div class="group">
+                        <div
+                            class="stat-icon bg-gradient-to-br from-green-100 to-green-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                            <i class="fas fa-users text-green-600 text-2xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="2540">0</div>
+                        <p class="text-sm font-semibold text-gray-600">Pembaca Aktif</p>
+                    </div>
+
+                    <!-- Kategori -->
+                    <div class="group">
+                        <div
+                            class="stat-icon bg-gradient-to-br from-purple-100 to-purple-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                            <i class="fas fa-tags text-purple-600 text-2xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="12">0</div>
+                        <p class="text-sm font-semibold text-gray-600">Kategori</p>
+                    </div>
+
+                    <!-- Penulis -->
+                    <div class="group">
+                        <div
+                            class="stat-icon bg-gradient-to-br from-orange-100 to-orange-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                            <i class="fas fa-pen-nib text-orange-600 text-2xl"></i>
+                        </div>
+                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="28">0</div>
+                        <p class="text-sm font-semibold text-gray-600">Penulis</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section class="sticky top-[70px] z-30 py-6 px-4">
+        <div class="container mx-auto px-4">
+            <div class="filter-bar p-4">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+                    <!-- Left Section: Filter Tabs -->
+                    <div class="flex-1 min-w-0">
+                        <div class="filter-tabs">
+                            <button class="filter-tab active" data-filter="all">
+                                <i class="fas fa-th-large text-xs"></i>
+                                Semua Artikel
+                            </button>
+                            <button class="filter-tab" data-filter="tips">
+                                <i class="fas fa-lightbulb text-xs"></i>
+                                Tips Belajar
+                            </button>
+                            <button class="filter-tab" data-filter="pendidikan">
+                                <i class="fas fa-graduation-cap text-xs"></i>
+                                Pendidikan
+                            </button>
+                            <button class="filter-tab" data-filter="psikologi">
+                                <i class="fas fa-brain text-xs"></i>
+                                Psikologi Belajar
+                            </button>
+                            <button class="filter-tab" data-filter="strategi">
+                                <i class="fas fa-chart-line text-xs"></i>
+                                Strategi Ujian
+                            </button>
+                            <button class="filter-tab" data-filter="teknologi">
+                                <i class="fas fa-laptop-code text-xs"></i>
+                                Teknologi Pendidikan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Right Section: Sort and View -->
+                    <div class="flex items-center gap-3">
+                        <!-- Sort Options -->
+                        <div class="relative">
+                            <select class="select-custom">
+                                <option>Terbaru</option>
+                                <option>Terpopuler</option>
+                                <option>Paling Banyak Dibaca</option>
+                                <option>Rating Tertinggi</option>
+                            </select>
+                        </div>
+
+                        <!-- View Toggle -->
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button class="view-btn" data-view="list">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Content -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <!-- Featured Articles -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Artikel Pilihan</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Featured Article 1 -->
+                    <div class="article-card reveal">
+                        <div class="relative overflow-hidden">
+                            <div class="trending-badge">
+                                <i class="fas fa-fire"></i>
+                                Trending
+                            </div>
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                                alt="Featured Article" class="article-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="category-badge bg-blue-100 text-blue-700">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Tips Belajar
+                                </span>
+                                <span class="text-gray-500 text-sm">• 10 menit baca</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-xl mb-3">10 Strategi Efektif untuk Meningkatkan Konsentrasi Belajar</h3>
+                            <p class="text-gray-600 mb-4">Temukan teknik-teknik terbaru yang terbukti secara ilmiah untuk meningkatkan fokus dan konsentrasi selama sesi belajar Anda.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                                        alt="Author" class="author-avatar">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Dr. Sarah Wijaya</p>
+                                        <p class="text-xs text-gray-500">Psikolog Pendidikan</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-500 text-sm">2 hari lalu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Featured Article 2 -->
+                    <div class="article-card reveal">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1422&q=80"
+                                alt="Featured Article" class="article-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="category-badge bg-green-100 text-green-700">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    Pendidikan
+                                </span>
+                                <span class="text-gray-500 text-sm">• 8 menit baca</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-xl mb-3">Masa Depan Pendidikan: Teknologi yang Mengubah Cara Belajar</h3>
+                            <p class="text-gray-600 mb-4">Eksplorasi bagaimana AI, VR, dan teknologi lainnya merevolusi pengalaman belajar dan mengajar di era digital.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                                        alt="Author" class="author-avatar">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Prof. Andi Pratama</p>
+                                        <p class="text-xs text-gray-500">Ahli Teknologi Pendidikan</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-500 text-sm">5 hari lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Articles Grid -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Semua Artikel</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Article 1 -->
+                    <div class="article-card reveal">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                                alt="Article" class="article-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="category-badge bg-purple-100 text-purple-700">
+                                    <i class="fas fa-brain"></i>
+                                    Psikologi Belajar
+                                </span>
+                                <span class="text-gray-500 text-sm">• 12 menit baca</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Memahami Gaya Belajar: Visual, Auditori, atau Kinestetik?</h3>
+                            <p class="text-gray-600 mb-4">Identifikasi gaya belajar dominan Anda dan terapkan strategi yang tepat untuk hasil belajar yang maksimal.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
+                                        alt="Author" class="author-avatar">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Dr. Maya Sari</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-500 text-sm">1 minggu lalu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 2 -->
+                    <div class="article-card reveal">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                                alt="Article" class="article-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="category-badge bg-yellow-100 text-yellow-700">
+                                    <i class="fas fa-chart-line"></i>
+                                    Strategi Ujian
+                                </span>
+                                <span class="text-gray-500 text-sm">• 6 menit baca</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Teknik Pomodoro: Cara Efektif Mengatur Waktu Belajar</h3>
+                            <p class="text-gray-600 mb-4">Pelajari teknik manajemen waktu yang terbukti meningkatkan produktivitas belajar dan mengurangi kelelahan mental.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face"
+                                        alt="Author" class="author-avatar">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Budi Santoso</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-500 text-sm">2 minggu lalu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 3 -->
+                    <div class="article-card reveal">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                                alt="Article" class="article-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="category-badge bg-indigo-100 text-indigo-700">
+                                    <i class="fas fa-laptop-code"></i>
+                                    Teknologi Pendidikan
+                                </span>
+                                <span class="text-gray-500 text-sm">• 15 menit baca</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Platform Belajar Online Terbaik untuk Siswa</h3>
+                            <p class="text-gray-600 mb-4">Ulasan mendalam tentang platform belajar online terpopuler dan bagaimana memilih yang tepat untuk kebutuhan Anda.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                                        alt="Author" class="author-avatar">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Ahmad Rizki</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-500 text-sm">3 minggu lalu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 4 -->
+                    <div class="article-card reveal">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
+                                alt="Article" class="article-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="category-badge bg-blue-100 text-blue-700">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Tips Belajar
+                                </span>
+                                <span class="text-gray-500 text-sm">• 7 menit baca</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Cara Membuat Catatan yang Efektif untuk Belajar</h3>
+                            <p class="text-gray-600 mb-4">Teknik mencatat yang terbukti membantu mengingat informasi lebih baik dan mempersiapkan ujian dengan efisien.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=40&h=40&fit=crop&crop=face"
+                                        alt="Author" class="author-avatar">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Dewi Lestari</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-500 text-sm">1 bulan lalu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 5 -->
+                    <div class="article-card reveal">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                                alt="Article" class="article-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="category-badge bg-green-100 text-green-700">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    Pendidikan
+                                </span>
+                                <span class="text-gray-500 text-sm">• 10 menit baca</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Peran Orang Tua dalam Mendukung Prestasi Akademik Anak</h3>
+                            <p class="text-gray-600 mb-4">Strategi praktis bagi orang tua untuk menciptakan lingkungan belajar yang mendukung dan memotivasi anak.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=40&h=40&fit=crop&crop=face"
+                                        alt="Author" class="author-avatar">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Linda Permata</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-500 text-sm">1 bulan lalu</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Article 6 -->
+                    <div class="article-card reveal">
+                        <div class="relative overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                                alt="Article" class="article-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="category-badge bg-purple-100 text-purple-700">
+                                    <i class="fas fa-brain"></i>
+                                    Psikologi Belajar
+                                </span>
+                                <span class="text-gray-500 text-sm">• 9 menit baca</span>
+                            </div>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Mengatasi Kecemasan Saat Menghadapi Ujian</h3>
+                            <p class="text-gray-600 mb-4">Teknik relaksasi dan strategi mental untuk mengelola stres dan kecemasan sebelum dan selama ujian.</p>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
+                                        alt="Author" class="author-avatar">
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Dr. Rudi Hartono</p>
+                                    </div>
+                                </div>
+                                <span class="text-gray-500 text-sm">2 bulan lalu</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More -->
+            <div class="text-center mt-12">
+                <button
+                    class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-medium hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
+                    <i class="fas fa-plus-circle mr-2"></i>
+                    Muat Lebih Banyak Artikel
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section py-20 mt-12">
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ingin Menjadi Kontributor Artikel?</h2>
+                <p class="text-lg text-white/90 mb-8">Bergabunglah dengan komunitas penulis EduQuiz dan bagikan pengetahuan serta pengalaman Anda kepada ribuan pembaca.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#"
+                        class="btn btn-primary bg-white text-blue-600 hover:bg-gray-100 hover:text-blue-700 px-8 py-4 text-lg rounded-xl">
+                        <i class="fas fa-pen-nib mr-2"></i>
+                        Mulai Menulis
+                    </a>
+                    <a href="#"
+                        class="btn btn-outline border-white text-white hover:bg-white hover:text-blue-600 px-8 py-4 text-lg rounded-xl">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Pelajari Selengkapnya
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
+                            <i class="fas fa-graduation-cap text-white text-xl"></i>
+                        </div>
+                        <span class="text-2xl font-bold">EduQuiz</span>
+                    </div>
+                    <p class="text-gray-400 mb-6 max-w-md">Platform belajar interaktif dengan kuiz dan materi dari guru profesional untuk meningkatkan prestasi belajar siswa.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-400 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-pink-600 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-700 transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Tautan Cepat</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tentang Kami</a></li>
+                        <li><a href="materi.html" class="text-gray-400 hover:text-white transition-colors">Materi</a></li>
+                        <li><a href="quiz.html" class="text-gray-400 hover:text-white transition-colors">Kuiz</a></li>
+                        <li><a href="Artikel.html" class="text-gray-400 hover:text-white transition-colors">Artikel</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Kategori</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Matematika</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Fisika</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Kimia</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Biologi</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bahasa Indonesia</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Kontak</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-map-marker-alt mr-4 text-blue-500"></i>
+                            <span>Jl. Pendidikan No. 123, Jakarta</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-phone-alt mr-4 text-blue-500"></i>
+                            <span>+62 21 1234 5678</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-envelope mr-4 text-blue-500"></i>
+                            <span>info@eduquiz.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 EduQuiz. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Artikel Page Functionality
+        document.addEventListener('DOMContentLoaded', function () {
+            // Counter animation for stats
+            const counters = document.querySelectorAll('.counter');
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                let count = 0;
+                const increment = target / 100;
+
+                const updateCounter = () => {
+                    if (count < target) {
+                        count += increment;
+                        counter.innerText = Math.ceil(count);
+                        setTimeout(updateCounter, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+
+                updateCounter();
+            });
+
+            // Filter functionality
+            const filterTabs = document.querySelectorAll('.filter-tab');
+
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs
+                    filterTabs.forEach(t => t.classList.remove('active'));
+
+                    // Add active class to clicked tab
+                    tab.classList.add('active');
+
+                    // Here you would implement filter logic
+                    console.log('Filter applied:', tab.getAttribute('data-filter'));
+                });
+            });
+
+            // View toggle functionality
+            const viewButtons = document.querySelectorAll('.view-btn');
+
+            viewButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    // Here you would implement view change logic
+                    const view = button.getAttribute('data-view');
+                    console.log('View changed to:', view);
+                });
+            });
+
+            // Scroll reveal animation
+            const revealElements = document.querySelectorAll('.reveal');
+
+            const revealOnScroll = () => {
+                revealElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('active');
+                    }
+                });
+            };
+
+            window.addEventListener('scroll', revealOnScroll);
+
+            // Initial check
+            revealOnScroll();
+
+            // Simulate loading
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
