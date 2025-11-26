@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Pengguna | EduQuiz</title>
+    <title>Profile Page Layout</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
@@ -13,545 +13,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
-    <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --primary-light: #c7d2fe;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-400: #9ca3af;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-            --gray-900: #111827;
-            --border-radius: 8px;
-            --border-radius-lg: 12px;
-            --border-radius-xl: 16px;
-            --border-radius-2xl: 20px;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --transition: all 0.3s ease;
-        }
-
-        body {
-            background: var(--gray-50);
-            font-family: 'Inter', sans-serif;
-            color: var(--gray-800);
-        }
-
-        /* Profile Section Styles */
-        .profile-card {
-            background: white;
-            border-radius: var(--border-radius-xl);
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .profile-card:hover {
-            box-shadow: var(--shadow-xl);
-        }
-
-        .profile-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: 2rem;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .profile-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.3;
-        }
-
-        .profile-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .profile-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .stats-card {
-            background: white;
-            border-radius: var(--border-radius-lg);
-            padding: 1.5rem;
-            text-align: center;
-            transition: var(--transition);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-100);
-        }
-
-        .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .stat-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: var(--border-radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--gray-200);
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 1rem 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-
-        .tab-container {
-            margin-top: 2rem;
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 0.5rem;
-            border-bottom: 1px solid var(--gray-200);
-            margin-bottom: 1.5rem;
-            overflow-x: auto;
-        }
-
-        .tab-button {
-            padding: 0.75rem 1.5rem;
-            font-weight: 500;
-            color: var(--gray-600);
-            border-bottom: 2px solid transparent;
-            transition: var(--transition);
-            white-space: nowrap;
-        }
-
-        .tab-button:hover {
-            color: var(--primary);
-        }
-
-        .tab-button.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .activity-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            border-radius: var(--border-radius-lg);
-            margin-bottom: 1rem;
-            background: var(--gray-50);
-            transition: var(--transition);
-            border-left: 4px solid transparent;
-        }
-
-        .activity-item:hover {
-            background: var(--primary-light);
-            transform: translateX(5px);
-            border-left-color: var(--primary);
-        }
-
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: var(--border-radius);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .achievement-card {
-            background: white;
-            border-radius: var(--border-radius-lg);
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-100);
-            transition: var(--transition);
-        }
-
-        .achievement-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .achievement-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        .badge-locked {
-            filter: grayscale(100%);
-            opacity: 0.7;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Modern Grid Layout */
-        .grid-modern {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .grid-profile {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .grid-profile {
-                grid-template-columns: 1fr;
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#06b6d4',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                        primary: '#2563eb',
+                        'primary-dark': '#1d4ed8', // Warna utama pengganti hijau
+                        'primary-light': '#dbeafe',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
             }
         }
-
-        .grid-tabs {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .grid-achievements {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .grid-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card-modern {
-            background: white;
-            border-radius: var(--border-radius-xl);
-            padding: 1.5rem;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-100);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card-modern:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gray-800);
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
-            border-radius: 3px;
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--gray-300);
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--gray-700);
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--gray-700);
-            border: 1px solid var(--gray-300);
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--border-radius);
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-secondary:hover {
-            background: var(--gray-50);
-            border-color: var(--gray-400);
-        }
-
-        /* Header Styles */
-        .header {
-            background: white;
-            box-shadow: var(--shadow-sm);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 1rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: var(--primary);
-        }
-
-        .navigation {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-item {
-            color: var(--gray-600);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-item:hover {
-            color: var(--primary);
-        }
-
-        .nav-item.active {
-            color: var(--primary);
-        }
-
-        .nav-item.active::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--primary);
-            border-radius: 1px;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid var(--gray-200);
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Footer Styles */
-        .footer {
-            background: var(--gray-900);
-            color: white;
-            padding: 3rem 0 1.5rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            font-size: 1.5rem;
-        }
-
-        .footer-links h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links a {
-            color: var(--gray-400);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid var(--gray-800);
-            padding-top: 1.5rem;
-            text-align: center;
-            color: var(--gray-400);
-        }
-
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
         }
     </style>
 </head>
 
-<body>
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="loading-screen">
+<body class="text-slate-600 pb-20">
+    <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
         <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
             speed="1" style="width:400px; height:300px;" loop autoplay>
         </lottie-player>
@@ -559,431 +52,758 @@
     </div>
 
     <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <!-- Logo -->
-            <div class="logo">
-                <i class="fas fa-graduation-cap"></i>
-                <span>EduQuiz</span>
-            </div>
+    <header class="header" id="main-header">
+        <div class="header-background"></div>
+        <div class="header-container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="../tamp/asset/logo/logo.png" alt="logo">
+                        <div class="logo-glow"></div>
+                    </div>
+                    <span class="logo-text">EduQuiz</span>
+                    <div class="logo-pulse"></div>
+                </div>
 
-            <!-- Navigation -->
-            <nav class="navigation">
-                <a href="index.html" class="nav-item">Beranda</a>
-                <a href="materi.html" class="nav-item">Materi</a>
-                <a href="quiz.html" class="nav-item">Kuiz</a>
-                <a href="Leaderboard.html" class="nav-item">Leaderboard</a>
-                <a href="Artikel.html" class="nav-item">Artikel</a>
-                <a href="profile.html" class="nav-item active">Profil</a>
-            </nav>
+                <!-- Navigation -->
+                <nav class="navigation">
+                    <a href="index.html" class="nav-item" data-nav="home">
+                        <span class="nav-text">Beranda</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="materi.html" class="nav-item" data-nav="materials">
+                        <span class="nav-text">Materi</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="quiz.html" class="nav-item" data-nav="quizzes">
+                        <span class="nav-text">Kuiz</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="Leaderboard.html" class="nav-item" data-nav="teachers">
+                        <span class="nav-text">Leaderboard</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="Artikel.html" class="nav-item" data-nav="blog">
+                        <span class="nav-text">Artikel</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                    <a href="profile.html" class="nav-item active" data-nav="blog">
+                        <span class="nav-text">Profile</span>
+                        <div class="nav-indicator"></div>
+                        <div class="nav-wave"></div>
+                    </a>
+                </nav>
 
-            <!-- Actions -->
-            <div class="header-actions">
-                <button class="btn-secondary">
-                    <i class="fas fa-bell"></i>
-                </button>
-                <div class="user-avatar">
-                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
-                        alt="User">
+                <!-- Actions -->
+                <div class="header-actions">
+                    <!-- Search -->
+                    <div class="search-wrapper">
+                        <button class="search-toggle" id="search-toggle">
+                            <i class="fas fa-search"></i>
+                            <div class="icon-ripple"></div>
+                        </button>
+                        <div class="search-expand" id="search-expand">
+                            <input type="text" placeholder="Cari materi..." class="search-input">
+                            <button class="search-close">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <div class="search-progress"></div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="notifications">
+                        <button class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                            <div class="bell-wave"></div>
+                            <div class="icon-ripple"></div>
+                        </button>
+                        <div class="notification-popup">
+                            <div class="notification-header">
+                                <h4>Notifikasi</h4>
+                                <span class="notification-count">3 baru</span>
+                            </div>
+                            <div class="notification-list">
+                                <div class="notification-item">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p class="notification-title">Pencapaian Baru!</p>
+                                        <p class="notification-desc">Kamu menyelesaikan kuiz Matematika</p>
+                                        <span class="notification-time">2 menit lalu</span>
+                                    </div>
+                                </div>
+                                <div class="notification-item">
+                                    <div class="notification-icon">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div class="notification-content">
+                                        <p class="notification-title">Materi Baru</p>
+                                        <p class="notification-desc">Fisika: Hukum Newton tersedia</p>
+                                        <span class="notification-time">1 jam lalu</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="user-menu">
+                        <button class="user-avatar">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                                alt="User">
+                            <div class="user-status"></div>
+                            <div class="avatar-shine"></div>
+                        </button>
+                        <div class="user-dropdown">
+                            <div class="user-info">
+                                <div class="user-avatar-large">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face"
+                                        alt="User">
+                                </div>
+                                <div class="user-details">
+                                    <h4>Ahmad Rizki</h4>
+                                    <p>Siswa Premium</p>
+                                    <div class="user-progress">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill"></div>
+                                        </div>
+                                        <span>75% selesai</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-items">
+                                <a href="profile.html" class="dropdown-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profil Saya</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                                <a href="#" class="dropdown-item">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Progress Belajar</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a href="login2.html" class="dropdown-item">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <span>Keluar</span>
+                                    <div class="item-wave"></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-toggle" id="mobile-toggle">
+                        <span class="toggle-line"></span>
+                        <span class="toggle-line"></span>
+                        <span class="toggle-line"></span>
+                        <div class="toggle-ripple"></div>
+                    </button>
                 </div>
             </div>
         </div>
+
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav" id="mobile-nav">
+            <div class="mobile-nav-backdrop"></div>
+            <div class="mobile-nav-content">
+                <a href="#home" class="mobile-nav-item active">
+                    <i class="fas fa-home"></i>
+                    <span>Beranda</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="#materials" class="mobile-nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Materi</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="#quizzes" class="mobile-nav-item">
+                    <i class="fas fa-puzzle-piece"></i>
+                    <span>Kuiz</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="#teachers" class="mobile-nav-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Guru</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+                <a href="#blog" class="mobile-nav-item">
+                    <i class="fas fa-blog"></i>
+                    <span>Blog</span>
+                    <div class="mobile-nav-wave"></div>
+                </a>
+            </div>
+        </nav>
     </header>
 
-    <!-- Main Content -->
-    <main class="pt-24 pb-16">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <!-- Profile Header -->
-            <div class="profile-card reveal mb-8">
-                <div class="profile-header">
-                    <div class="grid-profile items-center relative z-10">
-                        <div class="flex flex-col items-center md:items-start">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=120&h=120&fit=crop&crop=face"
-                                 alt="Profile Avatar" class="profile-avatar mb-4">
-                            <div class="profile-badge">
-                                <i class="fas fa-crown text-yellow-400"></i>
-                                <span>Pengguna Premium</span>
-                            </div>
-                        </div>
-                        <div class="text-center md:text-left">
-                            <h1 class="text-2xl md:text-3xl font-bold mb-2">Ahmad Rizki</h1>
-                            <p class="text-white/90 mb-4">Siswa Kelas 12 IPA | SMA Negeri 1 Jakarta</p>
-                            <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Matematika</span>
-                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Fisika</span>
-                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Kimia</span>
-                                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Biologi</span>
-                            </div>
-                        </div>
-                    </div>
+    <div class="h-[20rem] w-full bg-primary-dark"></div>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <div class="relative flex flex-col md:flex-row items-start md:items-end -mt-16 mb-8 gap-6">
+
+            <div class="relative group">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white overflow-hidden bg-white">
+                    <img src="https://i.pravatar.cc/300?img=11" alt="Fares Farhan" class="w-full h-full object-cover">
                 </div>
             </div>
 
-            <!-- Main Grid Layout -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- Left Column - Stats & Progress -->
-                <div class="lg:col-span-1 space-y-6">
-                    <!-- Stats Grid -->
-                    <div class="card-modern reveal">
-                        <h2 class="section-title">Statistik</h2>
-                        <div class="grid-stats">
-                            <div class="stats-card">
-                                <div class="stat-icon bg-blue-100 text-blue-600">
-                                    <i class="fas fa-trophy text-xl"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold text-gray-800 mb-1">24</h3>
-                                <p class="text-gray-600 text-sm">Pencapaian</p>
-                            </div>
-                            <div class="stats-card">
-                                <div class="stat-icon bg-green-100 text-green-600">
-                                    <i class="fas fa-check-circle text-xl"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold text-gray-800 mb-1">156</h3>
-                                <p class="text-gray-600 text-sm">Kuis Diselesaikan</p>
-                            </div>
-                            <div class="stats-card">
-                                <div class="stat-icon bg-purple-100 text-purple-600">
-                                    <i class="fas fa-fire text-xl"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold text-gray-800 mb-1">89</h3>
-                                <p class="text-gray-600 text-sm">Hari Berurutan</p>
-                            </div>
-                            <div class="stats-card">
-                                <div class="stat-icon bg-orange-100 text-orange-600">
-                                    <i class="fas fa-star text-xl"></i>
-                                </div>
-                                <h3 class="text-2xl font-bold text-gray-800 mb-1">4.8</h3>
-                                <p class="text-gray-600 text-sm">Rating Rata-rata</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Progress Section -->
-                    <div class="card-modern reveal">
-                        <h2 class="section-title">Progress Belajar</h2>
-                        <div class="space-y-4">
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-700">Matematika</span>
-                                    <span class="text-gray-600">75%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill bg-blue-500" style="width: 75%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-700">Fisika</span>
-                                    <span class="text-gray-600">60%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill bg-green-500" style="width: 60%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-700">Kimia</span>
-                                    <span class="text-gray-600">45%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill bg-purple-500" style="width: 45%"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="font-medium text-gray-700">Biologi</span>
-                                    <span class="text-gray-600">80%</span>
-                                </div>
-                                <div class="progress-bar">
-                                    <div class="progress-fill bg-orange-500" style="width: 80%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div class="flex-1 pb-2 mt-4 md:mt-0">
+                <div class="flex items-center gap-2">
+                    <h1 class="text-3xl font-bold text-dark">Fares Farhan</h1>
+                    <span class="text-xl">🇮🇩</span>
                 </div>
+                <p class="text-slate-500 font-medium text-lg">
+                    Design Director <span class="text-slate-400 font-normal">at</span> <span
+                        class="text-dark font-semibold">Eleveina Digital</span>
+                </p>
+            </div>
 
-                <!-- Right Column - Tabs -->
-                <div class="lg:col-span-2">
-                    <div class="card-modern reveal">
-                        <div class="tab-container">
-                            <div class="tab-buttons">
-                                <button class="tab-button active" data-tab="activity">Aktivitas</button>
-                                <button class="tab-button" data-tab="achievements">Pencapaian</button>
-                                <button class="tab-button" data-tab="settings">Pengaturan</button>
-                            </div>
+            <div class="flex items-center gap-3 pb-4">
+                <button
+                    class="flex items-center gap-2 bg-dark text-white px-4 py-2 rounded-lg hover:bg-slate-800 transition shadow-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                    </svg>
+                    <span class="font-semibold">Upvote</span>
+                    <span class="bg-slate-700 text-xs py-0.5 px-1.5 rounded ml-1">8</span>
+                </button>
 
-                            <!-- Activity Tab -->
-                            <div id="activity" class="tab-content active">
-                                <h3 class="section-title">Aktivitas Terkini</h3>
-                                <div class="space-y-3">
-                                    <div class="activity-item">
-                                        <div class="activity-icon bg-green-500">
-                                            <i class="fas fa-check"></i>
-                                        </div>
-                                        <div class="flex-1">
-                                            <h4 class="font-medium text-gray-800">Menyelesaikan Kuis Matematika</h4>
-                                            <p class="text-gray-600 text-sm">Nilai: 95/100 • 2 jam lalu</p>
-                                        </div>
-                                    </div>
-                                    <div class="activity-item">
-                                        <div class="activity-icon bg-blue-500">
-                                            <i class="fas fa-book"></i>
-                                        </div>
-                                        <div class="flex-1">
-                                            <h4 class="font-medium text-gray-800">Membaca Artikel Fisika</h4>
-                                            <p class="text-gray-600 text-sm">"Hukum Newton dan Aplikasinya" • 5 jam lalu</p>
-                                        </div>
-                                    </div>
-                                    <div class="activity-item">
-                                        <div class="activity-icon bg-purple-500">
-                                            <i class="fas fa-trophy"></i>
-                                        </div>
-                                        <div class="flex-1">
-                                            <h4 class="font-medium text-gray-800">Mendapatkan Pencapaian Baru</h4>
-                                            <p class="text-gray-600 text-sm">"Master Matematika" • 1 hari lalu</p>
-                                        </div>
-                                    </div>
-                                    <div class="activity-item">
-                                        <div class="activity-icon bg-orange-500">
-                                            <i class="fas fa-chart-line"></i>
-                                        </div>
-                                        <div class="flex-1">
-                                            <h4 class="font-medium text-gray-800">Meningkatkan Peringkat Leaderboard</h4>
-                                            <p class="text-gray-600 text-sm">Peringkat #15 dari #32 • 2 hari lalu</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <button
+                    class="p-2.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition bg-white text-dark">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+                        </path>
+                    </svg>
+                </button>
 
-                            <!-- Achievements Tab -->
-                            <div id="achievements" class="tab-content">
-                                <h3 class="section-title">Pencapaian Saya</h3>
-                                <div class="grid-achievements">
-                                    <div class="achievement-card">
-                                        <div class="achievement-icon">
-                                            <i class="fas fa-rocket text-2xl"></i>
-                                        </div>
-                                        <h4 class="font-bold text-gray-800 mb-2">Pemula Hebat</h4>
-                                        <p class="text-gray-600 text-sm mb-3">Menyelesaikan 10 kuis pertama</p>
-                                        <span class="text-green-600 text-sm font-medium">Tercapai</span>
-                                    </div>
-                                    <div class="achievement-card">
-                                        <div class="achievement-icon">
-                                            <i class="fas fa-fire text-2xl"></i>
-                                        </div>
-                                        <h4 class="font-bold text-gray-800 mb-2">Streak 7 Hari</h4>
-                                        <p class="text-gray-600 text-sm mb-3">Belajar selama 7 hari berturut-turut</p>
-                                        <span class="text-green-600 text-sm font-medium">Tercapai</span>
-                                    </div>
-                                    <div class="achievement-card">
-                                        <div class="achievement-icon">
-                                            <i class="fas fa-brain text-2xl"></i>
-                                        </div>
-                                        <h4 class="font-bold text-gray-800 mb-2">Master Matematika</h4>
-                                        <p class="text-gray-600 text-sm mb-3">Nilai rata-rata 90+ di kuis Matematika</p>
-                                        <span class="text-green-600 text-sm font-medium">Tercapai</span>
-                                    </div>
-                                    <div class="achievement-card">
-                                        <div class="achievement-icon badge-locked">
-                                            <i class="fas fa-crown text-2xl"></i>
-                                        </div>
-                                        <h4 class="font-bold text-gray-800 mb-2">Legenda EduQuiz</h4>
-                                        <p class="text-gray-600 text-sm mb-3">Menyelesaikan 500 kuis</p>
-                                        <span class="text-gray-500 text-sm font-medium">156/500</span>
-                                    </div>
-                                </div>
-                            </div>
+                <button
+                    class="p-2.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition bg-white text-dark">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                        </path>
+                    </svg>
+                </button>
 
-                            <!-- Settings Tab -->
-                            <div id="settings" class="tab-content">
-                                <h3 class="section-title">Pengaturan Akun</h3>
-                                <form>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="firstName">Nama Depan</label>
-                                            <input type="text" id="firstName" class="form-input" value="Ahmad">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label" for="lastName">Nama Belakang</label>
-                                            <input type="text" id="lastName" class="form-input" value="Rizki">
-                                        </div>
-                                        <div class="form-group md:col-span-2">
-                                            <label class="form-label" for="email">Email</label>
-                                            <input type="email" id="email" class="form-input" value="ahmad.rizki@example.com">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label" for="school">Sekolah</label>
-                                            <input type="text" id="school" class="form-input" value="SMA Negeri 1 Jakarta">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label" for="grade">Kelas</label>
-                                            <select id="grade" class="form-input">
-                                                <option>10</option>
-                                                <option>11</option>
-                                                <option selected>12</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group md:col-span-2">
-                                            <label class="form-label">Minat Belajar</label>
-                                            <div class="flex flex-wrap gap-4 mt-2">
-                                                <label class="inline-flex items-center">
-                                                    <input type="checkbox" class="rounded text-blue-600" checked>
-                                                    <span class="ml-2 text-gray-700">Matematika</span>
-                                                </label>
-                                                <label class="inline-flex items-center">
-                                                    <input type="checkbox" class="rounded text-blue-600" checked>
-                                                    <span class="ml-2 text-gray-700">Fisika</span>
-                                                </label>
-                                                <label class="inline-flex items-center">
-                                                    <input type="checkbox" class="rounded text-blue-600" checked>
-                                                    <span class="ml-2 text-gray-700">Kimia</span>
-                                                </label>
-                                                <label class="inline-flex items-center">
-                                                    <input type="checkbox" class="rounded text-blue-600" checked>
-                                                    <span class="ml-2 text-gray-700">Biologi</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex gap-3 mt-6">
-                                        <button type="button" class="btn-primary">
-                                            <i class="fas fa-save"></i>
-                                            Simpan Perubahan
-                                        </button>
-                                        <button type="button" class="btn-secondary">
-                                            <i class="fas fa-times"></i>
-                                            Batal
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <button
+                    class="p-2.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition bg-white text-dark">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+                        </path>
+                    </svg>
+                </button>
             </div>
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-grid">
+        <div class="border-b border-slate-200 mb-8">
+            <nav class="flex gap-8" id="profile-tabs">
+                <a href="#overview" class="tab-button border-b-2 border-primary-dark text-dark font-semibold py-4 px-1"
+                    data-tab="overview-content">Overview</a>
+                <a href="#progress"
+                    class="tab-button border-b-2 border-transparent text-slate-500 hover:text-dark py-4 px-1 flex items-center gap-2"
+                    data-tab="progress-content">
+                    Progress
+                </a>
+                <a href="#settings"
+                    class="tab-button border-b-2 border-transparent text-slate-500 hover:text-dark py-4 px-1"
+                    data-tab="settings-content">
+                    Settings
+                </a>
+            </nav>
+        </div>
+
+        <!-- start overview-content -->
+        <div id="overview-content" class="tab-content hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <div class="lg:col-span-2 space-y-8">
+
                 <div>
-                    <div class="footer-logo">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>EduQuiz</span>
+                    <div class="text-slate-600 leading-relaxed mb-4">
+                        <p id="excerpt">
+                            I have about 18+ years of experience in website and web-based application
+                            design and development. 12+ years of experience in mobile app UI and UX design.
+                            Most of my past works are mainly UI Design, Interaction Design, although within...
+                        </p>
+
+                        <p id="fullText" class="hidden">
+                            I have about 18+ years of experience in website and web-based application
+                            design and development. 12+ years of experience in mobile app UI and UX design.
+                            Most of my past works are mainly UI Design, Interaction Design, although within these
+                            years I also work on product design, branding, prototyping, user flow, and system analysis.
+                            My passion lies in building digital products that solve real user problems.
+                        </p>
+                        <button id="toggleBtn" class="text-primary-dark font-semibold hover:underline mt-2">
+                            Show more
+                        </button>
                     </div>
-                    <p class="text-gray-400 mb-4 max-w-md">Platform belajar interaktif dengan kuiz dan materi dari guru
-                        profesional untuk meningkatkan prestasi belajar siswa.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-facebook-f"></i>
+
+                    <div class="flex gap-3">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-twitter"></i>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+                            </svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="fab fa-linkedin-in"></i>
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-slate-200 transition">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9">
+                                </path>
+                            </svg>
                         </a>
                     </div>
                 </div>
 
-                <div class="footer-links">
-                    <h3>Tautan Cepat</h3>
-                    <ul>
-                        <li><a href="index.html">Beranda</a></li>
-                        <li><a href="#">Tentang Kami</a></li>
-                        <li><a href="materi.html">Materi</a></li>
-                        <li><a href="quiz.html">Kuiz</a></li>
-                        <li><a href="Artikel.html">Artikel</a></li>
-                    </ul>
+                <div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-dark">Profile insights</h3>
+                        <a href="#" class="text-primary-dark text-sm font-medium hover:underline">How do I get
+                            these?</a>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div
+                            class="border border-slate-200 rounded-2xl p-5 flex gap-4 hover:shadow-md transition bg-white">
+                            <div class="text-primary-dark pt-1">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-green-600 font-bold mb-1" style="color: var(--success);">Perfect
+                                    Presence</h4>
+                                <p class="text-sm text-slate-500">Mentor is prompt and highly responsive.</p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="border border-slate-200 rounded-2xl p-5 flex gap-4 hover:shadow-md transition bg-white">
+                            <div class="text-red-600 pt-1">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="text-red-600 font-bold mb-1">Top achiever: Director</h4>
+                                <p class="text-sm text-slate-500">Mentor is amongst the top 10% of contributors in their
+                                    field of expertise!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="footer-links">
-                    <h3>Kategori</h3>
-                    <ul>
-                        <li><a href="#">Matematika</a></li>
-                        <li><a href="#">Fisika</a></li>
-                        <li><a href="#">Kimia</a></li>
-                        <li><a href="#">Biologi</a></li>
-                        <li><a href="#">Bahasa Indonesia</a></li>
-                    </ul>
+                <div>
+                    <h3 class="text-xl font-bold text-dark mb-4">Experience</h3>
+                    <div class="border border-slate-200 rounded-2xl bg-white overflow-hidden">
+                        <div
+                            class="p-5 flex flex-col md:flex-row md:items-center justify-between border-b border-slate-100">
+                            <span class="text-slate-500 font-medium w-32">Expertise</span>
+                            <div class="flex-1 mt-2 md:mt-0">
+                                <span
+                                    class="bg-orange-100 text-orange-600 px-4 py-1.5 rounded-lg font-semibold text-sm">Design</span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex flex-col md:flex-row md:items-center justify-between">
+                            <span class="text-slate-500 font-medium w-32">Industries</span>
+                            <div class="flex-1 mt-2 md:mt-0 flex gap-3">
+                                <span
+                                    class="border border-slate-200 text-dark px-3 py-1.5 rounded-lg font-medium text-sm flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-blue-400 rounded-sm"></span> Tech
+                                </span>
+                                <span
+                                    class="border border-slate-200 text-dark px-3 py-1.5 rounded-lg font-medium text-sm flex items-center gap-2">
+                                    <span class="w-3 h-3 bg-slate-600 rounded-sm"></span> Retail
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="footer-links">
-                    <h3>Kontak</h3>
-                    <ul>
-                        <li class="flex items-center text-gray-400 mb-2">
-                            <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i>
-                            <span>Jl. Pendidikan No. 123, Jakarta</span>
-                        </li>
-                        <li class="flex items-center text-gray-400 mb-2">
-                            <i class="fas fa-phone-alt mr-3 text-blue-500"></i>
-                            <span>+62 21 1234 5678</span>
-                        </li>
-                        <li class="flex items-center text-gray-400">
-                            <i class="fas fa-envelope mr-3 text-blue-500"></i>
-                            <span>info@eduquiz.com</span>
-                        </li>
-                    </ul>
-                </div>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2024 EduQuiz. All rights reserved.</p>
+            <div class="lg:col-span-1 space-y-6">
+
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold text-dark">Community statistics</h3>
+                        <a href="#" class="text-primary-dark text-sm font-medium flex items-center gap-1">
+                            See more <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="flex items-center gap-4 mb-5">
+                        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-primary-dark">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M13.5 2c-5.629 0-10.212 4.436-10.475 10h-3.025l5 6.625 5-6.625h-2.975c.257-3.351 3.06-6 6.475-6 3.584 0 6.5 2.916 6.5 6.5s-2.916 6.5-6.5 6.5c-1.863 0-3.542-.793-4.728-2.053l-2.427 3.216c1.877 1.754 4.389 2.837 7.155 2.837 5.79 0 10.5-4.71 10.5-10.5s-4.71-10.5-10.5-10.5z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-dark font-bold text-lg">1,350 mins</div>
+                            <div class="text-slate-500 text-xs">Total mentoring time</div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center text-red-500">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="text-dark font-bold text-lg">34</div>
+                            <div class="text-slate-500 text-xs">Sessions completed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-lg font-bold text-dark mb-1">Available sessions</h3>
+                    <p class="text-sm text-slate-500 mb-6">
+                        In your local timezone (Asia/Bangkok) <a href="#" class="text-primary-dark">Update</a>
+                    </p>
+
+                    <div class="flex justify-between gap-2 mb-6">
+                        <div class="border border-dark rounded-xl p-2 text-center w-full cursor-pointer bg-white">
+                            <div class="text-[10px] font-bold uppercase text-slate-500">TUE</div>
+                            <div class="text-sm font-bold text-dark">02 May</div>
+                            <div class="text-[10px] text-green-600 font-bold mt-1">2 slots</div>
+                        </div>
+                        <div
+                            class="border border-slate-200 rounded-xl p-2 text-center w-full cursor-pointer hover:border-slate-300">
+                            <div class="text-[10px] font-bold uppercase text-slate-400">WED</div>
+                            <div class="text-sm font-bold text-dark">03 May</div>
+                            <div class="text-[10px] text-green-600 font-bold mt-1">2 slots</div>
+                        </div>
+                        <div
+                            class="border border-slate-200 rounded-xl p-2 text-center w-full cursor-pointer hover:border-slate-300">
+                            <div class="text-[10px] font-bold uppercase text-slate-400">TUE</div>
+                            <div class="text-sm font-bold text-dark">09 May</div>
+                            <div class="text-[10px] text-green-600 font-bold mt-1">2 slots</div>
+                        </div>
+                        <div
+                            class="border border-slate-200 rounded-xl p-2 text-center w-full cursor-pointer hover:border-slate-300 relative">
+                            <div
+                                class="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center rounded-xl">
+                                <span class="text-primary-dark text-xs font-bold flex items-center">View all <svg
+                                        class="w-3 h-3 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7"></path>
+                                    </svg></span>
+                            </div>
+                            <div class="text-[10px] font-bold uppercase text-slate-400">WED</div>
+                            <div class="text-sm font-bold text-dark">10 May</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <h4 class="text-sm font-bold text-dark mb-3">Available time slots</h4>
+                        <div class="flex gap-3 overflow-x-auto">
+                            <button
+                                class="border border-dark text-dark font-bold py-2 px-6 rounded-lg text-sm bg-white">8:00
+                                PM</button>
+                            <button
+                                class="border border-slate-200 text-slate-400 font-bold py-2 px-6 rounded-lg text-sm bg-white hover:border-slate-300">9:00
+                                PM</button>
+                        </div>
+                    </div>
+
+                    <button
+                        class="w-full bg-primary-dark text-white font-bold py-3 rounded-lg hover:bg-blue-800 transition shadow-sm">
+                        Book Session for 02 May 2023
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- end overview-content -->
+
+        <!-- start progres-content -->
+        <div id="progress-content" class="tab-content hidden pt-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <div class="lg:col-span-2 space-y-8">
+
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md transition hover:shadow-lg">
+                        <h3 class="text-xl font-bold text-dark mb-4 flex items-center gap-2">
+                            <i class="fas fa-chart-line text-primary-dark"></i> Progress Keseluruhan Belajar
+                        </h3>
+
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+
+                            <div class="relative w-36 h-36 flex items-center justify-center">
+                                <div class="w-36 h-36 rounded-full bg-slate-200 flex items-center justify-center">
+
+
+                                    [Image of circular progress bar 75 percent filled with blue]
+
+                                    <div class="absolute text-3xl font-extrabold text-primary-dark">75%</div>
+                                </div>
+                            </div>
+
+                            <div class="flex-1 space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-600 font-medium">Modul Selesai</span>
+                                    <span class="font-bold text-dark">15 dari 20</span>
+                                </div>
+                                <div class="w-full bg-primary-light rounded-full h-2.5">
+                                    <div class="bg-primary-dark h-2.5 rounded-full" style="width: 75%"></div>
+                                </div>
+
+                                <div class="flex justify-between items-center pt-3">
+                                    <span class="text-slate-600 font-medium">Rata-rata Skor Kuiz</span>
+                                    <span class="font-bold text-dark">88.5</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-600 font-medium">Sisa Waktu Belajar</span>
+                                    <span class="font-bold text-dark text-red-600">35 Jam</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
+                        <div
+                            class="bg-primary-light border border-primary-light rounded-xl p-5 shadow-sm hover:shadow-lg transition">
+                            <i class="fas fa-puzzle-piece text-primary-dark text-2xl mb-2"></i>
+                            <p class="text-sm text-primary-dark font-medium">Total Kuiz Selesai</p>
+                            <p class="text-3xl font-extrabold text-primary-dark">15</p>
+                        </div>
+
+                        <div
+                            class="bg-green-50 border border-green-200 rounded-xl p-5 shadow-sm hover:shadow-lg transition">
+                            <i class="fas fa-medal text-green-600 text-2xl mb-2"></i>
+                            <p class="text-sm text-green-600 font-medium">Poin Tertinggi</p>
+                            <p class="text-3xl font-extrabold text-green-600">98<span
+                                    class="text-lg font-semibold text-green-500">/100</span></p>
+                        </div>
+
+                        <div
+                            class="bg-yellow-50 border border-yellow-200 rounded-xl p-5 shadow-sm hover:shadow-lg transition">
+                            <i class="fas fa-fire-alt text-yellow-600 text-2xl mb-2"></i>
+                            <p class="text-sm text-yellow-600 font-medium">Learning Streak</p>
+                            <p class="text-3xl font-extrabold text-yellow-600">7 Hari</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="lg:col-span-1 space-y-8">
+
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md">
+                        <h3 class="text-lg font-bold text-dark mb-4 flex items-center gap-2">
+                            <i class="fas fa-book-open text-dark"></i> Materi Terbaru
+                        </h3>
+
+                        <ul class="space-y-4">
+                            <li
+                                class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100 hover:bg-slate-100 transition">
+                                <div
+                                    class="w-10 h-10 rounded-lg bg-red-100 flex items-center justify-center text-red-600 flex-shrink-0">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-dark truncate">Hukum Newton (Fisika)</p>
+                                    <p class="text-xs text-slate-500">Selesai: 25 November 2025</p>
+                                </div>
+                                <i class="fas fa-check-circle text-green-500 flex-shrink-0"></i>
+                            </li>
+                            <li
+                                class="flex items-center gap-3 p-3 bg-slate-50 rounded-lg border border-slate-100 hover:bg-slate-100 transition">
+                                <div
+                                    class="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0">
+                                    <i class="fas fa-superscript"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <p class="font-semibold text-dark truncate">Kalkulus Dasar (Matematika)</p>
+                                    <p class="text-xs text-slate-500">Dikerjakan: 23 November 2025</p>
+                                </div>
+                                <i class="fas fa-arrow-right text-primary-dark flex-shrink-0"></i>
+                            </li>
+                        </ul>
+
+                        <button
+                            class="mt-5 w-full text-center text-primary-dark font-semibold text-sm py-2 rounded-lg border border-primary-light hover:bg-primary-light transition">
+                            Lihat Semua Aktivitas
+                        </button>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-md">
+                        <h3 class="text-lg font-bold text-dark mb-4 flex items-center gap-2">
+                            <i class="fas fa-chart-bar text-dark"></i> Analisis Topik
+                        </h3>
+                        <div
+                            class="h-40 flex items-center justify-center bg-slate-50 rounded-lg border border-slate-100">
+                            <p class="text-slate-500 text-sm">Placeholder: Grafik Batang Akurasi Kuiz</p>
+
+                        </div>
+                        <p class="text-sm text-slate-500 mt-3">Fokus Anda harus ditingkatkan pada topik Biologi.</p>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </footer>
+        <!-- end progres-content -->
 
+        <!-- start setting-content -->
+        <div id="settings-content" class="tab-content hidden p-8 bg-white rounded-2xl shadow-lg">
+            <h2 class="text-2xl font-bold text-dark mb-4">Pengaturan Akun</h2>
+            <p class="text-slate-600 mb-6">Kelola preferensi akun dan keamanan Anda di sini.</p>
+            <form class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Nama Lengkap</label>
+                    <input type="text" value="Fares Farhan"
+                        class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700">Zona Waktu</label>
+                    <select class="mt-1 block w-full rounded-md border-slate-300 shadow-sm p-2 border">
+                        <option>Asia/Jakarta (WIB)</option>
+                        <option>Asia/Makassar (WITA)</option>
+                    </select>
+                </div>
+                <button type="submit"
+                    class="bg-primary-dark text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 transition">Simpan
+                    Perubahan</button>
+            </form>
+        </div>
+        <!-- end setting-content -->
+
+
+
+    </div>
+
+
+    <script src="js/main.js"></script>
     <script>
-        // Profile Page Functionality
-        document.addEventListener('DOMContentLoaded', function () {
-            // Tab functionality
+
+        // Inisialisasi Tab
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pastikan GSAP dan ScrollTrigger sudah dimuat
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                console.error('GSAP or ScrollTrigger not loaded.');
+                return;
+            }
+
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
+            const tabNav = document.getElementById('profile-tabs');
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    // Remove active class from all buttons and contents
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    tabContents.forEach(content => content.classList.remove('active'));
-
-                    // Add active class to clicked button
-                    button.classList.add('active');
-
-                    // Show corresponding content
-                    const tabId = button.getAttribute('data-tab');
-                    document.getElementById(tabId).classList.add('active');
+            // Fungsi untuk mengubah kelas pada tombol tab
+            const setActiveTabButton = (activeButton) => {
+                tabButtons.forEach(button => {
+                    // Hapus kelas aktif/border dari semua tombol
+                    button.classList.remove('border-primary-dark', 'text-dark', 'font-semibold');
+                    button.classList.add('border-transparent', 'text-slate-500', 'hover:text-dark');
                 });
-            });
 
-            // Scroll reveal animation
-            const revealElements = document.querySelectorAll('.reveal');
+                // Tambahkan kelas aktif pada tombol yang diklik
+                activeButton.classList.remove('border-transparent', 'text-slate-500');
+                activeButton.classList.add('border-primary-dark', 'text-dark', 'font-semibold');
+            };
 
-            const revealOnScroll = () => {
-                revealElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const elementVisible = 150;
-
-                    if (elementTop < window.innerHeight - elementVisible) {
-                        element.classList.add('active');
+            // Fungsi untuk menampilkan konten tab
+            const showTabContent = (targetId) => {
+                tabContents.forEach(content => {
+                    if (content.id === targetId) {
+                        // Tampilkan konten yang dituju dengan transisi GSAP
+                        content.classList.remove('hidden');
+                        gsap.fromTo(content, {
+                            opacity: 0,
+                            y: 20
+                        }, {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.4,
+                            ease: "power2.out"
+                        });
+                    } else {
+                        // Sembunyikan konten tab lainnya
+                        gsap.to(content, {
+                            opacity: 0,
+                            y: -10, // Tambahkan sedikit efek pergerakan saat hilang
+                            duration: 0.2,
+                            onComplete: () => {
+                                content.classList.add('hidden');
+                                content.style.opacity = '1'; // Reset opacity setelah disembunyikan
+                                content.style.transform = 'translateY(0)'; // Reset translate
+                            }
+                        });
                     }
                 });
             };
 
-            window.addEventListener('scroll', revealOnScroll);
+            // Tambahkan event listener ke semua tombol tab
+            tabNav.addEventListener('click', (e) => {
+                const target = e.target.closest('.tab-button');
+                if (target) {
+                    e.preventDefault(); // Mencegah perubahan hash URL default
 
-            // Initial check
-            revealOnScroll();
+                    const targetContentId = target.getAttribute('data-tab');
 
-            // Simulate loading
-            setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
-            }, 2000);
+                    // 1. Ubah tampilan tombol tab
+                    setActiveTabButton(target);
+
+                    // 2. Tampilkan/Sembunyikan konten tab dengan transisi
+                    showTabContent(targetContentId);
+                }
+            });
+
+            // Inisialisasi tab saat pertama kali dimuat (pastikan Overview aktif)
+            const initialTab = document.querySelector('.tab-button');
+            if (initialTab) {
+                showTabContent(initialTab.getAttribute('data-tab'));
+            }
+        });
+
+        //show more and show less function
+        const fullText = document.getElementById('fullText');
+        const excerpt = document.getElementById('excerpt');
+        const ToggleBtn = document.getElementById('toggleBtn');
+
+        ToggleBtn.addEventListener('click', () => {
+            const isHidden = fullText.classList.contains("hidden");
+            if (isHidden) {
+                fullText.classList.remove('hidden');
+                excerpt.classList.add('hidden');
+                ToggleBtn.textContent = "Show Less";
+            } else {
+                fullText.classList.add("hidden");
+                excerpt.classList.remove("hidden");
+                toggleBtn.textContent = "Show more";
+            }
         });
     </script>
 </body>
+
 </html>
