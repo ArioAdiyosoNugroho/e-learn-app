@@ -1,41 +1,20 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artikel EduQuiz | EduQuiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script
-      src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
-      type="module"
-    ></script>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
     <link rel="stylesheet" href="css/main.css">
     <style>
-        :root {
-            --accent: #06b6d4;
-            --dark: #1e293b;
-            --light: #f8fafc;
-            --primary: #2563eb;
-            --primary-dark: #1d4ed8;
-            --primary-light: #dbeafe;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-500: #6b7280;
-            --gray-600: #4b5563;
-            --gray-700: #374151;
-            --gray-800: #1f2937;
-        }
-
         body {
             background: var(--gray-50);
         }
@@ -58,9 +37,12 @@
 
         /* Floating Animation for Hero Elements */
         @keyframes float {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0px) rotate(0deg);
             }
+
             50% {
                 transform: translateY(-10px) rotate(180deg);
             }
@@ -142,6 +124,23 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+        }
+        /* search-box */
+        .search-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .search-box:focus-within {
+            transform: translateY(-2px);
+            box-shadow:
+                0 25px 50px rgba(37, 99, 235, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
         }
 
         /* Stats Card */
@@ -302,6 +301,7 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
@@ -349,16 +349,12 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
-        <lottie-player
-          src="https://assets2.lottiefiles.com/packages/lf20_usmfx6bp.json"
-          background="transparent"
-          speed="1"
-          style="width:400px; height:300px;"
-          loop
-          autoplay>
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_usmfx6bp.json" background="transparent"
+            speed="1" style="width:400px; height:300px;" loop autoplay>
         </lottie-player>
         <p class="mt-5 text-gray-600 text-lg animate-bounce">Memuat pengalaman belajar terbaik...</p>
     </div>
@@ -465,14 +461,16 @@
                     <!-- User Menu -->
                     <div class="user-menu">
                         <button class="user-avatar">
-                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="User">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
+                                alt="User">
                             <div class="user-status"></div>
                             <div class="avatar-shine"></div>
                         </button>
                         <div class="user-dropdown">
                             <div class="user-info">
                                 <div class="user-avatar-large">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face" alt="User">
+                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face"
+                                        alt="User">
                                 </div>
                                 <div class="user-details">
                                     <h4>Ahmad Rizki</h4>
@@ -579,40 +577,26 @@
 
                 <!-- Description -->
                 <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto reveal">
-                    Temukan artikel menarik seputar pendidikan, tips belajar, dan informasi terkini untuk meningkatkan pengetahuan dan prestasi belajar Anda.
+                    Temukan artikel menarik seputar pendidikan, tips belajar, dan informasi terkini untuk meningkatkan
+                    pengetahuan dan prestasi belajar Anda.
                 </p>
 
                 <!-- Search Box -->
                 <div class="max-w-2xl mx-auto mb-8 reveal">
-                    <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
-                        <div class="flex items-center">
-                            <i class="fas fa-search text-white/70 ml-3 mr-3"></i>
-                            <input type="text" placeholder="Cari artikel berdasarkan topik, kata kunci..."
-                                class="flex-1 bg-transparent outline-none text-white placeholder-white/70 text-base">
-                            <button class="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors">
-                                <i class="fas fa-search mr-2"></i>
-                                Cari
-                            </button>
+                    <div class="search-box rounded-full p-2 flex flex-col sm:flex-row gap-2 shadow-2xl">
+                        <div class="flex items-center flex-1 px-4 py-3">
+                            <i class="fas fa-search text-gray-400 mr-3 text-lg"></i>
+                            <input type="text" placeholder="Cari kuis, kategori, atau topik..."
+                                class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-base">
                         </div>
+                        <button class="btn btn-primary rounded-full whitespace-nowrap py-3 px-6">
+                            <i class="fas fa-search mr-2"></i>
+                            <span>Cari Kuis</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Kategori Populer -->
-                <div class="flex flex-wrap justify-center items-center gap-3 reveal">
-                    <span class="text-white/80 text-sm">Kategori Populer:</span>
-                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
-                        <i class="fas fa-lightbulb mr-1"></i>Tips Belajar
-                    </button>
-                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
-                        <i class="fas fa-graduation-cap mr-1"></i>Pendidikan
-                    </button>
-                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
-                        <i class="fas fa-brain mr-1"></i>Psikologi Belajar
-                    </button>
-                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
-                        <i class="fas fa-chart-line mr-1"></i>Strategi Ujian
-                    </button>
-                </div>
+
             </div>
         </div>
 
@@ -623,7 +607,7 @@
     <!-- Stats Section -->
     <section class="stats py-20 -mt-[11rem] relative z-20">
         <div class="container mx-auto px-6">
-            <div class="bg-white/80 backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
+            <div class="bg-white backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
 
                     <!-- Total Artikel -->
@@ -758,8 +742,10 @@
                                 </span>
                                 <span class="text-gray-500 text-sm">• 10 menit baca</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 text-xl mb-3">10 Strategi Efektif untuk Meningkatkan Konsentrasi Belajar</h3>
-                            <p class="text-gray-600 mb-4">Temukan teknik-teknik terbaru yang terbukti secara ilmiah untuk meningkatkan fokus dan konsentrasi selama sesi belajar Anda.</p>
+                            <h3 class="font-bold text-gray-800 text-xl mb-3">10 Strategi Efektif untuk Meningkatkan
+                                Konsentrasi Belajar</h3>
+                            <p class="text-gray-600 mb-4">Temukan teknik-teknik terbaru yang terbukti secara ilmiah
+                                untuk meningkatkan fokus dan konsentrasi selama sesi belajar Anda.</p>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
@@ -788,8 +774,10 @@
                                 </span>
                                 <span class="text-gray-500 text-sm">• 8 menit baca</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 text-xl mb-3">Masa Depan Pendidikan: Teknologi yang Mengubah Cara Belajar</h3>
-                            <p class="text-gray-600 mb-4">Eksplorasi bagaimana AI, VR, dan teknologi lainnya merevolusi pengalaman belajar dan mengajar di era digital.</p>
+                            <h3 class="font-bold text-gray-800 text-xl mb-3">Masa Depan Pendidikan: Teknologi yang
+                                Mengubah Cara Belajar</h3>
+                            <p class="text-gray-600 mb-4">Eksplorasi bagaimana AI, VR, dan teknologi lainnya merevolusi
+                                pengalaman belajar dan mengajar di era digital.</p>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
@@ -824,8 +812,10 @@
                                 </span>
                                 <span class="text-gray-500 text-sm">• 12 menit baca</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Memahami Gaya Belajar: Visual, Auditori, atau Kinestetik?</h3>
-                            <p class="text-gray-600 mb-4">Identifikasi gaya belajar dominan Anda dan terapkan strategi yang tepat untuk hasil belajar yang maksimal.</p>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Memahami Gaya Belajar: Visual, Auditori,
+                                atau Kinestetik?</h3>
+                            <p class="text-gray-600 mb-4">Identifikasi gaya belajar dominan Anda dan terapkan strategi
+                                yang tepat untuk hasil belajar yang maksimal.</p>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
@@ -853,8 +843,10 @@
                                 </span>
                                 <span class="text-gray-500 text-sm">• 6 menit baca</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Teknik Pomodoro: Cara Efektif Mengatur Waktu Belajar</h3>
-                            <p class="text-gray-600 mb-4">Pelajari teknik manajemen waktu yang terbukti meningkatkan produktivitas belajar dan mengurangi kelelahan mental.</p>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Teknik Pomodoro: Cara Efektif Mengatur
+                                Waktu Belajar</h3>
+                            <p class="text-gray-600 mb-4">Pelajari teknik manajemen waktu yang terbukti meningkatkan
+                                produktivitas belajar dan mengurangi kelelahan mental.</p>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face"
@@ -882,8 +874,10 @@
                                 </span>
                                 <span class="text-gray-500 text-sm">• 15 menit baca</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Platform Belajar Online Terbaik untuk Siswa</h3>
-                            <p class="text-gray-600 mb-4">Ulasan mendalam tentang platform belajar online terpopuler dan bagaimana memilih yang tepat untuk kebutuhan Anda.</p>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Platform Belajar Online Terbaik untuk Siswa
+                            </h3>
+                            <p class="text-gray-600 mb-4">Ulasan mendalam tentang platform belajar online terpopuler dan
+                                bagaimana memilih yang tepat untuk kebutuhan Anda.</p>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
@@ -911,8 +905,10 @@
                                 </span>
                                 <span class="text-gray-500 text-sm">• 7 menit baca</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Cara Membuat Catatan yang Efektif untuk Belajar</h3>
-                            <p class="text-gray-600 mb-4">Teknik mencatat yang terbukti membantu mengingat informasi lebih baik dan mempersiapkan ujian dengan efisien.</p>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Cara Membuat Catatan yang Efektif untuk
+                                Belajar</h3>
+                            <p class="text-gray-600 mb-4">Teknik mencatat yang terbukti membantu mengingat informasi
+                                lebih baik dan mempersiapkan ujian dengan efisien.</p>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=40&h=40&fit=crop&crop=face"
@@ -940,8 +936,10 @@
                                 </span>
                                 <span class="text-gray-500 text-sm">• 10 menit baca</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Peran Orang Tua dalam Mendukung Prestasi Akademik Anak</h3>
-                            <p class="text-gray-600 mb-4">Strategi praktis bagi orang tua untuk menciptakan lingkungan belajar yang mendukung dan memotivasi anak.</p>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Peran Orang Tua dalam Mendukung Prestasi
+                                Akademik Anak</h3>
+                            <p class="text-gray-600 mb-4">Strategi praktis bagi orang tua untuk menciptakan lingkungan
+                                belajar yang mendukung dan memotivasi anak.</p>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=40&h=40&fit=crop&crop=face"
@@ -969,8 +967,10 @@
                                 </span>
                                 <span class="text-gray-500 text-sm">• 9 menit baca</span>
                             </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Mengatasi Kecemasan Saat Menghadapi Ujian</h3>
-                            <p class="text-gray-600 mb-4">Teknik relaksasi dan strategi mental untuk mengelola stres dan kecemasan sebelum dan selama ujian.</p>
+                            <h3 class="font-bold text-gray-800 text-lg mb-3">Mengatasi Kecemasan Saat Menghadapi Ujian
+                            </h3>
+                            <p class="text-gray-600 mb-4">Teknik relaksasi dan strategi mental untuk mengelola stres dan
+                                kecemasan sebelum dan selama ujian.</p>
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center gap-3">
                                     <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
@@ -1002,7 +1002,8 @@
         <div class="container mx-auto px-4 text-center relative z-10">
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Ingin Menjadi Kontributor Artikel?</h2>
-                <p class="text-lg text-white/90 mb-8">Bergabunglah dengan komunitas penulis EduQuiz dan bagikan pengetahuan serta pengalaman Anda kepada ribuan pembaca.</p>
+                <p class="text-lg text-white/90 mb-8">Bergabunglah dengan komunitas penulis EduQuiz dan bagikan
+                    pengetahuan serta pengalaman Anda kepada ribuan pembaca.</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="#"
                         class="btn btn-primary bg-white text-blue-600 hover:bg-gray-100 hover:text-blue-700 px-8 py-4 text-lg rounded-xl">
@@ -1025,23 +1026,29 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
                 <div class="lg:col-span-2">
                     <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
                             <i class="fas fa-graduation-cap text-white text-xl"></i>
                         </div>
                         <span class="text-2xl font-bold">EduQuiz</span>
                     </div>
-                    <p class="text-gray-400 mb-6 max-w-md">Platform belajar interaktif dengan kuiz dan materi dari guru profesional untuk meningkatkan prestasi belajar siswa.</p>
+                    <p class="text-gray-400 mb-6 max-w-md">Platform belajar interaktif dengan kuiz dan materi dari guru
+                        profesional untuk meningkatkan prestasi belajar siswa.</p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600 transition-colors">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-400 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-400 transition-colors">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-pink-600 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-pink-600 transition-colors">
                             <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-700 transition-colors">
+                        <a href="#"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-700 transition-colors">
                             <i class="fab fa-linkedin-in"></i>
                         </a>
                     </div>
@@ -1050,11 +1057,14 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-6">Tautan Cepat</h3>
                     <ul class="space-y-3">
-                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Beranda</a>
+                        </li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Tentang Kami</a></li>
-                        <li><a href="materi.html" class="text-gray-400 hover:text-white transition-colors">Materi</a></li>
+                        <li><a href="materi.html" class="text-gray-400 hover:text-white transition-colors">Materi</a>
+                        </li>
                         <li><a href="quiz.html" class="text-gray-400 hover:text-white transition-colors">Kuiz</a></li>
-                        <li><a href="Artikel.html" class="text-gray-400 hover:text-white transition-colors">Artikel</a></li>
+                        <li><a href="Artikel.html" class="text-gray-400 hover:text-white transition-colors">Artikel</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -1065,7 +1075,8 @@
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Fisika</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Kimia</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Biologi</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bahasa Indonesia</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Bahasa Indonesia</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -1178,4 +1189,5 @@
         });
     </script>
 </body>
+
 </html>
