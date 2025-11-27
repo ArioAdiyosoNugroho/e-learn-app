@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Quiz - Trigonometri Dasar | EduQuiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+            color: #1a202c;
+        }
+
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+        }
+
+        .score-display {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        .score-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .score-progress {
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        .score-circle-bg {
+            fill: none;
+            stroke: #f1f5f9;
+            stroke-width: 8;
+        }
+
+        .score-circle-fill {
+            fill: none;
+            stroke-width: 8;
+            stroke-linecap: round;
+            transition: stroke-dasharray 1s ease;
+            stroke: #3b82f6;
+        }
+
+        .score-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.25rem 1rem;
+            border-radius: 8px;
+            background: #f8fafc;
+            transition: all 0.2s ease;
+        }
+
+        .stat-item:hover {
+            background: #f1f5f9;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .questions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .question-item {
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .question-item:hover {
+            border-color: #cbd5e1;
+        }
+
+        .question-item.correct {
+            border-left: 4px solid #10b981;
+        }
+
+        .question-item.incorrect {
+            border-left: 4px solid #ef4444;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+
+        .badge-error {
+            background: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+        }
+
+        .answer-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .answer-box {
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .answer-correct {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .answer-incorrect {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .recommendation-card {
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .recommendation-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #374151;
+            border: 1px solid #d1d5db;
+        }
+
+        .btn-secondary:hover {
+            background: #f9fafb;
+            border-color: #9ca3af;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .answer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 py-4 sticky top-0 z-10">
+        <div class="container-custom px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-gray-900 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-semibold text-gray-900">EduQuiz</span>
+                        <p class="text-sm text-gray-600">Trigonometri Dasar</p>
+                    </div>
+                </div>
+                <a href="quiz.html" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left mr-2"></i>Kembali
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-8">
+        <div class="container-custom px-4">
+            <!-- Main Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                <!-- Left Column - Score & Stats -->
+                <div class="lg:col-span-1 space-y-6">
+                    <!-- Score Card -->
+                    <div class="card p-6 fade-in">
+                        <div class="text-center mb-6">
+                            <h1 class="text-2xl font-semibold text-gray-900 mb-2">Hasil Quiz</h1>
+                            <p class="text-gray-600">Trigonometri Dasar</p>
+                        </div>
+
+                        <div class="score-display mb-6">
+                            <div class="score-circle">
+                                <svg class="score-progress" width="160" height="160" viewBox="0 0 160 160">
+                                    <circle class="score-circle-bg" cx="80" cy="80" r="70"></circle>
+                                    <circle class="score-circle-fill" cx="80" cy="80" r="70"
+                                            stroke-dasharray="439.82"
+                                            stroke-dashoffset="439.82"
+                                            id="scoreCircle"></circle>
+                                </svg>
+                                <div class="score-text">
+                                    <span id="scoreValue" class="text-3xl font-bold text-gray-900 block">0</span>
+                                    <span class="text-gray-500 text-sm">dari 100</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="performanceMessage" class="text-center mb-6">
+                            <!-- Will be filled by JavaScript -->
+                        </div>
+
+                        <!-- Stats Grid -->
+                        <div class="stat-grid mb-6">
+                            <div class="stat-item">
+                                <div class="stat-value" id="correctCount">0</div>
+                                <div class="stat-label">Jawaban Benar</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="incorrectCount">0</div>
+                                <div class="stat-label">Jawaban Salah</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="timeSpent">0:00</div>
+                                <div class="stat-label">Waktu</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="accuracy">0%</div>
+                                <div class="stat-label">Akurasi</div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="grid grid-cols-1 gap-3">
+                            <button id="retryQuiz" class="btn btn-primary">
+                                <i class="fas fa-redo mr-2"></i>Coba Lagi
+                            </button>
+                            <button id="reviewAnswers" class="btn btn-secondary">
+                                <i class="fas fa-list-ol mr-2"></i>Review Jawaban
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Stats -->
+                    <div class="card p-6 fade-in" style="animation-delay: 0.1s;">
+                        <h3 class="font-semibold text-gray-900 mb-4">Ringkasan Performa</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                    <span>Kesulitan Soal</span>
+                                    <span>Menengah</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-amber-500 h-2 rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                    <span>Kecepatan Menjawab</span>
+                                    <span>Cepat</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                    <span>Progress Pembelajaran</span>
+                                    <span>72%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-500 h-2 rounded-full" style="width: 72%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Questions & Recommendations -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Questions Review -->
+                    <div class="card p-6 fade-in">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-semibold text-gray-900">Detail Jawaban</h2>
+                            <span class="text-sm text-gray-600">8 dari 10 soal terjawab benar</span>
+                        </div>
+
+                        <div class="questions-grid">
+                            <!-- Question 1 -->
+                            <div class="question-item correct">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="badge badge-success">
+                                            <i class="fas fa-check mr-1"></i> Benar
+                                        </span>
+                                        <span class="text-sm text-gray-500">Soal #1</span>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-700">+10 Poin</span>
+                                </div>
+
+                                <p class="text-gray-800 font-medium mb-4">Nilai dari sin(30°) + cos(60°) adalah:</p>
+
+                                <div class="answer-grid">
+                                    <div class="answer-box answer-correct">
+                                        <p class="text-sm text-gray-600 mb-1">Jawaban Anda</p>
+                                        <p class="font-medium text-green-700">C. 1</p>
+                                    </div>
+                                    <div class="answer-box">
+                                        <p class="text-sm text-gray-600 mb-1">Jawaban Benar</p>
+                                        <p class="font-medium text-gray-800">C. 1</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                                    <p class="text-sm text-blue-800">
+                                        <span class="font-medium">Pembahasan:</span> Sin 30° = 1/2 dan Cos 60° = 1/2.
+                                        Jadi, 1/2 + 1/2 = 1. Jawaban yang tepat adalah C.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Question 2 -->
+                            <div class="question-item incorrect">
+                                <div class="flex items-start justify-between mb-4">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="badge badge-error">
+                                            <i class="fas fa-times mr-1"></i> Salah
+                                        </span>
+                                        <span class="text-sm text-gray-500">Soal #2</span>
+                                    </div>
+                                    <span class="text-sm font-medium text-gray-700">+0 Poin</span>
+                                </div>
+
+                                <p class="text-gray-800 font-medium mb-4">Nilai dari tan(45°) adalah:</p>
+
+                                <div class="answer-grid">
+                                    <div class="answer-box answer-incorrect">
+                                        <p class="text-sm text-gray-600 mb-1">Jawaban Anda</p>
+                                        <p class="font-medium text-red-700">B. √2/2</p>
+                                    </div>
+                                    <div class="answer-box">
+                                        <p class="text-sm text-gray-600 mb-1">Jawaban Benar</p>
+                                        <p class="font-medium text-gray-800">C. 1</p>
+                                    </div>
+                                </div>
+
+                                <div class="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                                    <p class="text-sm text-blue-800">
+                                        <span class="font-medium">Pembahasan:</span> Tan 45° = sin 45° / cos 45° = (√2/2) / (√2/2) = 1.
+                                        Jawaban yang tepat adalah C.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-6">
+                            <button class="btn btn-secondary">
+                                <i class="fas fa-chevron-down mr-2"></i>Tampilkan Semua Soal
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Recommendations -->
+                    <div class="card p-6 fade-in" style="animation-delay: 0.2s;">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-6">Rekomendasi Pembelajaran</h2>
+
+                        <div class="recommendations-grid">
+                            <!-- Recommendation 1 -->
+                            <div class="recommendation-card">
+                                <div class="flex items-start mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600 mr-4">
+                                        <i class="fas fa-book"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Trigonometri Lanjutan</h3>
+                                        <p class="text-gray-600 text-sm">Pelajari identitas trigonometri dan persamaan trigonometri.</p>
+                                    </div>
+                                </div>
+                                <button class="w-full py-2 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">
+                                    Pelajari Sekarang
+                                </button>
+                            </div>
+
+                            <!-- Recommendation 2 -->
+                            <div class="recommendation-card">
+                                <div class="flex items-start mb-4">
+                                    <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600 mr-4">
+                                        <i class="fas fa-play-circle"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-semibold text-gray-800 mb-1">Video Pembahasan</h3>
+                                        <p class="text-gray-600 text-sm">Tonton penjelasan detail tentang soal yang sulit.</p>
+                                    </div>
+                                </div>
+                                <button class="w-full py-2 bg-gray-900 text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">
+                                    Tonton Video
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="container-custom px-4">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <div class="w-8 h-8 rounded-lg bg-gray-900 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-white"></i>
+                    </div>
+                    <span class="text-lg font-semibold text-gray-900">EduQuiz</span>
+                </div>
+                <p class="text-gray-600 max-w-2xl mx-auto mb-6 text-sm">
+                    Platform belajar interaktif dengan quiz dan materi untuk meningkatkan prestasi belajar.
+                </p>
+                <div class="flex justify-center space-x-6 text-sm">
+                    <a href="#" class="text-gray-600 hover:text-gray-900 transition-colors">Beranda</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900 transition-colors">Materi</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900 transition-colors">Quiz</a>
+                    <a href="#" class="text-gray-600 hover:text-gray-900 transition-colors">Kontak</a>
+                </div>
+                <div class="border-t border-gray-200 mt-6 pt-6 text-center text-gray-500 text-sm">
+                    <p>&copy; 2024 EduQuiz. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quiz result data
+            const quizResult = {
+                score: 85,
+                totalQuestions: 10,
+                correctAnswers: 8,
+                incorrectAnswers: 2,
+                timeSpent: "12:45",
+                accuracy: 80,
+                performance: "good" // poor, fair, good, excellent
+            };
+
+            // Performance messages
+            const performanceMessages = {
+                poor: {
+                    message: "Perlu lebih banyak latihan!",
+                    color: "text-red-600",
+                },
+                fair: {
+                    message: "Lumayan, tapi bisa lebih baik!",
+                    color: "text-amber-600",
+                },
+                good: {
+                    message: "Hasil yang bagus! Terus berlatih!",
+                    color: "text-green-600",
+                },
+                excellent: {
+                    message: "Luar biasa! Hasil sempurna!",
+                    color: "text-blue-600",
+                }
+            };
+
+            // Initialize result display
+            function initializeResultDisplay() {
+                // Animate score circle
+                const scoreCircle = document.getElementById('scoreCircle');
+                const circumference = 2 * Math.PI * 70;
+                const offset = circumference - (quizResult.score / 100) * circumference;
+
+                setTimeout(() => {
+                    scoreCircle.style.strokeDashoffset = offset;
+                }, 500);
+
+                // Update score value with count-up animation
+                let currentScore = 0;
+                const scoreInterval = setInterval(() => {
+                    currentScore += 1;
+                    document.getElementById('scoreValue').textContent = currentScore;
+
+                    if (currentScore >= quizResult.score) {
+                        clearInterval(scoreInterval);
+                        document.getElementById('scoreValue').textContent = quizResult.score;
+                    }
+                }, 20);
+
+                // Update stats
+                document.getElementById('correctCount').textContent = quizResult.correctAnswers;
+                document.getElementById('incorrectCount').textContent = quizResult.incorrectAnswers;
+                document.getElementById('timeSpent').textContent = quizResult.timeSpent;
+                document.getElementById('accuracy').textContent = `${quizResult.accuracy}%`;
+
+                // Set performance message
+                const performance = performanceMessages[quizResult.performance];
+                const performanceElement = document.getElementById('performanceMessage');
+                performanceElement.innerHTML = `
+                    <div class="${performance.color} font-medium">${performance.message}</div>
+                `;
+            }
+
+            // Retry quiz
+            document.getElementById('retryQuiz').addEventListener('click', function() {
+                // In a real app, this would redirect to the quiz start page
+                window.location.href = 'show_quiz.html';
+            });
+
+            // Review answers - scroll to questions section
+            document.getElementById('reviewAnswers').addEventListener('click', function() {
+                document.querySelector('.questions-grid').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+
+            // Initialize everything
+            initializeResultDisplay();
+        });
+    </script>
+</body>
+
+</html>

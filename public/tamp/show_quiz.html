@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trigonometri Dasar - Quiz | EduQuiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f8fafc;
+        }
+
+        .quiz-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+        }
+
+        .option-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.1);
+        }
+
+        .option-card.selected {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .progress-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: #e2e8f0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .timer {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .timer-warning {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .question-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .question-number.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .question-number.answered {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .question-number.unanswered {
+            background: rgba(248, 113, 113, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .math-expression {
+            font-family: 'Times New Roman', serif;
+            font-size: 1.1em;
+        }
+
+        .hint-box {
+            background: rgba(255, 243, 205, 0.3);
+            border-left: 4px solid var(--warning);
+        }
+
+        .explanation-box {
+            background: rgba(240, 253, 244, 0.3);
+            border-left: 4px solid var(--success);
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
+        <p class="text-gray-600">Mempersiapkan quiz...</p>
+    </div>
+
+    <!-- Simplified Header -->
+    <header class="bg-white border-b border-gray-200 py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="quiz.html" class="flex items-center text-gray-600 hover:text-gray-800 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        <span>Kembali</span>
+                    </a>
+                </div>
+
+                <div class="text-center">
+                    <p class="text-sm text-gray-500">Matematika</p>
+                    <h1 class="text-xl font-semibold text-gray-800">Trigonometri Dasar</h1>
+                </div>
+
+                <div class="w-20"></div> <!-- Spacer untuk balance -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Quiz Content -->
+    <main class="py-8">
+        <div class="quiz-container px-4">
+            <div class="flex flex-col lg:flex-row gap-6">
+                <!-- Left Sidebar -->
+                <div class="lg:w-1/4 space-y-6">
+                    <!-- Timer Card -->
+                    <div class="sidebar-card p-5">
+                        <h3 class="font-semibold text-gray-800 mb-3">Sisa Waktu</h3>
+                        <div class="flex items-center justify-center space-x-2 bg-blue-50 px-4 py-3 rounded-lg">
+                            <i class="fas fa-clock text-blue-600"></i>
+                            <span id="timer" class="text-blue-700 font-bold text-xl timer">15:00</span>
+                        </div>
+                    </div>
+
+                    <!-- Question Navigation -->
+                    <div class="sidebar-card p-5">
+                        <h3 class="font-semibold text-gray-800 mb-4">Navigasi Soal</h3>
+                        <div class="grid grid-cols-5 gap-2 mb-4">
+                            <!-- Question numbers will be generated dynamically -->
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-100">
+                            <div class="flex items-center justify-between text-sm mb-2">
+                                <span class="text-gray-600">Progress</span>
+                                <span id="progress-text" class="font-semibold">1/10</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Info -->
+                    <div class="sidebar-card p-5">
+                        <h3 class="font-semibold text-gray-800 mb-3">Informasi Quiz</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">Total Soal</span>
+                                <span class="font-semibold">10</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">Nilai Minimum</span>
+                                <span class="font-semibold">70/100</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">Tingkat Kesulitan</span>
+                                <span class="font-semibold text-green-600">Mudah</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="sidebar-card p-5">
+                        <h3 class="font-semibold text-gray-800 mb-3">Aksi Cepat</h3>
+                        <div class="space-y-2">
+                            <button id="submitQuiz" class="w-full py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors flex items-center justify-center">
+                                <i class="fas fa-paper-plane mr-2"></i>Kumpulkan
+                            </button>
+                            <button id="flagQuestion" class="w-full py-2 border border-yellow-300 text-yellow-700 rounded-lg text-sm font-medium hover:bg-yellow-50 transition-colors flex items-center justify-center">
+                                <i class="far fa-flag mr-2"></i>Tandai Soal
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Question Area -->
+                <div class="lg:w-3/4">
+                    <div class="question-card p-6">
+                        <!-- Question Header -->
+                        <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
+                            <div>
+                                <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Soal #1</span>
+                                <h2 class="text-lg font-semibold text-gray-800 mt-2">Trigonometri Dasar</h2>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm text-gray-500">
+                                <i class="far fa-clock"></i>
+                                <span>Perkiraan: 2 menit</span>
+                            </div>
+                        </div>
+
+                        <!-- Question Content -->
+                        <div class="mb-6">
+                            <p class="text-gray-700 text-lg mb-4">Nilai dari <span class="math-expression">sin(30°) + cos(60°)</span> adalah:</p>
+
+                            <!-- Hint Box -->
+                            <div class="hint-box p-4 rounded-lg mb-6">
+                                <div class="flex items-start">
+                                    <i class="fas fa-lightbulb text-yellow-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <p class="font-medium text-gray-800 mb-1">Petunjuk</p>
+                                        <p class="text-gray-600 text-sm">Ingat nilai-nilai trigonometri sudut istimewa. Sin 30° = 1/2 dan Cos 60° = 1/2.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Options -->
+                        <div class="space-y-3 mb-6">
+                            <div class="option-card p-4" data-option="A">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 font-medium text-gray-700">A</div>
+                                    <div class="flex-1">
+                                        <p class="text-gray-800">0</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="option-card p-4" data-option="B">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 font-medium text-gray-700">B</div>
+                                    <div class="flex-1">
+                                        <p class="text-gray-800"><span class="math-expression">1/2</span></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="option-card p-4" data-option="C">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 font-medium text-gray-700">C</div>
+                                    <div class="flex-1">
+                                        <p class="text-gray-800">1</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="option-card p-4" data-option="D">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 font-medium text-gray-700">D</div>
+                                    <div class="flex-1">
+                                        <p class="text-gray-800"><span class="math-expression">√3/2</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Explanation -->
+                        <div id="explanation" class="explanation-box p-4 rounded-lg mb-6 hidden">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <div>
+                                    <p class="font-medium text-gray-800 mb-1">Pembahasan</p>
+                                    <p class="text-gray-600 text-sm">Sin 30° = 1/2 dan Cos 60° = 1/2. Jadi, 1/2 + 1/2 = 1. Jawaban yang tepat adalah C.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="flex justify-between pt-6 border-t border-gray-100">
+                            <button id="prevBtn" class="px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:border-blue-500 hover:text-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center" disabled>
+                                <i class="fas fa-arrow-left mr-2"></i>Sebelumnya
+                            </button>
+
+                            <button id="nextBtn" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center">
+                                Selanjutnya<i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Submit Confirmation Modal -->
+    <div id="submitModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
+            <div class="text-center">
+                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-paper-plane text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">Kumpulkan Quiz?</h3>
+                <p class="text-gray-600 mb-4">Anda telah menjawab <span id="answered-count">5</span> dari 10 soal.</p>
+                <p class="text-gray-600 mb-6">Pastikan Anda sudah memeriksa semua jawaban sebelum mengumpulkan.</p>
+
+                <div class="flex space-x-3">
+                    <button id="cancelSubmit" class="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
+                        Periksa Lagi
+                    </button>
+                    <button id="confirmSubmit" class="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                        Ya, Kumpulkan
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+            }, 1000);
+
+            // Quiz state
+            const quizState = {
+                currentQuestion: 1,
+                totalQuestions: 10,
+                answers: {},
+                flaggedQuestions: new Set(),
+                timeRemaining: 15 * 60, // 15 minutes in seconds
+                timerInterval: null
+            };
+
+            // Initialize question navigation
+            function initializeQuestionNavigation() {
+                const navigationContainer = document.querySelector('.grid.grid-cols-5');
+                navigationContainer.innerHTML = '';
+
+                for (let i = 1; i <= quizState.totalQuestions; i++) {
+                    const questionNumber = document.createElement('div');
+                    questionNumber.className = 'question-number';
+                    questionNumber.textContent = i;
+                    questionNumber.dataset.question = i;
+
+                    if (i === quizState.currentQuestion) {
+                        questionNumber.classList.add('active');
+                    }
+
+                    questionNumber.addEventListener('click', () => {
+                        navigateToQuestion(i);
+                    });
+
+                    navigationContainer.appendChild(questionNumber);
+                }
+
+                updateProgress();
+            }
+
+            // Update progress bar and text
+            function updateProgress() {
+                const progressFill = document.getElementById('progress-fill');
+                const progressText = document.getElementById('progress-text');
+                const progress = (quizState.currentQuestion / quizState.totalQuestions) * 100;
+
+                progressFill.style.width = `${progress}%`;
+                progressText.textContent = `${quizState.currentQuestion}/${quizState.totalQuestions}`;
+
+                // Update question numbers
+                document.querySelectorAll('.question-number').forEach(el => {
+                    const questionNum = parseInt(el.dataset.question);
+                    el.classList.remove('active', 'answered', 'unanswered');
+
+                    if (questionNum === quizState.currentQuestion) {
+                        el.classList.add('active');
+                    } else if (quizState.answers[questionNum]) {
+                        el.classList.add('answered');
+                    } else {
+                        el.classList.add('unanswered');
+                    }
+                });
+            }
+
+            // Navigate to specific question
+            function navigateToQuestion(questionNum) {
+                if (questionNum < 1 || questionNum > quizState.totalQuestions) return;
+
+                quizState.currentQuestion = questionNum;
+                updateQuestionDisplay();
+                updateProgress();
+
+                // Update button states
+                document.getElementById('prevBtn').disabled = questionNum === 1;
+            }
+
+            // Update question display
+            function updateQuestionDisplay() {
+                // In a real app, this would fetch question data
+                document.querySelector('.text-blue-600').textContent = `Soal #${quizState.currentQuestion}`;
+
+                // Update flag button
+                const flagBtn = document.getElementById('flagQuestion');
+                if (quizState.flaggedQuestions.has(quizState.currentQuestion)) {
+                    flagBtn.innerHTML = '<i class="fas fa-flag text-yellow-500 mr-2"></i>Hapus Tanda';
+                    flagBtn.classList.add('bg-yellow-100', 'border-yellow-400');
+                } else {
+                    flagBtn.innerHTML = '<i class="far fa-flag mr-2"></i>Tandai Soal';
+                    flagBtn.classList.remove('bg-yellow-100', 'border-yellow-400');
+                }
+
+                // Clear previous selection
+                document.querySelectorAll('.option-card').forEach(card => {
+                    card.classList.remove('selected', 'correct', 'incorrect');
+                });
+
+                // Show current answer if exists
+                const currentAnswer = quizState.answers[quizState.currentQuestion];
+                if (currentAnswer) {
+                    const optionCard = document.querySelector(`.option-card[data-option="${currentAnswer}"]`);
+                    if (optionCard) {
+                        optionCard.classList.add('selected');
+                    }
+                }
+
+                // Hide explanation by default
+                document.getElementById('explanation').classList.add('hidden');
+            }
+
+            // Option selection
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    // Clear previous selection
+                    document.querySelectorAll('.option-card').forEach(c => {
+                        c.classList.remove('selected');
+                    });
+
+                    // Select current option
+                    this.classList.add('selected');
+
+                    // Save answer
+                    const selectedOption = this.dataset.option;
+                    quizState.answers[quizState.currentQuestion] = selectedOption;
+
+                    // Update navigation
+                    updateProgress();
+                });
+            });
+
+            // Flag question
+            document.getElementById('flagQuestion').addEventListener('click', function() {
+                if (quizState.flaggedQuestions.has(quizState.currentQuestion)) {
+                    quizState.flaggedQuestions.delete(quizState.currentQuestion);
+                } else {
+                    quizState.flaggedQuestions.add(quizState.currentQuestion);
+                }
+
+                updateQuestionDisplay();
+                updateProgress();
+            });
+
+            // Navigation buttons
+            document.getElementById('prevBtn').addEventListener('click', function() {
+                navigateToQuestion(quizState.currentQuestion - 1);
+            });
+
+            document.getElementById('nextBtn').addEventListener('click', function() {
+                if (quizState.currentQuestion < quizState.totalQuestions) {
+                    navigateToQuestion(quizState.currentQuestion + 1);
+                } else {
+                    // If last question, show submit modal
+                    document.getElementById('submitModal').classList.remove('hidden');
+                }
+            });
+
+            // Timer functionality
+            function startTimer() {
+                quizState.timerInterval = setInterval(() => {
+                    quizState.timeRemaining--;
+
+                    const minutes = Math.floor(quizState.timeRemaining / 60);
+                    const seconds = quizState.timeRemaining % 60;
+
+                    document.getElementById('timer').textContent =
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                    // Add warning when time is running out
+                    if (quizState.timeRemaining <= 60) {
+                        document.getElementById('timer').classList.add('timer-warning', 'text-red-600');
+                        document.getElementById('timer').parentElement.classList.add('bg-red-50');
+                    }
+
+                    // Auto-submit when time is up
+                    if (quizState.timeRemaining <= 0) {
+                        clearInterval(quizState.timerInterval);
+                        submitQuiz();
+                    }
+                }, 1000);
+            }
+
+            // Submit quiz modal
+            document.getElementById('submitQuiz').addEventListener('click', function() {
+                const answeredCount = Object.keys(quizState.answers).length;
+                document.getElementById('answered-count').textContent = answeredCount;
+                document.getElementById('submitModal').classList.remove('hidden');
+            });
+
+            document.getElementById('cancelSubmit').addEventListener('click', function() {
+                document.getElementById('submitModal').classList.add('hidden');
+            });
+
+            document.getElementById('confirmSubmit').addEventListener('click', function() {
+                submitQuiz();
+            });
+
+            // Submit quiz function
+            function submitQuiz() {
+                clearInterval(quizState.timerInterval);
+
+                // In a real app, this would submit answers to the server
+                // and redirect to results page
+
+                // For demo, we'll just redirect to a results page
+                window.location.href = 'quiz_results.html';
+            }
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Number keys 1-4 for options
+                if (e.key >= '1' && e.key <= '4') {
+                    const optionLetters = ['A', 'B', 'C', 'D'];
+                    const optionCard = document.querySelector(`.option-card[data-option="${optionLetters[parseInt(e.key) - 1]}"]`);
+                    if (optionCard) {
+                        optionCard.click();
+                    }
+                }
+
+                // Arrow keys for navigation
+                if (e.key === 'ArrowLeft' && quizState.currentQuestion > 1) {
+                    navigateToQuestion(quizState.currentQuestion - 1);
+                }
+
+                if (e.key === 'ArrowRight' && quizState.currentQuestion < quizState.totalQuestions) {
+                    navigateToQuestion(quizState.currentQuestion + 1);
+                }
+
+                // Space bar to flag
+                if (e.key === ' ' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
+                    e.preventDefault();
+                    document.getElementById('flagQuestion').click();
+                }
+
+                // Enter to submit on last question
+                if (e.key === 'Enter' && quizState.currentQuestion === quizState.totalQuestions) {
+                    document.getElementById('submitQuiz').click();
+                }
+            });
+
+            // Initialize everything
+            initializeQuestionNavigation();
+            updateQuestionDisplay();
+            startTimer();
+        });
+    </script>
+</body>
+
+</html>
