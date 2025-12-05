@@ -4,596 +4,692 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trigonometri Dasar - Quiz | EduQuiz</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Trigonometri Dasar - Modern Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+
     <style>
+        /* --- 1. CONFIG & VARIABLES --- */
         :root {
+            /* Warna Dasar Request */
+            --accent: #06b6d4;
+            --dark: #1e293b;
+            --light: #f8fafc;
             --primary: #2563eb;
-            --primary-dark: #1d4ed8;
+            --primary-dark: #1d4ed8; /* Key Color untuk Elegan */
+            --primary-light: #dbeafe;
+            --primary-subtle: #eff6ff;
             --success: #10b981;
             --warning: #f59e0b;
             --error: #ef4444;
+
+            /* Grays */
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+
+            /* Shadows & Radius */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --border-radius-xl: 16px;
+
+            --transition: all 0.2s ease-in-out;
+            --font-main: 'Inter', sans-serif;
+            --header-height: 70px;
         }
+
+        /* --- 2. RESET & BASE --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #f8fafc;
+            font-family: var(--font-main);
+            background-color: var(--gray-50);
+            color: var(--gray-800);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
 
-        .quiz-container {
-            max-width: 1200px;
+        /* --- 3. NAVBAR (Updated) --- */
+        .navbar {
+            height: var(--header-height);
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            box-shadow: var(--shadow-sm);
+            z-index: 50;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 1.5rem; }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid var(--gray-200);
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        .btn-back:hover { background: var(--gray-100); color: var(--gray-900); border-color: var(--gray-300); }
+
+        .quiz-meta { display: flex; flex-direction: column; }
+        .quiz-category { font-size: 0.75rem; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+        .quiz-title { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); }
+
+        /* Timer di Navbar */
+        .timer-badge {
+            background: var(--primary-subtle);
+            color: var(--primary-dark);
+            border: 1px solid var(--primary-light);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-variant-numeric: tabular-nums;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timer-badge.warning {
+            background: #fff1f2;
+            color: var(--error);
+            border-color: #fecdd3;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+
+        /* --- 4. LAYOUT --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            height: calc(100vh - var(--header-height));
+            max-width: 1440px;
+            width: 100%;
             margin: 0 auto;
+        }
+
+        /* --- 5. SIDEBAR (Navigation) --- */
+        .sidebar {
+            width: 320px;
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .progress-label { display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--gray-600); margin-bottom: 8px; font-weight: 500; }
+        .progress-track { width: 100%; height: 8px; background: var(--gray-100); border-radius: 4px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--success); width: 0%; transition: width 0.4s ease; border-radius: 4px; }
+
+        .sidebar-content {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .q-nav-btn {
+            aspect-ratio: 1;
+            background: white;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+            display: flex; /* Flex agar angka di tengah */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .q-nav-btn:hover:not(.active) { background: var(--gray-100); border-color: var(--gray-400); }
+
+        /* Nav States */
+        .q-nav-btn.active {
+            background: var(--primary-dark);
+            color: white;
+            border-color: var(--primary-dark);
+            box-shadow: 0 4px 10px rgba(29, 78, 216, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .q-nav-btn.answered {
+            background: var(--primary-subtle);
+            color: var(--primary-dark);
+            border-color: var(--primary-light);
+        }
+
+        .q-nav-btn.flagged {
+            border-color: var(--warning);
+            color: var(--warning);
+            background: #fffbeb;
+            position: relative;
+        }
+        /* Dot indikator flag */
+        .q-nav-btn.flagged::after {
+            content: ''; position: absolute; top: 4px; right: 4px;
+            width: 6px; height: 6px; background: var(--warning); border-radius: 50%;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--gray-200);
+            background: var(--gray-50);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex; justify-content: center; align-items: center; gap: 8px;
+        }
+        .btn-submit:hover { background: #059669; box-shadow: var(--shadow); }
+
+        /* --- 6. MAIN CONTENT (Question Area) --- */
+        .content-area {
+            flex: 1;
+            background: var(--gray-50);
+            padding: 2rem;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
         }
 
         .question-card {
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid #e2e8f0;
+            width: 100%;
+            max-width: 900px;
+            border-radius: var(--border-radius-xl);
+            box-shadow: var(--shadow-lg);
+            padding: 0; /* Padding diatur di children */
+            height: fit-content;
+            border: 1px solid var(--gray-200);
+            display: flex; flex-direction: column;
         }
+
+        /* Card Header dengan Flag Button */
+        .q-header {
+            padding: 2rem 2.5rem;
+            border-bottom: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .q-number-chip {
+            background: var(--primary-dark);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Tombol Flag di dalam Card */
+        .btn-flag {
+            background: transparent;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-500);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex; align-items: center; gap: 6px;
+        }
+        .btn-flag:hover { background: var(--gray-50); color: var(--gray-700); }
+
+        .btn-flag.active {
+            background: #fffbeb;
+            color: var(--warning);
+            border-color: var(--warning);
+        }
+
+        /* Body Soal */
+        .q-body { padding: 2.5rem; }
+
+        .q-text {
+            font-size: 1.25rem;
+            line-height: 1.6;
+            color: var(--gray-900);
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        .math-expr { font-family: 'Times New Roman', serif; font-style: italic; }
+
+        /* Opsi Jawaban */
+        .options-list { display: flex; flex-direction: column; gap: 1rem; }
 
         .option-card {
-            background: white;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        .option-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.1);
-        }
-
-        .option-card.selected {
-            border-color: var(--primary);
-            background: rgba(37, 99, 235, 0.05);
-        }
-
-        .progress-bar {
-            height: 6px;
-            border-radius: 3px;
-            background: #e2e8f0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--primary);
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .timer {
-            font-variant-numeric: tabular-nums;
-        }
-
-        .timer-warning {
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .question-number {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
+            padding: 1rem 1.25rem;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius-lg);
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .question-number.active {
-            background: var(--primary);
+        .option-marker {
+            width: 32px; height: 32px;
+            background: var(--gray-100);
+            color: var(--gray-600);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600;
+            margin-right: 1.5rem;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .option-text { font-size: 1rem; color: var(--gray-700); font-weight: 500; }
+
+        /* Hover State */
+        .option-card:hover {
+            border-color: var(--primary-light);
+            background: var(--primary-subtle);
+        }
+        .option-card:hover .option-marker {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Selected State */
+        .option-card.selected {
+            border-color: var(--primary-dark);
+            background: #f0f5ff; /* Very light blue */
+            box-shadow: 0 0 0 1px var(--primary-dark); /* Outline effect */
+        }
+        .option-card.selected .option-marker {
+            background: var(--primary-dark);
             color: white;
         }
-
-        .question-number.answered {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--success);
-            border: 1px solid var(--success);
+        .option-card.selected .option-text {
+            color: var(--primary-dark);
+            font-weight: 600;
         }
 
-        .question-number.unanswered {
-            background: rgba(248, 113, 113, 0.1);
-            color: var(--error);
-            border: 1px solid var(--error);
-        }
-
-        .math-expression {
-            font-family: 'Times New Roman', serif;
-            font-size: 1.1em;
-        }
-
-        .hint-box {
-            background: rgba(255, 243, 205, 0.3);
-            border-left: 4px solid var(--warning);
-        }
-
-        .explanation-box {
-            background: rgba(240, 253, 244, 0.3);
-            border-left: 4px solid var(--success);
-        }
-
-        .sidebar-card {
+        /* Footer Navigasi */
+        .q-footer {
+            padding: 1.5rem 2.5rem;
+            border-top: 1px solid var(--gray-100);
+            display: flex;
+            justify-content: space-between;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            border: 1px solid #e2e8f0;
+            border-radius: 0 0 var(--border-radius-xl) var(--border-radius-xl);
         }
+
+        .btn-nav {
+            padding: 10px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex; align-items: center; gap: 8px;
+        }
+
+        .btn-prev {
+            background: white;
+            border: 1px solid var(--gray-300);
+            color: var(--gray-600);
+        }
+        .btn-prev:hover:not(:disabled) { background: var(--gray-50); border-color: var(--gray-400); color: var(--gray-800); }
+        .btn-prev:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .btn-next {
+            background: var(--primary-dark);
+            color: white;
+            border: 1px solid transparent;
+        }
+        .btn-next:hover { background: var(--primary); transform: translateY(-1px); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.6); /* Dark overlay */
+            backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 100;
+        }
+        .hidden { display: none; }
+
+        .modal-box {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius-xl);
+            width: 90%; max-width: 400px;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
+
     </style>
 </head>
 
 <body>
-    <!-- Loading Screen -->
-    <div id="loadingScreen" class="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
-        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mb-4"></div>
-        <p class="text-gray-600">Mempersiapkan quiz...</p>
-    </div>
 
-    <!-- Simplified Header -->
-    <header class="bg-white border-b border-gray-200 py-4">
-        <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                    <a href="quiz.html" class="flex items-center text-gray-600 hover:text-gray-800 transition-colors">
-                        <i class="fas fa-arrow-left mr-2"></i>
-                        <span>Kembali</span>
-                    </a>
-                </div>
-
-                <div class="text-center">
-                    <p class="text-sm text-gray-500">Matematika</p>
-                    <h1 class="text-xl font-semibold text-gray-800">Trigonometri Dasar</h1>
-                </div>
-
-                <div class="w-20"></div> <!-- Spacer untuk balance -->
+    <header class="navbar">
+        <div class="nav-left">
+            <button class="btn-back">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <div class="quiz-meta">
+                <span class="quiz-category">Matematika</span>
+                <span class="quiz-title">Trigonometri Dasar</span>
             </div>
+        </div>
+
+        <div class="timer-badge" id="timerBadge">
+            <i class="far fa-clock"></i>
+            <span id="timer">15:00</span>
         </div>
     </header>
 
-    <!-- Main Quiz Content -->
-    <main class="py-8">
-        <div class="quiz-container px-4">
-            <div class="flex flex-col lg:flex-row gap-6">
-                <!-- Left Sidebar -->
-                <div class="lg:w-1/4 space-y-6">
-                    <!-- Timer Card -->
-                    <div class="sidebar-card p-5">
-                        <h3 class="font-semibold text-gray-800 mb-3">Sisa Waktu</h3>
-                        <div class="flex items-center justify-center space-x-2 bg-blue-50 px-4 py-3 rounded-lg">
-                            <i class="fas fa-clock text-blue-600"></i>
-                            <span id="timer" class="text-blue-700 font-bold text-xl timer">15:00</span>
-                        </div>
-                    </div>
-
-                    <!-- Question Navigation -->
-                    <div class="sidebar-card p-5">
-                        <h3 class="font-semibold text-gray-800 mb-4">Navigasi Soal</h3>
-                        <div class="grid grid-cols-5 gap-2 mb-4">
-                            <!-- Question numbers will be generated dynamically -->
-                        </div>
-
-                        <div class="pt-4 border-t border-gray-100">
-                            <div class="flex items-center justify-between text-sm mb-2">
-                                <span class="text-gray-600">Progress</span>
-                                <span id="progress-text" class="font-semibold">1/10</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div id="progress-fill" class="progress-fill" style="width: 10%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quiz Info -->
-                    <div class="sidebar-card p-5">
-                        <h3 class="font-semibold text-gray-800 mb-3">Informasi Quiz</h3>
-                        <div class="space-y-3 text-sm">
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Total Soal</span>
-                                <span class="font-semibold">10</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Nilai Minimum</span>
-                                <span class="font-semibold">70/100</span>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <span class="text-gray-600">Tingkat Kesulitan</span>
-                                <span class="font-semibold text-green-600">Mudah</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Quick Actions -->
-                    <div class="sidebar-card p-5">
-                        <h3 class="font-semibold text-gray-800 mb-3">Aksi Cepat</h3>
-                        <div class="space-y-2">
-                            <button id="submitQuiz" class="w-full py-2 bg-green-600 text-white rounded-lg text-sm font-medium hover:bg-green-700 transition-colors flex items-center justify-center">
-                                <i class="fas fa-paper-plane mr-2"></i>Kumpulkan
-                            </button>
-                            <button id="flagQuestion" class="w-full py-2 border border-yellow-300 text-yellow-700 rounded-lg text-sm font-medium hover:bg-yellow-50 transition-colors flex items-center justify-center">
-                                <i class="far fa-flag mr-2"></i>Tandai Soal
-                            </button>
-                        </div>
-                    </div>
+    <div class="main-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="progress-label">
+                    <span>Progres Pengerjaan</span>
+                    <span id="progress-text">1/10</span>
                 </div>
-
-                <!-- Main Question Area -->
-                <div class="lg:w-3/4">
-                    <div class="question-card p-6">
-                        <!-- Question Header -->
-                        <div class="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-                            <div>
-                                <span class="text-sm font-medium text-blue-600 bg-blue-50 px-3 py-1 rounded-full">Soal #1</span>
-                                <h2 class="text-lg font-semibold text-gray-800 mt-2">Trigonometri Dasar</h2>
-                            </div>
-                            <div class="flex items-center space-x-2 text-sm text-gray-500">
-                                <i class="far fa-clock"></i>
-                                <span>Perkiraan: 2 menit</span>
-                            </div>
-                        </div>
-
-                        <!-- Question Content -->
-                        <div class="mb-6">
-                            <p class="text-gray-700 text-lg mb-4">Nilai dari <span class="math-expression">sin(30°) + cos(60°)</span> adalah:</p>
-
-                            <!-- Hint Box -->
-                            <div class="hint-box p-4 rounded-lg mb-6">
-                                <div class="flex items-start">
-                                    <i class="fas fa-lightbulb text-yellow-500 mt-1 mr-3"></i>
-                                    <div>
-                                        <p class="font-medium text-gray-800 mb-1">Petunjuk</p>
-                                        <p class="text-gray-600 text-sm">Ingat nilai-nilai trigonometri sudut istimewa. Sin 30° = 1/2 dan Cos 60° = 1/2.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Options -->
-                        <div class="space-y-3 mb-6">
-                            <div class="option-card p-4" data-option="A">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 font-medium text-gray-700">A</div>
-                                    <div class="flex-1">
-                                        <p class="text-gray-800">0</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="option-card p-4" data-option="B">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 font-medium text-gray-700">B</div>
-                                    <div class="flex-1">
-                                        <p class="text-gray-800"><span class="math-expression">1/2</span></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="option-card p-4" data-option="C">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 font-medium text-gray-700">C</div>
-                                    <div class="flex-1">
-                                        <p class="text-gray-800">1</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="option-card p-4" data-option="D">
-                                <div class="flex items-center">
-                                    <div class="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center mr-4 font-medium text-gray-700">D</div>
-                                    <div class="flex-1">
-                                        <p class="text-gray-800"><span class="math-expression">√3/2</span></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Explanation -->
-                        <div id="explanation" class="explanation-box p-4 rounded-lg mb-6 hidden">
-                            <div class="flex items-start">
-                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
-                                <div>
-                                    <p class="font-medium text-gray-800 mb-1">Pembahasan</p>
-                                    <p class="text-gray-600 text-sm">Sin 30° = 1/2 dan Cos 60° = 1/2. Jadi, 1/2 + 1/2 = 1. Jawaban yang tepat adalah C.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Navigation Buttons -->
-                        <div class="flex justify-between pt-6 border-t border-gray-100">
-                            <button id="prevBtn" class="px-5 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:border-blue-500 hover:text-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center" disabled>
-                                <i class="fas fa-arrow-left mr-2"></i>Sebelumnya
-                            </button>
-
-                            <button id="nextBtn" class="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center">
-                                Selanjutnya<i class="fas fa-arrow-right ml-2"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div class="progress-track">
+                    <div id="progress-fill" class="progress-fill"></div>
                 </div>
             </div>
-        </div>
-    </main>
 
-    <!-- Submit Confirmation Modal -->
-    <div id="submitModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-xl p-6 max-w-md w-full mx-4">
-            <div class="text-center">
-                <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-paper-plane text-blue-600 text-xl"></i>
-                </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2">Kumpulkan Quiz?</h3>
-                <p class="text-gray-600 mb-4">Anda telah menjawab <span id="answered-count">5</span> dari 10 soal.</p>
-                <p class="text-gray-600 mb-6">Pastikan Anda sudah memeriksa semua jawaban sebelum mengumpulkan.</p>
+            <div class="sidebar-content">
+                <div class="nav-grid" id="questionNavGrid">
+                    </div>
+            </div>
 
-                <div class="flex space-x-3">
-                    <button id="cancelSubmit" class="flex-1 px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
-                        Periksa Lagi
-                    </button>
-                    <button id="confirmSubmit" class="flex-1 px-4 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                        Ya, Kumpulkan
+            <div class="sidebar-footer">
+                <button id="submitQuiz" class="btn-submit">
+                    <i class="fas fa-paper-plane"></i> Kumpulkan Jawaban
+                </button>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <div class="question-card">
+                <div class="q-header">
+                    <span class="q-number-chip">Soal No. <span id="displayQNum">1</span></span>
+
+                    <button id="flagQuestion" class="btn-flag">
+                        <i class="far fa-flag"></i>
+                        <span>Tandai Ragu-ragu</span>
                     </button>
                 </div>
+
+                <div class="q-body">
+                    <p class="q-text">
+                        Nilai eksak dari <span class="math-expr">sin(30°) + cos(60°)</span> adalah...
+                    </p>
+
+                    <div class="options-list">
+                        <div class="option-card" data-option="A">
+                            <div class="option-marker">A</div>
+                            <div class="option-text">0</div>
+                        </div>
+
+                        <div class="option-card" data-option="B">
+                            <div class="option-marker">B</div>
+                            <div class="option-text"><span class="math-expr">1/2</span></div>
+                        </div>
+
+                        <div class="option-card" data-option="C">
+                            <div class="option-marker">C</div>
+                            <div class="option-text">1</div>
+                        </div>
+
+                        <div class="option-card" data-option="D">
+                            <div class="option-marker">D</div>
+                            <div class="option-text"><span class="math-expr">√3/2</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="q-footer">
+                    <button id="prevBtn" class="btn-nav btn-prev" disabled>
+                        <i class="fas fa-chevron-left"></i> Sebelumnya
+                    </button>
+                    <button id="nextBtn" class="btn-nav btn-next">
+                        Selanjutnya <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="submitModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div style="width: 60px; height: 60px; background: #eff6ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem auto;">
+                <i class="fas fa-check-circle" style="font-size: 30px; color: var(--primary);"></i>
+            </div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--gray-900);">Kumpulkan Ujian?</h3>
+            <p style="color: var(--gray-600); margin-bottom: 1.5rem; line-height: 1.5;">
+                Pastikan Anda telah memeriksa kembali jawaban yang ditandai ragu-ragu sebelum mengakhiri sesi ini.
+            </p>
+            <div style="display: flex; gap: 10px;">
+                <button id="cancelSubmit" class="btn-nav btn-prev" style="flex: 1; justify-content: center;">Batal</button>
+                <button id="confirmSubmit" class="btn-nav btn-next" style="flex: 1; justify-content: center; background: var(--success);">Ya, Kumpulkan</button>
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Hide loading screen
-            setTimeout(() => {
-                document.getElementById('loadingScreen').classList.add('hidden');
-            }, 1000);
-
-            // Quiz state
+            // --- STATE ---
             const quizState = {
                 currentQuestion: 1,
                 totalQuestions: 10,
                 answers: {},
-                flaggedQuestions: new Set(),
-                timeRemaining: 15 * 60, // 15 minutes in seconds
+                flagged: new Set(),
+                timeRemaining: 15 * 60, // 15 menit
                 timerInterval: null
             };
 
-            // Initialize question navigation
-            function initializeQuestionNavigation() {
-                const navigationContainer = document.querySelector('.grid.grid-cols-5');
-                navigationContainer.innerHTML = '';
+            // --- DOM ELEMENTS ---
+            const navGrid = document.getElementById('questionNavGrid');
+            const timerEl = document.getElementById('timer');
+            const timerBadge = document.getElementById('timerBadge');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const flagBtn = document.getElementById('flagQuestion');
+            const displayQNum = document.getElementById('displayQNum');
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
 
+            // --- FUNCTIONS ---
+
+            // 1. Initialize Grid
+            function initGrid() {
+                navGrid.innerHTML = '';
                 for (let i = 1; i <= quizState.totalQuestions; i++) {
-                    const questionNumber = document.createElement('div');
-                    questionNumber.className = 'question-number';
-                    questionNumber.textContent = i;
-                    questionNumber.dataset.question = i;
+                    const btn = document.createElement('div');
+                    btn.className = 'q-nav-btn';
+                    btn.textContent = i;
+                    btn.dataset.q = i;
+                    btn.onclick = () => goToQuestion(i);
+                    navGrid.appendChild(btn);
+                }
+                updateUI();
+            }
 
-                    if (i === quizState.currentQuestion) {
-                        questionNumber.classList.add('active');
-                    }
+            // 2. Go To Question
+            function goToQuestion(num) {
+                quizState.currentQuestion = num;
+                updateUI();
+            }
 
-                    questionNumber.addEventListener('click', () => {
-                        navigateToQuestion(i);
-                    });
+            // 3. Update UI (All states)
+            function updateUI() {
+                // Update Question Number Display
+                displayQNum.textContent = quizState.currentQuestion;
 
-                    navigationContainer.appendChild(questionNumber);
+                // Update Grid Styles
+                const gridBtns = navGrid.children;
+                for (let i = 0; i < gridBtns.length; i++) {
+                    const qNum = i + 1;
+                    const btn = gridBtns[i];
+
+                    // Reset classes
+                    btn.className = 'q-nav-btn';
+
+                    // Logic Priority: Active > Flagged > Answered > Default
+                    if (quizState.answers[qNum]) btn.classList.add('answered');
+                    if (quizState.flagged.has(qNum)) btn.classList.add('flagged');
+                    if (qNum === quizState.currentQuestion) btn.classList.add('active');
                 }
 
-                updateProgress();
-            }
-
-            // Update progress bar and text
-            function updateProgress() {
-                const progressFill = document.getElementById('progress-fill');
-                const progressText = document.getElementById('progress-text');
-                const progress = (quizState.currentQuestion / quizState.totalQuestions) * 100;
-
-                progressFill.style.width = `${progress}%`;
-                progressText.textContent = `${quizState.currentQuestion}/${quizState.totalQuestions}`;
-
-                // Update question numbers
-                document.querySelectorAll('.question-number').forEach(el => {
-                    const questionNum = parseInt(el.dataset.question);
-                    el.classList.remove('active', 'answered', 'unanswered');
-
-                    if (questionNum === quizState.currentQuestion) {
-                        el.classList.add('active');
-                    } else if (quizState.answers[questionNum]) {
-                        el.classList.add('answered');
-                    } else {
-                        el.classList.add('unanswered');
-                    }
-                });
-            }
-
-            // Navigate to specific question
-            function navigateToQuestion(questionNum) {
-                if (questionNum < 1 || questionNum > quizState.totalQuestions) return;
-
-                quizState.currentQuestion = questionNum;
-                updateQuestionDisplay();
-                updateProgress();
-
-                // Update button states
-                document.getElementById('prevBtn').disabled = questionNum === 1;
-            }
-
-            // Update question display
-            function updateQuestionDisplay() {
-                // In a real app, this would fetch question data
-                document.querySelector('.text-blue-600').textContent = `Soal #${quizState.currentQuestion}`;
-
-                // Update flag button
-                const flagBtn = document.getElementById('flagQuestion');
-                if (quizState.flaggedQuestions.has(quizState.currentQuestion)) {
-                    flagBtn.innerHTML = '<i class="fas fa-flag text-yellow-500 mr-2"></i>Hapus Tanda';
-                    flagBtn.classList.add('bg-yellow-100', 'border-yellow-400');
+                // Update Flag Button State in Header
+                const isFlagged = quizState.flagged.has(quizState.currentQuestion);
+                if (isFlagged) {
+                    flagBtn.innerHTML = '<i class="fas fa-flag"></i> <span>Ditandai</span>';
+                    flagBtn.classList.add('active');
                 } else {
-                    flagBtn.innerHTML = '<i class="far fa-flag mr-2"></i>Tandai Soal';
-                    flagBtn.classList.remove('bg-yellow-100', 'border-yellow-400');
+                    flagBtn.innerHTML = '<i class="far fa-flag"></i> <span>Tandai Ragu-ragu</span>';
+                    flagBtn.classList.remove('active');
                 }
 
-                // Clear previous selection
+                // Update Progress Bar
+                const answeredCount = Object.keys(quizState.answers).length;
+                const pct = (answeredCount / quizState.totalQuestions) * 100;
+                progressFill.style.width = `${pct}%`;
+                progressText.textContent = `${answeredCount}/${quizState.totalQuestions} Terjawab`;
+
+                // Update Options Selection
+                const currentAns = quizState.answers[quizState.currentQuestion];
                 document.querySelectorAll('.option-card').forEach(card => {
-                    card.classList.remove('selected', 'correct', 'incorrect');
+                    card.classList.remove('selected');
+                    if (card.dataset.option === currentAns) {
+                        card.classList.add('selected');
+                    }
                 });
 
-                // Show current answer if exists
-                const currentAnswer = quizState.answers[quizState.currentQuestion];
-                if (currentAnswer) {
-                    const optionCard = document.querySelector(`.option-card[data-option="${currentAnswer}"]`);
-                    if (optionCard) {
-                        optionCard.classList.add('selected');
-                    }
+                // Update Nav Buttons
+                prevBtn.disabled = quizState.currentQuestion === 1;
+                if (quizState.currentQuestion === quizState.totalQuestions) {
+                    nextBtn.innerHTML = 'Selesai <i class="fas fa-check"></i>';
+                } else {
+                    nextBtn.innerHTML = 'Selanjutnya <i class="fas fa-chevron-right"></i>';
                 }
-
-                // Hide explanation by default
-                document.getElementById('explanation').classList.add('hidden');
             }
 
-            // Option selection
+            // --- EVENT LISTENERS ---
+
+            // Option Click
             document.querySelectorAll('.option-card').forEach(card => {
                 card.addEventListener('click', function() {
-                    // Clear previous selection
-                    document.querySelectorAll('.option-card').forEach(c => {
-                        c.classList.remove('selected');
-                    });
-
-                    // Select current option
-                    this.classList.add('selected');
-
-                    // Save answer
-                    const selectedOption = this.dataset.option;
-                    quizState.answers[quizState.currentQuestion] = selectedOption;
-
-                    // Update navigation
-                    updateProgress();
+                    const val = this.dataset.option;
+                    quizState.answers[quizState.currentQuestion] = val;
+                    updateUI();
                 });
             });
 
-            // Flag question
-            document.getElementById('flagQuestion').addEventListener('click', function() {
-                if (quizState.flaggedQuestions.has(quizState.currentQuestion)) {
-                    quizState.flaggedQuestions.delete(quizState.currentQuestion);
-                } else {
-                    quizState.flaggedQuestions.add(quizState.currentQuestion);
-                }
-
-                updateQuestionDisplay();
-                updateProgress();
+            // Flag Click
+            flagBtn.addEventListener('click', () => {
+                const q = quizState.currentQuestion;
+                if (quizState.flagged.has(q)) quizState.flagged.delete(q);
+                else quizState.flagged.add(q);
+                updateUI();
             });
 
-            // Navigation buttons
-            document.getElementById('prevBtn').addEventListener('click', function() {
-                navigateToQuestion(quizState.currentQuestion - 1);
+            // Nav Buttons
+            prevBtn.addEventListener('click', () => {
+                if (quizState.currentQuestion > 1) goToQuestion(quizState.currentQuestion - 1);
             });
 
-            document.getElementById('nextBtn').addEventListener('click', function() {
+            nextBtn.addEventListener('click', () => {
                 if (quizState.currentQuestion < quizState.totalQuestions) {
-                    navigateToQuestion(quizState.currentQuestion + 1);
+                    goToQuestion(quizState.currentQuestion + 1);
                 } else {
-                    // If last question, show submit modal
+                    // Open Modal
                     document.getElementById('submitModal').classList.remove('hidden');
                 }
             });
 
-            // Timer functionality
+            // Submit Logic
+            document.getElementById('submitQuiz').addEventListener('click', () => {
+                document.getElementById('submitModal').classList.remove('hidden');
+            });
+            document.getElementById('cancelSubmit').addEventListener('click', () => {
+                document.getElementById('submitModal').classList.add('hidden');
+            });
+            document.getElementById('confirmSubmit').addEventListener('click', () => {
+                alert("Jawaban dikumpulkan! (Demo Selesai)");
+                document.getElementById('submitModal').classList.add('hidden');
+            });
+
+            // Timer Logic
             function startTimer() {
                 quizState.timerInterval = setInterval(() => {
                     quizState.timeRemaining--;
 
-                    const minutes = Math.floor(quizState.timeRemaining / 60);
-                    const seconds = quizState.timeRemaining % 60;
+                    const m = Math.floor(quizState.timeRemaining / 60);
+                    const s = quizState.timeRemaining % 60;
+                    timerEl.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 
-                    document.getElementById('timer').textContent =
-                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-                    // Add warning when time is running out
-                    if (quizState.timeRemaining <= 60) {
-                        document.getElementById('timer').classList.add('timer-warning', 'text-red-600');
-                        document.getElementById('timer').parentElement.classList.add('bg-red-50');
+                    if (quizState.timeRemaining < 60) {
+                        timerBadge.classList.add('warning');
                     }
 
-                    // Auto-submit when time is up
                     if (quizState.timeRemaining <= 0) {
                         clearInterval(quizState.timerInterval);
-                        submitQuiz();
+                        alert("Waktu Habis!");
                     }
                 }, 1000);
             }
 
-            // Submit quiz modal
-            document.getElementById('submitQuiz').addEventListener('click', function() {
-                const answeredCount = Object.keys(quizState.answers).length;
-                document.getElementById('answered-count').textContent = answeredCount;
-                document.getElementById('submitModal').classList.remove('hidden');
-            });
-
-            document.getElementById('cancelSubmit').addEventListener('click', function() {
-                document.getElementById('submitModal').classList.add('hidden');
-            });
-
-            document.getElementById('confirmSubmit').addEventListener('click', function() {
-                submitQuiz();
-            });
-
-            // Submit quiz function
-            function submitQuiz() {
-                clearInterval(quizState.timerInterval);
-
-                // In a real app, this would submit answers to the server
-                // and redirect to results page
-
-                // For demo, we'll just redirect to a results page
-                window.location.href = 'quiz_results.html';
-            }
-
-            // Keyboard shortcuts
-            document.addEventListener('keydown', function(e) {
-                // Number keys 1-4 for options
-                if (e.key >= '1' && e.key <= '4') {
-                    const optionLetters = ['A', 'B', 'C', 'D'];
-                    const optionCard = document.querySelector(`.option-card[data-option="${optionLetters[parseInt(e.key) - 1]}"]`);
-                    if (optionCard) {
-                        optionCard.click();
-                    }
-                }
-
-                // Arrow keys for navigation
-                if (e.key === 'ArrowLeft' && quizState.currentQuestion > 1) {
-                    navigateToQuestion(quizState.currentQuestion - 1);
-                }
-
-                if (e.key === 'ArrowRight' && quizState.currentQuestion < quizState.totalQuestions) {
-                    navigateToQuestion(quizState.currentQuestion + 1);
-                }
-
-                // Space bar to flag
-                if (e.key === ' ' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'INPUT') {
-                    e.preventDefault();
-                    document.getElementById('flagQuestion').click();
-                }
-
-                // Enter to submit on last question
-                if (e.key === 'Enter' && quizState.currentQuestion === quizState.totalQuestions) {
-                    document.getElementById('submitQuiz').click();
-                }
-            });
-
-            // Initialize everything
-            initializeQuestionNavigation();
-            updateQuestionDisplay();
+            // Init
+            initGrid();
             startTimer();
         });
     </script>
 </body>
-
 </html>

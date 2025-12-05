@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penembak Antariksa Ultimate</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+        }
+
+        /* Kontainer Utama untuk mengatur tata letak */
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: #1e1e1e;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Kanvas Utama Game */
+        #gameCanvas {
+            border: 4px solid #00ffff;
+            background-color: #000000;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #00ffff;
+        }
+
+        /* Panel Status dan Kontrol */
+        .ui-panel {
+            width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            padding: 10px 0;
+        }
+
+        /* Gaya Tombol */
+        .controls button {
+            background-color: #ff4500;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .controls button:hover {
+            background-color: #ff6347;
+            transform: translateY(-1px);
+        }
+        .controls button:active {
+            transform: translateY(1px);
+        }
+
+        /* Bar Ultimate */
+        #ultimateBarContainer {
+            width: 300px;
+            height: 25px;
+            background-color: #333;
+            border: 2px solid #ff00ff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 8px #ff00ff;
+        }
+        #ultimateBar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #8a2be2, #ff00ff);
+            transition: width 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px #000;
+        }
+        /* Style untuk tombol Ultimate yang siap */
+        #activateUltimate {
+            background-color: #ff00ff;
+            box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+        }
+        #activateUltimate:disabled {
+            background-color: #555;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1>Penembak Antariksa Ultimate</h1>
+
+    <div class="ui-panel">
+        <div>
+            Skor: <span id="scoreDisplay">0</span> | HP: <span id="healthDisplay">100</span>
+        </div>
+        <div id="ultimateBarContainer">
+            <div id="ultimateBar"></div>
+        </div>
+        <div class="controls">
+            <button id="activateUltimate" disabled>ULTIMATE (Q)</button>
+        </div>
+    </div>
+
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <div id="messageBox" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 30px; background: rgba(0, 0, 0, 0.9); border: 3px solid #00ffff; border-radius: 10px; color: #00ffff; font-size: 24px; font-weight: bold; text-align: center; display: none; z-index: 10;">
+        GAME OVER!
+        <p style="font-size: 18px; margin-top: 15px;">Tekan R untuk Mulai Ulang</p>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const healthDisplay = document.getElementById('healthDisplay');
+    const ultimateBar = document.getElementById('ultimateBar');
+    const activateUltimateButton = document.getElementById('activateUltimate');
+    const messageBox = document.getElementById('messageBox');
+
+    // --- Konstanta Game ---
+    const GAME_WIDTH = canvas.width;
+    const GAME_HEIGHT = canvas.height;
+    const PLAYER_SIZE = 30;
+    const ENEMY_SIZE = 25;
+    const BUFF_SIZE = 15;
+    const BULLET_SIZE = 5;
+    const ULTIMATE_COST = 100;
+    const ULTIMATE_DURATION = 1500; // 1.5 detik
+    const ULTIMATE_CD = 5000; // 5 detik cooldown setelah ultimate
+
+    // --- Status Game ---
+    let score = 0;
+    let gameLoopInterval;
+    let keys = {};
+    let isGameOver = false;
+
+    // --- Objek Game ---
+    let player = {
+        x: GAME_WIDTH / 2 - PLAYER_SIZE / 2,
+        y: GAME_HEIGHT - PLAYER_SIZE * 2,
+        size: PLAYER_SIZE,
+        speed: 5,
+        health: 100,
+        fireRate: 300, // ms antara tembakan
+        bulletDamage: 10,
+        lastShotTime: 0,
+        ultimateCharge: 0,
+        isUltimateActive: false,
+        lastUltimateTime: 0,
+    };
+
+    let bullets = [];
+    let enemies = [];
+    let buffs = [];
+
+    // --- Fungsi Utilitas ---
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function checkCollision(objA, objB) {
+        return objA.x < objB.x + objB.size &&
+               objA.x + objA.size > objB.x &&
+               objA.y < objB.y + objB.size &&
+               objA.y + objA.size > objB.y;
+    }
+
+    // --- Kelas Game ---
+
+    // Menggambar Pesawat
+    function drawPlayer() {
+        ctx.fillStyle = player.isUltimateActive ? '#ff00ff' : '#00ffff';
+        ctx.beginPath();
+        // Bentuk Segitiga (Pesawat)
+        ctx.moveTo(player.x + player.size / 2, player.y);
+        ctx.lineTo(player.x, player.y + player.size);
+        ctx.lineTo(player.x + player.size, player.y + player.size);
+        ctx.closePath();
+        ctx.fill();
+
+        // Pendorong
+        if (!player.isUltimateActive) {
+            ctx.fillStyle = '#ff4500';
+            ctx.fillRect(player.x + player.size / 2 - 2, player.y + player.size, 4, 5);
+        }
+    }
+
+    // Menggambar Peluru
+    function drawBullets() {
+        bullets.forEach(bullet => {
+            ctx.fillStyle = bullet.color;
+            ctx.fillRect(bullet.x, bullet.y, BULLET_SIZE, BULLET_SIZE * 2);
+        });
+    }
+
+    // Menggambar Musuh
+    function drawEnemies() {
+        enemies.forEach(enemy => {
+            ctx.fillStyle = '#ff4500';
+            ctx.fillRect(enemy.x, enemy.y, ENEMY_SIZE, ENEMY_SIZE);
+            // HP Bar Musuh
+            const hpWidth = ENEMY_SIZE * (enemy.health / enemy.maxHealth);
+            ctx.fillStyle = 'red';
+            ctx.fillRect(enemy.x, enemy.y - 5, ENEMY_SIZE, 3);
+            ctx.fillStyle = 'green';
+            ctx.fillRect(enemy.x, enemy.y - 5, hpWidth, 3);
+        });
+    }
+
+    // Menggambar Buff
+    function drawBuffs() {
+        buffs.forEach(buff => {
+            ctx.fillStyle = buff.color;
+            ctx.beginPath();
+            ctx.arc(buff.x + BUFF_SIZE / 2, buff.y + BUFF_SIZE / 2, BUFF_SIZE / 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.fillStyle = '#000';
+            ctx.font = '10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(buff.symbol, buff.x + BUFF_SIZE / 2, buff.y + BUFF_SIZE / 2 + 3);
+        });
+    }
+
+    // --- Logika Game ---
+
+    // Logika Pemain
+    function updatePlayer() {
+        let newX = player.x;
+        let newY = player.y;
+
+        if (keys['ArrowLeft'] || keys['a']) {
+            newX -= player.speed;
+        }
+        if (keys['ArrowRight'] || keys['d']) {
+            newX += player.speed;
+        }
+        if (keys['ArrowUp'] || keys['w']) {
+            newY -= player.speed;
+        }
+        if (keys['ArrowDown'] || keys['s']) {
+            newY += player.speed;
+        }
+
+        // Batasi pergerakan di dalam kanvas
+        player.x = Math.max(0, Math.min(GAME_WIDTH - player.size, newX));
+        player.y = Math.max(0, Math.min(GAME_HEIGHT - player.size, newY));
+
+        // Tembak
+        if (keys[' ']) { // Spasi
+            shoot();
+        }
+
+        // Aktifkan Ultimate
+        if ((keys['q'] || keys['Q']) && player.ultimateCharge >= ULTIMATE_COST && !player.isUltimateActive && (Date.now() - player.lastUltimateTime > ULTIMATE_CD)) {
+            activateUltimate();
+        }
+    }
+
+    // Logika Tembakan
+    function shoot() {
+        const now = Date.now();
+        if (now - player.lastShotTime > player.fireRate) {
+            bullets.push({
+                x: player.x + player.size / 2 - BULLET_SIZE / 2,
+                y: player.y,
+                size: BULLET_SIZE,
+                damage: player.bulletDamage,
+                speed: 10,
+                color: player.isUltimateActive ? '#ff00ff' : '#00ffff'
+            });
+            player.lastShotTime = now;
+        }
+    }
+
+    function activateUltimate() {
+        player.ultimateCharge = 0; // Reset charge
+        player.isUltimateActive = true;
+        player.lastUltimateTime = Date.now();
+        activateUltimateButton.disabled = true;
+        activateUltimateButton.textContent = "Cooldown...";
+
+        // Efek Ultimate: Tembakkan banyak peluru dalam lingkaran
+        for (let i = 0; i < 20; i++) {
+            const angle = (Math.PI * 2 / 20) * i;
+            bullets.push({
+                x: player.x + player.size / 2 - BULLET_SIZE / 2,
+                y: player.y,
+                size: BULLET_SIZE,
+                damage: player.bulletDamage * 2, // Ultimate damage lebih besar
+                speed: 8,
+                vx: Math.cos(angle) * 8,
+                vy: Math.sin(angle) * 8,
+                color: '#ff00ff'
+            });
+        }
+
+        // Matikan ultimate setelah durasi
+        setTimeout(() => {
+            player.isUltimateActive = false;
+        }, ULTIMATE_DURATION);
+
+        // Setelah Cooldown selesai, cek apakah bisa diaktifkan lagi (jika charge sudah penuh)
+        setTimeout(() => {
+            activateUltimateButton.textContent = "ULTIMATE (Q)";
+            updateUI(); // Cek lagi apakah charge sudah penuh
+        }, ULTIMATE_CD);
+    }
+
+    // Update Peluru
+    function updateBullets() {
+        bullets.forEach((bullet, index) => {
+            if (bullet.vx !== undefined) { // Peluru ultimate
+                bullet.x += bullet.vx;
+                bullet.y += bullet.vy;
+            } else { // Peluru normal
+                bullet.y -= bullet.speed;
+            }
+
+            // Hapus peluru di luar layar
+            if (bullet.y < 0 || bullet.y > GAME_HEIGHT || bullet.x < 0 || bullet.x > GAME_WIDTH) {
+                bullets.splice(index, 1);
+            }
+        });
+    }
+
+    // Spawning Musuh
+    let lastEnemySpawnTime = 0;
+    const enemySpawnInterval = 1000; // 1 detik
+
+    function spawnEnemy() {
+        if (Date.now() - lastEnemySpawnTime > enemySpawnInterval) {
+            const size = ENEMY_SIZE;
+            const maxHealth = getRandomInt(30, 80);
+            enemies.push({
+                x: getRandomInt(0, GAME_WIDTH - size),
+                y: 0,
+                size: size,
+                speed: getRandomInt(1, 3),
+                health: maxHealth,
+                maxHealth: maxHealth,
+            });
+            lastEnemySpawnTime = Date.now();
+        }
+    }
+
+    // Update Musuh
+    function updateEnemies() {
+        enemies.forEach((enemy, index) => {
+            enemy.y += enemy.speed;
+
+            // Musuh mencapai bagian bawah layar
+            if (enemy.y > GAME_HEIGHT) {
+                player.health -= 10; // Kerusakan karena musuh lolos
+                enemies.splice(index, 1);
+            }
+
+            // Tabrakan Musuh dengan Pesawat
+            if (checkCollision(player, enemy)) {
+                player.health -= 25; // Kerusakan tabrakan
+                enemies.splice(index, 1);
+            }
+        });
+    }
+
+    // Spawning Buff
+    let lastBuffSpawnTime = 0;
+    const buffSpawnInterval = 15000; // Setiap 15 detik
+
+    function spawnBuff() {
+        if (Date.now() - lastBuffSpawnTime > buffSpawnInterval) {
+            const types = ['speed', 'firerate', 'damage'];
+            const type = types[getRandomInt(0, types.length - 1)];
+
+            let color, symbol;
+            switch(type) {
+                case 'speed': color = '#00ff00'; symbol = 'S'; break;
+                case 'firerate': color = '#ffa500'; symbol = 'F'; break;
+                case 'damage': color = '#ff0000'; symbol = 'D'; break;
+            }
+
+            buffs.push({
+                x: getRandomInt(0, GAME_WIDTH - BUFF_SIZE),
+                y: 0,
+                size: BUFF_SIZE,
+                speed: 2,
+                type: type,
+                color: color,
+                symbol: symbol
+            });
+            lastBuffSpawnTime = Date.now();
+        }
+    }
+
+    // Update Buffs
+    function updateBuffs() {
+        buffs.forEach((buff, index) => {
+            buff.y += buff.speed;
+
+            // Tabrakan Buff dengan Pesawat
+            if (checkCollision(player, buff)) {
+                applyBuff(buff.type);
+                buffs.splice(index, 1); // Hapus buff
+                player.ultimateCharge = Math.min(ULTIMATE_COST, player.ultimateCharge + 15); // Isi Ultimate sedikit
+            }
+
+            // Buff lolos dari layar
+            if (buff.y > GAME_HEIGHT) {
+                buffs.splice(index, 1);
+            }
+        });
+    }
+
+    function applyBuff(type) {
+        let message = '';
+        switch (type) {
+            case 'speed':
+                player.speed += 1;
+                message = "Kecepatan Bertambah! (+1 Speed)";
+                break;
+            case 'firerate':
+                player.fireRate = Math.max(100, player.fireRate - 50); // Maksimal fire rate 100ms
+                message = "Fire Rate Bertambah Cepat! (-50ms Fire Rate)";
+                break;
+            case 'damage':
+                player.bulletDamage += 5;
+                message = "Kekuatan Tembakan Bertambah! (+5 Damage)";
+                break;
+        }
+
+        // Tampilkan pesan buff (opsional)
+        console.log("Buff didapat:", message);
+    }
+
+    // Logika Tabrakan
+    function checkCollisions() {
+        // Peluru vs Musuh
+        bullets.forEach((bullet, bIndex) => {
+            enemies.forEach((enemy, eIndex) => {
+                // Perluas area tabrakan peluru menjadi persegi panjang
+                const bulletHitbox = { x: bullet.x, y: bullet.y, size: BULLET_SIZE };
+
+                if (checkCollision(bulletHitbox, enemy)) {
+                    enemy.health -= bullet.damage;
+                    bullets.splice(bIndex, 1); // Hapus peluru
+
+                    if (enemy.health <= 0) {
+                        score += enemy.maxHealth; // Skor berdasarkan max HP musuh
+                        enemies.splice(eIndex, 1); // Hapus musuh
+                        player.ultimateCharge = Math.min(ULTIMATE_COST, player.ultimateCharge + 5); // Isi Ultimate
+                    }
+                }
+            });
+        });
+    }
+
+    // --- Loop Utama Game ---
+
+    function gameLoop() {
+        if (isGameOver) return;
+
+        // 1. Clear Canvas
+        ctx.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        // 2. Update Status
+        updatePlayer();
+        updateBullets();
+        spawnEnemy();
+        updateEnemies();
+        spawnBuff();
+        updateBuffs();
+        checkCollisions();
+        updateUI();
+
+        // Cek Game Over
+        if (player.health <= 0) {
+            endGame();
+            return;
+        }
+
+        // 3. Draw Objects
+        drawPlayer();
+        drawBullets();
+        drawEnemies();
+        drawBuffs();
+
+        // Ulangi
+        requestAnimationFrame(gameLoop);
+    }
+
+    // --- UI dan Kontrol ---
+
+    function updateUI() {
+        scoreDisplay.textContent = score;
+        healthDisplay.textContent = player.health;
+
+        // Update Ultimate Bar
+        const chargePercentage = (player.ultimateCharge / ULTIMATE_COST) * 100;
+        ultimateBar.style.width = `${chargePercentage}%`;
+        ultimateBar.textContent = player.isUltimateActive ? "ULTI AKTIF!" : `${Math.round(chargePercentage)}%`;
+
+        // Atur tombol Ultimate
+        if (player.ultimateCharge >= ULTIMATE_COST && !player.isUltimateActive && (Date.now() - player.lastUltimateTime > ULTIMATE_CD)) {
+            activateUltimateButton.disabled = false;
+        } else if (player.isUltimateActive) {
+            activateUltimateButton.disabled = true;
+            activateUltimateButton.textContent = "AKTIF";
+        } else if (Date.now() - player.lastUltimateTime <= ULTIMATE_CD) {
+             activateUltimateButton.disabled = true;
+             activateUltimateButton.textContent = "COOLDOWN";
+        } else {
+             activateUltimateButton.disabled = true;
+             activateUltimateButton.textContent = "ULTIMATE (Q)";
+        }
+    }
+
+    function startGame() {
+        // Reset semua status
+        score = 0;
+        player = {
+            x: GAME_WIDTH / 2 - PLAYER_SIZE / 2,
+            y: GAME_HEIGHT - PLAYER_SIZE * 2,
+            size: PLAYER_SIZE,
+            speed: 5,
+            health: 100,
+            fireRate: 300,
+            bulletDamage: 10,
+            lastShotTime: 0,
+            ultimateCharge: 0,
+            isUltimateActive: false,
+            lastUltimateTime: 0,
+        };
+        bullets = [];
+        enemies = [];
+        buffs = [];
+        isGameOver = false;
+        messageBox.style.display = 'none';
+
+        // Mulai loop utama
+        requestAnimationFrame(gameLoop);
+    }
+
+    function endGame() {
+        isGameOver = true;
+        messageBox.style.display = 'block';
+        messageBox.innerHTML = `GAME OVER!<br>SKOR AKHIR: ${score}<p style="font-size: 18px; margin-top: 15px;">Tekan R untuk Mulai Ulang</p>`;
+    }
+
+    // --- Event Listeners ---
+    document.addEventListener('keydown', (e) => {
+        keys[e.key] = true;
+        if (e.key === 'R' || e.key === 'r') {
+            if (isGameOver) {
+                startGame();
+            }
+        }
+        if ((e.key === 'Q' || e.key === 'q') && !activateUltimateButton.disabled) {
+            activateUltimate();
+        }
+    });
+
+    document.addEventListener('keyup', (e) => {
+        keys[e.key] = false;
+    });
+
+    activateUltimateButton.addEventListener('click', () => {
+        if (!activateUltimateButton.disabled) {
+            activateUltimate();
+        }
+    });
+
+    // Mulai game saat halaman dimuat
+    window.onload = startGame;
+
+</script>
+</body>
+</html>
