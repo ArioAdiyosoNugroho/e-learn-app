@@ -60,6 +60,7 @@
             flex-direction: column;
             overflow: hidden;
         }
+        a { text-decoration: none; }
 
         /* --- 3. NAVBAR (Updated) --- */
         .navbar {
@@ -85,6 +86,7 @@
             color: var(--gray-600);
             font-weight: 500;
             font-size: 0.9rem;
+            text-decoration: none;
             cursor: pointer;
             padding: 8px 16px;
             border-radius: var(--border-radius);
@@ -416,9 +418,9 @@
 
     <header class="navbar">
         <div class="nav-left">
-            <button class="btn-back">
+            <a href="quiz.html" class="btn-back">
                 <i class="fas fa-arrow-left"></i> Kembali
-            </button>
+            </a>
             <div class="quiz-meta">
                 <span class="quiz-category">Matematika</span>
                 <span class="quiz-title">Trigonometri Dasar</span>
@@ -517,7 +519,7 @@
             </p>
             <div style="display: flex; gap: 10px;">
                 <button id="cancelSubmit" class="btn-nav btn-prev" style="flex: 1; justify-content: center;">Batal</button>
-                <button id="confirmSubmit" class="btn-nav btn-next" style="flex: 1; justify-content: center; background: var(--success);">Ya, Kumpulkan</button>
+                <a href="quiz_results.html" id="confirmSubmit" class="btn-nav btn-next" style="flex: 1; justify-content: center; background: var(--success);">Ya, Kumpulkan</a>
             </div>
         </div>
     </div>

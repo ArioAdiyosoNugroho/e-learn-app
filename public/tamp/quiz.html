@@ -39,6 +39,12 @@
             background: var(--gray-50);
         }
 
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 1300px !important;
+            }
+        }
+
         /* Hero Section dengan Pattern */
         .hero-section {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -943,148 +949,91 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero-section pt-32 pb-40 relative">
-        <div class="hero-pattern"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
+    <!-- Hero Section - Versi Rapih & Profesional -->
+    <section class="hero-section pt-28 pb-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800"></div>
+
+        <!-- Background pattern yang lebih subtle -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full"
+                 style="background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%);">
+            </div>
+        </div>
 
         <div class="container mx-auto px-4 relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <!--
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20 reveal">
-                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    <span class="text-white text-sm font-semibold">200+ Kuis Interaktif</span>
-                </div> -->
+            <div class="max-w-4xl mx-auto">
 
-                <!-- Main Heading -->
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight reveal">
-                    <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">
-                        Quiz interaktif</span>
-                    EduQuiz
-                </h1>
-
-                <!-- Description -->
-                <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto reveal">
-                    Uji pengetahuan Anda dengan berbagai kuis menarik yang dirancang khusus untuk mengasah kemampuan dan
-                    meningkatkan pemahaman materi.
-                </p>
-
-                <!-- Search Box -->
-                <!-- Simple PIN Quiz Access -->
-                <div class="max-w-2xl mx-auto mb-8 reveal">
-                    <div class="search-box rounded-full p-2 flex flex-col sm:flex-row gap-2 shadow-2xl">
-                        <div class="flex items-center flex-1 px-4 py-3">
-                            <i class="fas fa-lock text-gray-400 mr-3 text-lg"></i>
-                            <input type="text" maxlength="6" placeholder="Masukkan 6-digit PIN quiz..."
-                                class="flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 text-base tracking-widest font-medium text-center"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" id="pin-input">
+                <!-- PIN Access Section yang lebih sederhana -->
+                <div class="max-w-xl mx-auto mb-12">
+                    <div class="bg-white rounded-2xl shadow-2xl p-6">
+                        <div class="text-center mb-4">
+                            <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-3">
+                                <i class="fas fa-key text-blue-600 text-lg"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-800">Akses Quiz dengan PIN</h3>
+                            <p class="text-gray-600 text-sm mt-1">Masukkan kode yang diberikan oleh guru/pengajar</p>
                         </div>
-                        <button class="btn btn-primary rounded-full whitespace-nowrap py-3 px-6"
-                            onclick="accessPinQuiz()">
-                            <i class="fas fa-arrow-right mr-2"></i>
-                            <span>Masuk Quiz</span>
-                        </button>
+
+                        <div class="space-y-4">
+                            <div class="flex items-center bg-gray-50 rounded-xl px-4 py-3 border border-gray-200">
+                                <i class="fas fa-lock text-gray-400 mr-3"></i>
+                                <input type="text"
+                                       maxlength="6"
+                                       placeholder="Masukkan 6-digit PIN"
+                                       class="flex-1 bg-transparent outline-none text-gray-800 placeholder-gray-400 text-lg tracking-widest text-center font-medium"
+                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                       id="pin-input">
+                            </div>
+
+                            <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:-translate-y-1 shadow-lg"
+                                    onclick="accessPinQuiz()">
+                                <i class="fas fa-arrow-right mr-2"></i>
+                                Masuk ke Quiz
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Info text -->
-                    <div class="text-center mt-3">
-                        <p class="text-white/80 text-sm flex items-center justify-center gap-2">
+                    <!-- Info text sederhana -->
+                    <div class="text-center mt-4">
+                        <p class="text-blue-100 text-sm flex items-center justify-center gap-2">
                             <i class="fas fa-info-circle"></i>
-                            PIN diberikan oleh guru untuk mengakses quiz private
+                            <span>Gunakan PIN yang valid untuk mengakses quiz privat</span>
                         </p>
                     </div>
                 </div>
-                <!-- Kategori Populer -->
-                <div class="flex flex-wrap justify-center items-center gap-3 reveal">
-                    <span class="text-white/80 text-sm">Kategori Populer:</span>
-                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
-                        <i class="fas fa-calculator mr-1"></i>Matematika
-                    </button>
-                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
-                        <i class="fas fa-atom mr-1"></i>Fisika
-                    </button>
-                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
-                        <i class="fas fa-flask mr-1"></i>Kimia
-                    </button>
-                    <button class="category-pill hover:bg-white hover:text-blue-600 transition-all duration-300">
-                        <i class="fas fa-dna mr-1"></i>Biologi
-                    </button>
+
+                <!-- Kategori Populer - versi lebih sederhana -->
+                <div class="text-center">
+                    <p class="text-blue-100 text-sm mb-4 font-medium">Jelajahi Kategori Populer</p>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <button class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all duration-300 border border-white/20">
+                            <i class="fas fa-calculator mr-2"></i>Matematika
+                        </button>
+                        <button class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all duration-300 border border-white/20">
+                            <i class="fas fa-atom mr-2"></i>Fisika
+                        </button>
+                        <button class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all duration-300 border border-white/20">
+                            <i class="fas fa-flask mr-2"></i>Kimia
+                        </button>
+                        <button class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all duration-300 border border-white/20">
+                            <i class="fas fa-dna mr-2"></i>Biologi
+                        </button>
+                        <button class="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white text-sm font-medium hover:bg-white/20 transition-all duration-300 border border-white/20">
+                            <i class="fas fa-globe mr-2"></i>Bahasa
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modern Curved Bottom -->
-        <div class="absolute bottom-0 left-0 right-0 h-16 bg-gray-50 rounded-t-[40px]"></div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats py-20 -mt-[12rem] relative z-20">
-        <div class="container mx-auto px-6">
-            <div class="bg-white backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-
-                    <!-- Progress Kuis -->
-                    <div class="group">
-                        <div class="relative w-24 h-24 mx-auto mb-4">
-                            <svg class="w-full h-full" viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" stroke="#e5e7eb" stroke-width="6" fill="none" />
-                                <circle class="progress-ring-circle" cx="50" cy="50" r="45" stroke="url(#grad-blue)"
-                                    stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="282.74"
-                                    stroke-dashoffset="84.82" class="transition-all duration-700" />
-                                <defs>
-                                    <linearGradient id="grad-blue" x1="0" y1="0" x2="1" y2="1">
-                                        <stop offset="0%" stop-color="#3b82f6" />
-                                        <stop offset="100%" stop-color="#60a5fa" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                            <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span class="text-2xl font-bold text-gray-800 counter" data-target="65">0</span>
-                                <span class="text-xs text-gray-500">%</span>
-                            </div>
-                        </div>
-                        <p class="text-sm font-semibold text-gray-600">Progress Kuis</p>
-                    </div>
-
-                    <!-- Kuis Diselesaikan -->
-                    <div class="group">
-                        <div
-                            class="stat-icon bg-gradient-to-br from-blue-100 to-blue-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                            <i class="fas fa-trophy text-blue-600 text-2xl"></i>
-                        </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="18">0</div>
-                        <p class="text-sm font-semibold text-gray-600">Kuis Selesai</p>
-                    </div>
-
-                    <!-- Skor Rata-rata -->
-                    <div class="group">
-                        <div
-                            class="stat-icon bg-gradient-to-br from-green-100 to-green-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                            <i class="fas fa-star text-green-600 text-2xl"></i>
-                        </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="85">0</div>
-                        <p class="text-sm font-semibold text-gray-600">Skor Rata-rata</p>
-                    </div>
-
-                    <!-- Waktu Belajar -->
-                    <div class="group">
-                        <div
-                            class="stat-icon bg-gradient-to-br from-purple-100 to-purple-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                            <i class="fas fa-clock text-purple-600 text-2xl"></i>
-                        </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="42">0</div>
-                        <p class="text-sm font-semibold text-gray-600">Jam Belajar</p>
-                    </div>
-
-                </div>
-            </div>
+        <!-- Curved Bottom yang lebih smooth -->
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+                <path d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="#f9fafb"/>
+            </svg>
         </div>
     </section>
-
+    
     <!-- Modern Filter Bar -->
     <section class="sticky top-[70px] z-30 py-6 px-4">
         <div class="container mx-auto px-4">
@@ -1228,424 +1177,331 @@
 
     <!-- Quiz Grid -->
     <section class="py-12">
-        <div class="container mx-auto px-4">
+        <div class="container px-4">
             <!-- Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Quiz Card 1 -->
+
                 <div
-                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-blue-100 group">
-                    <div
-                        class="relative w-full h-40 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl mb-4 overflow-hidden">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-lg group cursor-pointer relative overflow-hidden">
+                    <div class="relative w-full h-40 bg-gray-200 rounded-xl mb-4 overflow-hidden shadow-inner">
+                        <img src="https://images.unsplash.com/photo-1588072432836-e10032777176?auto=format&fit=crop&q=80&w=800"
+                            alt="English Grammar"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-300 z-10">
                         </div>
-                        <div class="absolute top-3 left-3">
+                        <div class="absolute top-3 left-3 z-20">
                             <span
-                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-blue-700 text-xs font-semibold shadow-sm">Matematika</span>
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-red-700 text-xs font-semibold shadow-sm">
+                                Bahasa Inggris
+                            </span>
                         </div>
-                        <div class="absolute top-3 right-3">
-                            <span
-                                class="px-2 py-1 bg-green-500 text-white rounded-lg text-xs font-medium shadow-sm">Mudah</span>
+                        <div class="absolute top-3 right-3 z-20">
+                            <span class="px-2 py-1 bg-yellow-500 text-white rounded-lg text-xs font-medium shadow-sm">
+                                Sedang
+                            </span>
                         </div>
-                        <div class="absolute bottom-3 right-3">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                             <button
-                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
-                                <i class="fas fa-play text-blue-600 text-sm ml-0.5"></i>
+                                class="px-6 py-2 bg-white text-red-600 font-bold rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                                <i class="fas fa-play text-sm"></i>
+                                <span>Mulai</span>
                             </button>
                         </div>
                     </div>
-
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Trigonometri Dasar</h3>
+                    <div class="flex items-start justify-between mb-2">
+                        <h3
+                            class="font-bold text-gray-800 text-lg flex-1 pr-2 group-hover:text-red-600 transition-colors">
+                            Tenses: Present & Past</h3>
                         <span
                             class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
                             <i class="fas fa-check-circle text-xs"></i>
                             Selesai
                         </span>
                     </div>
-
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Uji pemahaman Anda tentang konsep dasar
-                        trigonometri dengan soal bervariasi.</p>
-
-                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-question-circle"></i>
-                                10 Soal
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-clock"></i>
-                                15 Menit
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                4.8
-                            </span>
-                        </div>
-                        <span class="flex items-center gap-1">
-                            <i class="fas fa-users"></i>
-                            1.5k
-                        </span>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                                <span class="text-blue-600 font-bold text-xs">BS</span>
+                    <div
+                        class="flex items-center flex-wrap gap-y-2 gap-x-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-1.5 pr-3 border-r border-gray-200">
+                            <div class="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center">
+                                <span class="text-red-600 font-bold text-[10px]">AD</span>
                             </div>
-                            <span class="text-xs text-gray-600">Pak Budi</span>
+                            <span class="font-medium text-gray-700">Miss Ani</span>
                         </div>
-                        <button
-                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
-                            Coba Lagi
-                        </button>
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center gap-1"><i class="far fa-question-circle"></i> 15 Soal</span>
+                            <span class="flex items-center gap-1"><i class="far fa-clock"></i> 20 Menit</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Quiz Card 2 -->
                 <div
-                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-purple-100 group">
-                    <div
-                        class="relative w-full h-40 bg-gradient-to-br from-purple-500 to-indigo-700 rounded-xl mb-4 overflow-hidden">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-lg group cursor-pointer relative overflow-hidden">
+                    <div class="relative w-full h-40 bg-gray-200 rounded-xl mb-4 overflow-hidden shadow-inner">
+                        <img src="https://images.unsplash.com/photo-1582719478252-656de3a6c251?auto=format&fit=crop&q=80&w=800"
+                            alt="Physics Motion"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-300 z-10">
                         </div>
-                        <div class="absolute top-3 left-3">
+                        <div class="absolute top-3 left-3 z-20">
                             <span
-                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-purple-700 text-xs font-semibold shadow-sm">Fisika</span>
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-purple-700 text-xs font-semibold shadow-sm">
+                                Fisika
+                            </span>
                         </div>
-                        <div class="absolute top-3 right-3">
-                            <span
-                                class="px-2 py-1 bg-yellow-500 text-white rounded-lg text-xs font-medium shadow-sm">Menengah</span>
+                        <div class="absolute top-3 right-3 z-20">
+                            <span class="px-2 py-1 bg-red-600 text-white rounded-lg text-xs font-medium shadow-sm">
+                                Sulit
+                            </span>
                         </div>
-                        <div class="absolute bottom-3 right-3">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                             <button
-                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
-                                <i class="fas fa-play text-purple-600 text-sm ml-0.5"></i>
+                                class="px-6 py-2 bg-white text-purple-600 font-bold rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                                <i class="fas fa-play text-sm"></i>
+                                <span>Mulai</span>
                             </button>
                         </div>
                     </div>
-
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Hukum Newton & Gerak</h3>
+                    <div class="flex items-start justify-between mb-2">
+                        <h3
+                            class="font-bold text-gray-800 text-lg flex-1 pr-2 group-hover:text-purple-600 transition-colors">
+                            Konsep Gerak Parabola</h3>
                         <span
-                            class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
-                            <i class="fas fa-play-circle text-xs"></i>
-                            Berlangsung
+                            class="flex items-center gap-1 text-gray-600 bg-gray-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="far fa-circle text-xs"></i>
+                            Belum Mulai
                         </span>
                     </div>
-
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Pahami tiga hukum gerak Newton dengan simulasi
-                        fisika interaktif yang menarik.</p>
-
-                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-question-circle"></i>
-                                12 Soal
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-clock"></i>
-                                20 Menit
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                5.0
-                            </span>
-                        </div>
-                        <span class="flex items-center gap-1">
-                            <i class="fas fa-users"></i>
-                            987
-                        </span>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center">
-                                <span class="text-purple-600 font-bold text-xs">BR</span>
+                    <div
+                        class="flex items-center flex-wrap gap-y-2 gap-x-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-1.5 pr-3 border-r border-gray-200">
+                            <div class="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center">
+                                <span class="text-purple-600 font-bold text-[10px]">DS</span>
                             </div>
-                            <span class="text-xs text-gray-600">Bu Rina</span>
+                            <span class="font-medium text-gray-700">Pak Deni</span>
                         </div>
-                        <button
-                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
-                            Lanjutkan
-                        </button>
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center gap-1"><i class="far fa-question-circle"></i> 8 Soal</span>
+                            <span class="flex items-center gap-1"><i class="far fa-clock"></i> 30 Menit</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Quiz Card 3 -->
                 <div
-                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-green-100 group">
-                    <div
-                        class="relative w-full h-40 bg-gradient-to-br from-green-500 to-emerald-700 rounded-xl mb-4 overflow-hidden">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-lg group cursor-pointer relative overflow-hidden">
+                    <div class="relative w-full h-40 bg-gray-200 rounded-xl mb-4 overflow-hidden shadow-inner">
+                        <img src="https://images.unsplash.com/photo-1532159182049-74d6f83b6329?auto=format&fit=crop&q=80&w=800"
+                            alt="Chemistry Laboratory"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-300 z-10">
                         </div>
-                        <div class="absolute top-3 left-3">
+                        <div class="absolute top-3 left-3 z-20">
                             <span
-                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-green-700 text-xs font-semibold shadow-sm">Biologi</span>
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-green-700 text-xs font-semibold shadow-sm">
+                                Kimia
+                            </span>
                         </div>
-                        <div class="absolute top-3 right-3">
-                            <span
-                                class="px-2 py-1 bg-red-500 text-white rounded-lg text-xs font-medium shadow-sm">Sulit</span>
+                        <div class="absolute top-3 right-3 z-20">
+                            <span class="px-2 py-1 bg-yellow-500 text-white rounded-lg text-xs font-medium shadow-sm">
+                                Sedang
+                            </span>
                         </div>
-                        <div class="absolute bottom-3 right-3">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                             <button
-                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
-                                <i class="fas fa-play text-green-600 text-sm ml-0.5"></i>
+                                class="px-6 py-2 bg-white text-green-600 font-bold rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                                <i class="fas fa-play text-sm"></i>
+                                <span>Lanjutkan</span>
                             </button>
                         </div>
                     </div>
-
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Sistem Pencernaan Manusia</h3>
+                    <div class="flex items-start justify-between mb-2">
+                        <h3
+                            class="font-bold text-gray-800 text-lg flex-1 pr-2 group-hover:text-green-600 transition-colors">
+                            Dasar Stoikiometri</h3>
                         <span
-                            class="flex items-center gap-1 text-yellow-700 bg-yellow-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
-                            <i class="fas fa-crown text-xs"></i>
-                            Premium
+                            class="flex items-center gap-1 text-orange-600 bg-orange-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="fas fa-spinner fa-spin text-xs"></i>
+                            Sedang Dikerjakan
                         </span>
                     </div>
-
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Pelajari organ-organ pencernaan dan proses
-                        metabolisme makanan dengan animasi interaktif.</p>
-
-                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-question-circle"></i>
-                                15 Soal
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-clock"></i>
-                                25 Menit
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                4.7
-                            </span>
-                        </div>
-                        <span class="flex items-center gap-1">
-                            <i class="fas fa-users"></i>
-                            876
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center">
-                                <span class="text-green-600 font-bold text-xs">BS</span>
+                    <div
+                        class="flex items-center flex-wrap gap-y-2 gap-x-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-1.5 pr-3 border-r border-gray-200">
+                            <div class="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center">
+                                <span class="text-green-600 font-bold text-[10px]">IW</span>
                             </div>
-                            <span class="text-xs text-gray-600">Pak Budi</span>
+                            <span class="font-medium text-gray-700">Bu Ida</span>
                         </div>
-                        <a href="show_quiz.html"
-                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
-                            Mulai
-                        </a>
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center gap-1"><i class="far fa-question-circle"></i> 12 Soal</span>
+                            <span class="flex items-center gap-1"><i class="far fa-clock"></i> 25 Menit</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Quiz Card 4 -->
                 <div
-                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-orange-100 group">
-                    <div
-                        class="relative w-full h-40 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl mb-4 overflow-hidden">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-lg group cursor-pointer relative overflow-hidden">
+                    <div class="relative w-full h-40 bg-gray-200 rounded-xl mb-4 overflow-hidden shadow-inner">
+                        <img src="https://images.unsplash.com/photo-1543128639-4cb7e6ee7c57?auto=format&fit=crop&q=80&w=800"
+                            alt="Books and Reading"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-300 z-10">
                         </div>
-                        <div class="absolute top-3 left-3">
+                        <div class="absolute top-3 left-3 z-20">
                             <span
-                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-orange-700 text-xs font-semibold shadow-sm">Kimia</span>
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-red-700 text-xs font-semibold shadow-sm">
+                                Bahasa Inggris
+                            </span>
                         </div>
-                        <div class="absolute top-3 right-3">
-                            <span
-                                class="px-2 py-1 bg-yellow-500 text-white rounded-lg text-xs font-medium shadow-sm">Menengah</span>
+                        <div class="absolute top-3 right-3 z-20">
+                            <span class="px-2 py-1 bg-green-500 text-white rounded-lg text-xs font-medium shadow-sm">
+                                Mudah
+                            </span>
                         </div>
-                        <div class="absolute bottom-3 right-3">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                             <button
-                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
-                                <i class="fas fa-play text-orange-600 text-sm ml-0.5"></i>
+                                class="px-6 py-2 bg-white text-red-600 font-bold rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                                <i class="fas fa-play text-sm"></i>
+                                <span>Mulai</span>
                             </button>
                         </div>
                     </div>
-
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Struktur Atom & Tabel Periodik</h3>
-                        <span
-                            class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
-                            <i class="fas fa-play-circle text-xs"></i>
-                            Berlangsung
-                        </span>
-                    </div>
-
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Pelajari konsep atom dengan visualisasi 3D
-                        yang menarik dan interaktif.</p>
-
-                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-question-circle"></i>
-                                8 Soal
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-clock"></i>
-                                12 Menit
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                4.7
-                            </span>
-                        </div>
-                        <span class="flex items-center gap-1">
-                            <i class="fas fa-users"></i>
-                            1.5k
-                        </span>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center">
-                                <span class="text-orange-600 font-bold text-xs">BR</span>
-                            </div>
-                            <span class="text-xs text-gray-600">Bu Rina</span>
-                        </div>
-                        <button
-                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
-                            Lanjutkan
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Quiz Card 5 -->
-                <div
-                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-red-100 group">
-                    <div
-                        class="relative w-full h-40 bg-gradient-to-br from-red-500 to-rose-700 rounded-xl mb-4 overflow-hidden">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
-                        </div>
-                        <div class="absolute top-3 left-3">
-                            <span
-                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-red-700 text-xs font-semibold shadow-sm">Sejarah</span>
-                        </div>
-                        <div class="absolute top-3 right-3">
-                            <span
-                                class="px-2 py-1 bg-green-500 text-white rounded-lg text-xs font-medium shadow-sm">Mudah</span>
-                        </div>
-                        <div class="absolute bottom-3 right-3">
-                            <button
-                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
-                                <i class="fas fa-play text-red-600 text-sm ml-0.5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Perang Dunia II</h3>
+                    <div class="flex items-start justify-between mb-2">
+                        <h3
+                            class="font-bold text-gray-800 text-lg flex-1 pr-2 group-hover:text-red-600 transition-colors">
+                            Reading Comprehension 1</h3>
                         <span
                             class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
                             <i class="fas fa-check-circle text-xs"></i>
                             Selesai
                         </span>
                     </div>
-
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Jelajahi peristiwa penting PD II dengan
-                        timeline interaktif dan dokumenter eksklusif.</p>
-
-                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-question-circle"></i>
-                                10 Soal
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-clock"></i>
-                                15 Menit
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                4.9
-                            </span>
-                        </div>
-                        <span class="flex items-center gap-1">
-                            <i class="fas fa-users"></i>
-                            892
-                        </span>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center">
-                                <span class="text-red-600 font-bold text-xs">BM</span>
+                    <div
+                        class="flex items-center flex-wrap gap-y-2 gap-x-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-1.5 pr-3 border-r border-gray-200">
+                            <div class="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center">
+                                <span class="text-red-600 font-bold text-[10px]">AD</span>
                             </div>
-                            <span class="text-xs text-gray-600">Bu Maya</span>
+                            <span class="font-medium text-gray-700">Miss Ani</span>
                         </div>
-                        <button
-                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
-                            Coba Lagi
-                        </button>
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center gap-1"><i class="far fa-question-circle"></i> 10 Soal</span>
+                            <span class="flex items-center gap-1"><i class="far fa-clock"></i> 15 Menit</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Quiz Card 6 -->
                 <div
-                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-md hover:border-indigo-100 group">
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-lg group cursor-pointer relative overflow-hidden">
+                    <div class="relative w-full h-40 bg-gray-200 rounded-xl mb-4 overflow-hidden shadow-inner">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800"
+                            alt="Mathematics Calculus"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-300 z-10">
+                        </div>
+                        <div class="absolute top-3 left-3 z-20">
+                            <span
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-blue-700 text-xs font-semibold shadow-sm">
+                                Matematika
+                            </span>
+                        </div>
+                        <div class="absolute top-3 right-3 z-20">
+                            <span class="px-2 py-1 bg-red-600 text-white rounded-lg text-xs font-medium shadow-sm">
+                                Sulit
+                            </span>
+                        </div>
+                        <div
+                            class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
+                            <a href="show_quiz.html"
+                                class="px-6 py-2 bg-white text-blue-600 font-bold rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                                <i class="fas fa-play text-sm"></i>
+                                <span>Mulai</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-start justify-between mb-2">
+                        <h3
+                            class="font-bold text-gray-800 text-lg flex-1 pr-2 group-hover:text-blue-600 transition-colors">
+                            Aplikasi Integral Tentu</h3>
+                        <span
+                            class="flex items-center gap-1 text-gray-600 bg-gray-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="far fa-circle text-xs"></i>
+                            Belum Mulai
+                        </span>
+                    </div>
                     <div
-                        class="relative w-full h-40 bg-gradient-to-br from-indigo-500 to-cyan-600 rounded-xl mb-4 overflow-hidden">
-                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-all duration-300">
+                        class="flex items-center flex-wrap gap-y-2 gap-x-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-1.5 pr-3 border-r border-gray-200">
+                            <div class="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center">
+                                <span class="text-blue-600 font-bold text-[10px]">BS</span>
+                            </div>
+                            <span class="font-medium text-gray-700">Pak Budi</span>
                         </div>
-                        <div class="absolute top-3 left-3">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center gap-1"><i class="far fa-question-circle"></i> 5 Soal</span>
+                            <span class="flex items-center gap-1"><i class="far fa-clock"></i> 35 Menit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white rounded-2xl shadow-sm p-5 border border-gray-100 transition-all duration-300 hover:shadow-lg group cursor-pointer relative overflow-hidden">
+                    <div class="relative w-full h-40 bg-gray-200 rounded-xl mb-4 overflow-hidden shadow-inner">
+                        <img src="https://images.unsplash.com/photo-1542810634-71277d912853?auto=format&fit=crop&q=80&w=800"
+                            alt="Human Anatomy Diagram"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/10 group-hover:bg-black/30 transition-all duration-300 z-10">
+                        </div>
+                        <div class="absolute top-3 left-3 z-20">
                             <span
-                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-indigo-700 text-xs font-semibold shadow-sm">Bahasa</span>
+                                class="px-3 py-1.5 bg-white/95 backdrop-blur-sm rounded-lg text-pink-700 text-xs font-semibold shadow-sm">
+                                Biologi
+                            </span>
                         </div>
-                        <div class="absolute top-3 right-3">
-                            <span
-                                class="px-2 py-1 bg-green-500 text-white rounded-lg text-xs font-medium shadow-sm">Mudah</span>
+                        <div class="absolute top-3 right-3 z-20">
+                            <span class="px-2 py-1 bg-green-500 text-white rounded-lg text-xs font-medium shadow-sm">
+                                Mudah
+                            </span>
                         </div>
-                        <div class="absolute bottom-3 right-3">
+                        <div
+                            class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                             <button
-                                class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-md">
-                                <i class="fas fa-play text-indigo-600 text-sm ml-0.5"></i>
+                                class="px-6 py-2 bg-white text-pink-600 font-bold rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
+                                <i class="fas fa-play text-sm"></i>
+                                <span>Mulai</span>
                             </button>
                         </div>
                     </div>
-
-                    <div class="flex items-start justify-between mb-3">
-                        <h3 class="font-bold text-gray-800 text-lg flex-1 pr-2">Tata Bahasa & EYD</h3>
+                    <div class="flex items-start justify-between mb-2">
+                        <h3
+                            class="font-bold text-gray-800 text-lg flex-1 pr-2 group-hover:text-pink-600 transition-colors">
+                            Anatomi Sistem Pencernaan</h3>
                         <span
-                            class="flex items-center gap-1 text-yellow-700 bg-yellow-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
-                            <i class="fas fa-crown text-xs"></i>
-                            Premium
+                            class="flex items-center gap-1 text-blue-600 bg-blue-50 px-2 py-1 rounded-full text-xs font-medium shrink-0">
+                            <i class="fas fa-check-circle text-xs"></i>
+                            Selesai
                         </span>
                     </div>
-
-                    <p class="text-gray-600 text-sm mb-4 leading-relaxed">Tingkatkan pemahaman tata bahasa Indonesia dan
-                        EYD dengan contoh praktis.</p>
-
-                    <div class="flex items-center justify-between text-xs text-gray-500 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-question-circle"></i>
-                                12 Soal
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="far fa-clock"></i>
-                                18 Menit
-                            </span>
-                            <span class="flex items-center gap-1">
-                                <i class="fas fa-star text-yellow-400"></i>
-                                4.8
-                            </span>
-                        </div>
-                        <span class="flex items-center gap-1">
-                            <i class="fas fa-users"></i>
-                            1.1k
-                        </span>
-                    </div>
-                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center">
-                                <span class="text-indigo-600 font-bold text-xs">BS</span>
+                    <div
+                        class="flex items-center flex-wrap gap-y-2 gap-x-3 text-xs text-gray-500 pt-3 border-t border-gray-100">
+                        <div class="flex items-center gap-1.5 pr-3 border-r border-gray-200">
+                            <div class="w-5 h-5 rounded-full bg-pink-100 flex items-center justify-center">
+                                <span class="text-pink-600 font-bold text-[10px]">RA</span>
                             </div>
-                            <span class="text-xs text-gray-600">Pak Budi</span>
+                            <span class="font-medium text-gray-700">Bu Rina</span>
                         </div>
-                        <button
-                            class="px-3 py-1.5 bg-blue-600 text-white rounded-lg text-xs font-medium hover:bg-blue-700 transition-colors shadow-sm">
-                            Mulai
-                        </button>
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center gap-1"><i class="far fa-question-circle"></i> 15 Soal</span>
+                            <span class="flex items-center gap-1"><i class="far fa-clock"></i> 10 Menit</span>
+                        </div>
                     </div>
                 </div>
             </div>
