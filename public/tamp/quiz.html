@@ -1215,6 +1215,7 @@
                         <div
                             class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
                             <button
+                            onclick="openModal('english')"
                                 class="px-6 py-2 bg-white text-red-600 font-bold rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
                                 <i class="fas fa-play text-sm"></i>
                                 <span>Mulai</span>
@@ -1430,11 +1431,12 @@
                         </div>
                         <div
                             class="absolute inset-0 flex items-center justify-center z-30 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0">
-                            <a href="show_quiz.html"
+                            <button
+                                onclick="openModal('physics')"
                                 class="px-6 py-2 bg-white text-blue-600 font-bold rounded-full shadow-xl hover:scale-105 transition-transform flex items-center gap-2">
                                 <i class="fas fa-play text-sm"></i>
                                 <span>Mulai</span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="flex items-start justify-between mb-2">
@@ -1529,7 +1531,7 @@
     </section>
 
     <!-- modal  -->
-    <div id="quizModal" class="fixed inset-0 z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div id="quizModal" class="fixed inset-0 z-[9999] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 
         <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity opacity-0" id="modalBackdrop">
         </div>
@@ -1642,6 +1644,84 @@
             </div>
         </div>
     </div>
+    <script>
+        // Referensi Elemen DOM
+        const modal = document.getElementById('quizModal');
+        const modalBackdrop = document.getElementById('modalBackdrop');
+        const modalPanel = document.getElementById('modalPanel');
+
+        // Data Dummy (Nanti bisa diambil dari database/API)
+        // Kunci objek disesuaikan dengan ID unik quiz
+        const quizData = {
+            'english': {
+                title: 'Tenses: Present & Past',
+                desc: 'Uji pemahamanmu tentang penggunaan Simple Present Tense dan Past Tense dalam percakapan sehari-hari. Quiz ini mencakup grammar dan vocabulary context.',
+                subject: 'Bahasa Inggris',
+                difficulty: 'Sedang',
+                author: 'Miss Ani',
+                initial: 'AD',
+                questions: '15 Soal',
+                time: '20 Menit',
+                image: 'https://images.unsplash.com/photo-1588072432836-e10032777176?auto=format&fit=crop&q=80&w=800'
+            },
+            'physics': {
+                title: 'Konsep Gerak Parabola',
+                desc: 'Analisis mendalam mengenai gerak peluru, vektor kecepatan, dan posisi benda. Persiapkan kalkulator untuk menghitung rumus fisika dasar.',
+                subject: 'Fisika',
+                difficulty: 'Sulit',
+                author: 'Pak Deni',
+                initial: 'PD',
+                questions: '8 Soal',
+                time: '30 Menit',
+                image: 'https://images.unsplash.com/photo-1582719478252-656de3a6c251?auto=format&fit=crop&q=80&w=800'
+            }
+            // Tambahkan data lain di sini...
+        };
+
+        function openModal(id) {
+            const data = quizData[id];
+            if (!data) return; // Safety check
+
+            // 1. Populate Data
+            document.getElementById('m-title').innerText = data.title;
+            document.getElementById('m-desc').innerText = data.desc;
+            document.getElementById('m-subject').innerText = data.subject;
+            document.getElementById('m-subject-mobile').innerText = data.subject;
+            document.getElementById('m-author').innerText = data.author;
+            document.getElementById('m-author-initial').innerText = data.initial;
+            document.getElementById('m-questions').innerText = data.questions;
+            document.getElementById('m-time').innerText = data.time;
+            document.getElementById('m-image').src = data.image;
+
+            // 2. Show Modal Wrapper
+            modal.classList.remove('hidden');
+
+            // 3. Animation In (Sedikit delay agar transisi CSS berjalan)
+            setTimeout(() => {
+                modalBackdrop.classList.remove('opacity-0');
+                modalPanel.classList.remove('opacity-0', 'translate-y-4', 'sm:scale-95');
+                modalPanel.classList.add('opacity-100', 'translate-y-0', 'sm:scale-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            // 1. Animation Out
+            modalBackdrop.classList.add('opacity-0');
+            modalPanel.classList.remove('opacity-100', 'translate-y-0', 'sm:scale-100');
+            modalPanel.classList.add('opacity-0', 'translate-y-4', 'sm:scale-95');
+
+            // 2. Hide Wrapper after animation finishes (300ms match transition duration)
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // Close modal ketika klik di luar panel (backdrop)
+        modalBackdrop.addEventListener('click', closeModal);
+    </script>
+
+    <!-- end modal  -->
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-white pt-16 pb-8">
         <div class="container mx-auto px-4">
