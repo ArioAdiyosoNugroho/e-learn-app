@@ -47,6 +47,9 @@
     box-sizing: border-box;
 }
 
+/* Taruh ini di baris paling atas file main.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: var(--gray-50);
@@ -54,6 +57,9 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     width: 100%;
+    /* Tambahan agar font lebih tajam dan bersih */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Header Styles with Scroll Effects */
