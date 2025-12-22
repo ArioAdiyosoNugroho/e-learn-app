@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('materis', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('content');
-            $table->string('file_url')->nullable();
+            $table->text('description');
+            $table->unsignedInteger('views')->default(0);
+            $table->string('content')->nullable();
+            $table->string('url')->nullable();
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('guru_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

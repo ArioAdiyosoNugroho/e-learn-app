@@ -125,6 +125,7 @@
             align-items: center;
             gap: 6px;
         }
+
         /* search-box */
         .search-box {
             background: rgba(255, 255, 255, 0.95);
@@ -554,35 +555,28 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero-section pt-32 pb-40 relative">
-        <div class="hero-pattern"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
-        <div class="floating-shape"></div>
+    <section class="hero-section pt-28 pb-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800"></div>
+
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-full h-full"
+                style="background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%);">
+            </div>
+        </div>
 
         <div class="container mx-auto px-4 relative z-10">
-            <div class="max-w-4xl mx-auto text-center">
-                <!-- Badge -->
-                <div
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20 reveal">
-                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    <span class="text-white text-sm font-semibold">150+ Artikel Edukasi</span>
+            <div class="max-w-4xl mx-auto">
+
+                <div class="text-center text-white mb-12">
+                    <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight mb-3">
+                        Jelajahi Ribuan Artikel Pembelajaran
+                    </h1>
+                    <p class="text-xl font-light opacity-90 max-w-2xl mx-auto">
+                        Temukan kurasi artikel mendalam, opini ahli, dan cerita inspiratif dari berbagai penjuru dunia.
+                    </p>
                 </div>
 
-                <!-- Main Heading -->
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight reveal">
-                    Artikel <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">Edukasi</span><br />EduQuiz
-                </h1>
-
-                <!-- Description -->
-                <p class="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto reveal">
-                    Temukan artikel menarik seputar pendidikan, tips belajar, dan informasi terkini untuk meningkatkan
-                    pengetahuan dan prestasi belajar Anda.
-                </p>
-
-                <!-- Search Box -->
-                <div class="max-w-2xl mx-auto mb-8 reveal">
+                <div class="max-w-2xl mx-auto mb-16">
                     <div class="search-box rounded-full p-2 flex flex-col sm:flex-row gap-2 shadow-2xl">
                         <div class="flex items-center flex-1 px-4 py-3">
                             <i class="fas fa-search text-gray-400 mr-3 text-lg"></i>
@@ -594,404 +588,255 @@
                             <span>Cari Kuis</span>
                         </button>
                     </div>
+
+                    <div class="text-center mt-4">
+                        <p class="text-blue-100 text-sm flex items-center justify-center gap-2">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Tips: Gunakan kata kunci spesifik untuk hasil yang lebih akurat</span>
+                        </p>
+                    </div>
                 </div>
-
-
             </div>
         </div>
 
-        <!-- Modern Curved Bottom -->
-        <div class="hero-curve"></div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats py-20 -mt-[11rem] relative z-20">
-        <div class="container mx-auto px-6">
-            <div class="bg-white backdrop-blur-md shadow-xl rounded-3xl p-10 reveal border border-gray-100">
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-
-                    <!-- Total Artikel -->
-                    <div class="group">
-                        <div
-                            class="stat-icon bg-gradient-to-br from-blue-100 to-blue-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                            <i class="fas fa-newspaper text-blue-600 text-2xl"></i>
-                        </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="156">0</div>
-                        <p class="text-sm font-semibold text-gray-600">Total Artikel</p>
-                    </div>
-
-                    <!-- Pembaca Aktif -->
-                    <div class="group">
-                        <div
-                            class="stat-icon bg-gradient-to-br from-green-100 to-green-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                            <i class="fas fa-users text-green-600 text-2xl"></i>
-                        </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="2540">0</div>
-                        <p class="text-sm font-semibold text-gray-600">Pembaca Aktif</p>
-                    </div>
-
-                    <!-- Kategori -->
-                    <div class="group">
-                        <div
-                            class="stat-icon bg-gradient-to-br from-purple-100 to-purple-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                            <i class="fas fa-tags text-purple-600 text-2xl"></i>
-                        </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="12">0</div>
-                        <p class="text-sm font-semibold text-gray-600">Kategori</p>
-                    </div>
-
-                    <!-- Penulis -->
-                    <div class="group">
-                        <div
-                            class="stat-icon bg-gradient-to-br from-orange-100 to-orange-50 w-16 h-16 mx-auto rounded-2xl flex items-center justify-center mb-3 group-hover:scale-110 transition">
-                            <i class="fas fa-pen-nib text-orange-600 text-2xl"></i>
-                        </div>
-                        <div class="text-3xl font-bold text-gray-800 mb-1 counter" data-target="28">0</div>
-                        <p class="text-sm font-semibold text-gray-600">Penulis</p>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Filter Bar -->
-    <section class="sticky top-[70px] z-30 py-6 px-4">
-        <div class="container mx-auto px-4">
-            <div class="filter-bar p-4">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-                    <!-- Left Section: Filter Tabs -->
-                    <div class="flex-1 min-w-0">
-                        <div class="filter-tabs">
-                            <button class="filter-tab active" data-filter="all">
-                                <i class="fas fa-th-large text-xs"></i>
-                                Semua Artikel
-                            </button>
-                            <button class="filter-tab" data-filter="tips">
-                                <i class="fas fa-lightbulb text-xs"></i>
-                                Tips Belajar
-                            </button>
-                            <button class="filter-tab" data-filter="pendidikan">
-                                <i class="fas fa-graduation-cap text-xs"></i>
-                                Pendidikan
-                            </button>
-                            <button class="filter-tab" data-filter="psikologi">
-                                <i class="fas fa-brain text-xs"></i>
-                                Psikologi Belajar
-                            </button>
-                            <button class="filter-tab" data-filter="strategi">
-                                <i class="fas fa-chart-line text-xs"></i>
-                                Strategi Ujian
-                            </button>
-                            <button class="filter-tab" data-filter="teknologi">
-                                <i class="fas fa-laptop-code text-xs"></i>
-                                Teknologi Pendidikan
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Right Section: Sort and View -->
-                    <div class="flex items-center gap-3">
-                        <!-- Sort Options -->
-                        <div class="relative">
-                            <select class="select-custom">
-                                <option>Terbaru</option>
-                                <option>Terpopuler</option>
-                                <option>Paling Banyak Dibaca</option>
-                                <option>Rating Tertinggi</option>
-                            </select>
-                        </div>
-
-                        <!-- View Toggle -->
-                        <div class="view-toggle">
-                            <button class="view-btn active" data-view="grid">
-                                <i class="fas fa-th-large"></i>
-                            </button>
-                            <button class="view-btn" data-view="list">
-                                <i class="fas fa-list"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+                <path
+                    d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+                    fill="#f9fafb" />
+            </svg>
         </div>
     </section>
 
     <!-- Articles Content -->
-    <section class="py-12">
-        <div class="container mx-auto px-4">
-            <!-- Featured Articles -->
-            <div class="mb-12">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Artikel Pilihan</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Featured Article 1 -->
-                    <div class="article-card reveal">
-                        <div class="relative overflow-hidden">
-                            <div class="trending-badge">
-                                <i class="fas fa-fire"></i>
-                                Trending
-                            </div>
-                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                                alt="Featured Article" class="article-image">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="category-badge bg-blue-100 text-blue-700">
-                                    <i class="fas fa-lightbulb"></i>
-                                    Tips Belajar
-                                </span>
-                                <span class="text-gray-500 text-sm">• 10 menit baca</span>
-                            </div>
-                            <h3 class="font-bold text-gray-800 text-xl mb-3">10 Strategi Efektif untuk Meningkatkan
-                                Konsentrasi Belajar</h3>
-                            <p class="text-gray-600 mb-4">Temukan teknik-teknik terbaru yang terbukti secara ilmiah
-                                untuk meningkatkan fokus dan konsentrasi selama sesi belajar Anda.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
-                                        alt="Author" class="author-avatar">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800">Dr. Sarah Wijaya</p>
-                                        <p class="text-xs text-gray-500">Psikolog Pendidikan</p>
-                                    </div>
-                                </div>
-                                <span class="text-gray-500 text-sm">2 hari lalu</span>
-                            </div>
-                        </div>
+    <section class="py-12 bg-gray-50">
+        <div class="mx-auto px-4 sm:px-6 w-full max-w-[95%] 2xl:max-w-[1600px]">
+
+            <div class="flex flex-row justify-between items-end mb-6">
+                <div>
+                    <span class="text-blue-600 font-bold tracking-wider uppercase text-xs mb-1 block">Highlight</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">Sedang Trending</h2>
+                </div>
+                <a href="#"
+                    class="group hidden sm:inline-flex items-center text-sm text-gray-500 hover:text-blue-600 transition-colors font-medium">
+                    Lihat Semua
+                    <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-1 transition-transform"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-16">
+
+                <div
+                    class="lg:col-span-8 group relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 h-[300px] lg:h-[400px]">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=80"
+                        alt="Main Article"
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90">
                     </div>
 
-                    <!-- Featured Article 2 -->
-                    <div class="article-card reveal">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1422&q=80"
-                                alt="Featured Article" class="article-image">
+                    <div class="absolute bottom-0 left-0 p-6 md:p-8 w-full max-w-3xl">
+                        <div class="flex items-center gap-3 mb-2 text-white/90 text-xs font-medium">
+                            <span
+                                class="bg-blue-600/90 backdrop-blur-sm text-white px-2.5 py-1 rounded text-[10px] uppercase tracking-wide font-bold">Tips
+                                Belajar</span>
+                            <span>&middot;</span>
+                            <span>10 menit baca</span>
                         </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="category-badge bg-green-100 text-green-700">
-                                    <i class="fas fa-graduation-cap"></i>
-                                    Pendidikan
-                                </span>
-                                <span class="text-gray-500 text-sm">• 8 menit baca</span>
-                            </div>
-                            <h3 class="font-bold text-gray-800 text-xl mb-3">Masa Depan Pendidikan: Teknologi yang
-                                Mengubah Cara Belajar</h3>
-                            <p class="text-gray-600 mb-4">Eksplorasi bagaimana AI, VR, dan teknologi lainnya merevolusi
-                                pengalaman belajar dan mengajar di era digital.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
-                                        alt="Author" class="author-avatar">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800">Prof. Andi Pratama</p>
-                                        <p class="text-xs text-gray-500">Ahli Teknologi Pendidikan</p>
-                                    </div>
-                                </div>
-                                <span class="text-gray-500 text-sm">5 hari lalu</span>
+                        <h3
+                            class="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight group-hover:text-blue-200 transition-colors">
+                            10 Strategi Efektif Meningkatkan Konsentrasi
+                        </h3>
+                        <p class="text-gray-300 text-sm md:text-base line-clamp-2 mb-4 hidden sm:block">
+                            Teknik terbaru yang terbukti secara ilmiah untuk meningkatkan fokus, manajemen waktu, dan
+                            pola tidur.
+                        </p>
+
+                        <div class="flex items-center gap-3">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=60&h=60&fit=crop&crop=face"
+                                class="w-8 h-8 rounded-full border border-white/30" alt="Author">
+                            <div class="text-white">
+                                <p class="text-sm font-semibold">Dr. Sarah Wijaya</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- All Articles Grid -->
-            <div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Semua Artikel</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Article 1 -->
-                    <div class="article-card reveal">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                                alt="Article" class="article-image">
+                <div class="lg:col-span-4 flex flex-col gap-4 h-auto lg:h-[400px]">
+
+                    <div
+                        class="flex-1 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 group cursor-pointer hover:border-blue-100 transition-all">
+                        <div class="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Thumb">
                         </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="category-badge bg-purple-100 text-purple-700">
-                                    <i class="fas fa-brain"></i>
-                                    Psikologi Belajar
-                                </span>
-                                <span class="text-gray-500 text-sm">• 12 menit baca</span>
-                            </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Memahami Gaya Belajar: Visual, Auditori,
-                                atau Kinestetik?</h3>
-                            <p class="text-gray-600 mb-4">Identifikasi gaya belajar dominan Anda dan terapkan strategi
-                                yang tepat untuk hasil belajar yang maksimal.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"
-                                        alt="Author" class="author-avatar">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800">Dr. Maya Sari</p>
-                                    </div>
-                                </div>
-                                <span class="text-gray-500 text-sm">1 minggu lalu</span>
-                            </div>
+                        <div class="flex flex-col justify-center">
+                            <span
+                                class="text-green-600 text-[10px] font-bold uppercase tracking-wide mb-1">Inovasi</span>
+                            <h4
+                                class="text-base font-bold text-gray-900 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
+                                Masa Depan Pendidikan & Teknologi AI
+                            </h4>
+                            <span class="text-xs text-gray-400">5 hari lalu</span>
                         </div>
                     </div>
 
-                    <!-- Article 2 -->
-                    <div class="article-card reveal">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                                alt="Article" class="article-image">
+                    <div
+                        class="flex-1 bg-white rounded-2xl p-4 shadow-sm border border-gray-100 flex items-center gap-4 group cursor-pointer hover:border-blue-100 transition-all">
+                        <div class="w-24 h-24 flex-shrink-0 rounded-xl overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80"
+                                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                                alt="Thumb">
                         </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="category-badge bg-yellow-100 text-yellow-700">
-                                    <i class="fas fa-chart-line"></i>
-                                    Strategi Ujian
-                                </span>
-                                <span class="text-gray-500 text-sm">• 6 menit baca</span>
-                            </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Teknik Pomodoro: Cara Efektif Mengatur
-                                Waktu Belajar</h3>
-                            <p class="text-gray-600 mb-4">Pelajari teknik manajemen waktu yang terbukti meningkatkan
-                                produktivitas belajar dan mengurangi kelelahan mental.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=40&h=40&fit=crop&crop=face"
-                                        alt="Author" class="author-avatar">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800">Budi Santoso</p>
-                                    </div>
-                                </div>
-                                <span class="text-gray-500 text-sm">2 minggu lalu</span>
-                            </div>
+                        <div class="flex flex-col justify-center">
+                            <span
+                                class="text-purple-600 text-[10px] font-bold uppercase tracking-wide mb-1">Psikologi</span>
+                            <h4
+                                class="text-base font-bold text-gray-900 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
+                                Gaya Belajar: Visual atau Kinestetik?
+                            </h4>
+                            <span class="text-xs text-gray-400">1 minggu lalu</span>
                         </div>
                     </div>
 
-                    <!-- Article 3 -->
-                    <div class="article-card reveal">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
-                                alt="Article" class="article-image">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="category-badge bg-indigo-100 text-indigo-700">
-                                    <i class="fas fa-laptop-code"></i>
-                                    Teknologi Pendidikan
-                                </span>
-                                <span class="text-gray-500 text-sm">• 15 menit baca</span>
-                            </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Platform Belajar Online Terbaik untuk Siswa
-                            </h3>
-                            <p class="text-gray-600 mb-4">Ulasan mendalam tentang platform belajar online terpopuler dan
-                                bagaimana memilih yang tepat untuk kebutuhan Anda.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face"
-                                        alt="Author" class="author-avatar">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800">Ahmad Rizki</p>
-                                    </div>
-                                </div>
-                                <span class="text-gray-500 text-sm">3 minggu lalu</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Article 4 -->
-                    <div class="article-card reveal">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-                                alt="Article" class="article-image">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="category-badge bg-blue-100 text-blue-700">
-                                    <i class="fas fa-lightbulb"></i>
-                                    Tips Belajar
-                                </span>
-                                <span class="text-gray-500 text-sm">• 7 menit baca</span>
-                            </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Cara Membuat Catatan yang Efektif untuk
-                                Belajar</h3>
-                            <p class="text-gray-600 mb-4">Teknik mencatat yang terbukti membantu mengingat informasi
-                                lebih baik dan mempersiapkan ujian dengan efisien.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=40&h=40&fit=crop&crop=face"
-                                        alt="Author" class="author-avatar">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800">Dewi Lestari</p>
-                                    </div>
-                                </div>
-                                <span class="text-gray-500 text-sm">1 bulan lalu</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Article 5 -->
-                    <div class="article-card reveal">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                                alt="Article" class="article-image">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="category-badge bg-green-100 text-green-700">
-                                    <i class="fas fa-graduation-cap"></i>
-                                    Pendidikan
-                                </span>
-                                <span class="text-gray-500 text-sm">• 10 menit baca</span>
-                            </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Peran Orang Tua dalam Mendukung Prestasi
-                                Akademik Anak</h3>
-                            <p class="text-gray-600 mb-4">Strategi praktis bagi orang tua untuk menciptakan lingkungan
-                                belajar yang mendukung dan memotivasi anak.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=40&h=40&fit=crop&crop=face"
-                                        alt="Author" class="author-avatar">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800">Linda Permata</p>
-                                    </div>
-                                </div>
-                                <span class="text-gray-500 text-sm">1 bulan lalu</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Article 6 -->
-                    <div class="article-card reveal">
-                        <div class="relative overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                                alt="Article" class="article-image">
-                        </div>
-                        <div class="p-6">
-                            <div class="flex items-center gap-2 mb-3">
-                                <span class="category-badge bg-purple-100 text-purple-700">
-                                    <i class="fas fa-brain"></i>
-                                    Psikologi Belajar
-                                </span>
-                                <span class="text-gray-500 text-sm">• 9 menit baca</span>
-                            </div>
-                            <h3 class="font-bold text-gray-800 text-lg mb-3">Mengatasi Kecemasan Saat Menghadapi Ujian
-                            </h3>
-                            <p class="text-gray-600 mb-4">Teknik relaksasi dan strategi mental untuk mengelola stres dan
-                                kecemasan sebelum dan selama ujian.</p>
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center gap-3">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face"
-                                        alt="Author" class="author-avatar">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-800">Dr. Rudi Hartono</p>
-                                    </div>
-                                </div>
-                                <span class="text-gray-500 text-sm">2 bulan lalu</span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Load More -->
+            <div
+                class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b border-gray-200 pb-4">
+                <h2 class="text-xl md:text-2xl font-bold text-gray-900">Artikel Terbaru</h2>
+                <div class="flex gap-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar w-full sm:w-auto">
+                    <button
+                        class="px-4 py-1.5 bg-gray-900 text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-all whitespace-nowrap">Semua</button>
+                    <button
+                        class="px-4 py-1.5 bg-white text-gray-600 hover:text-blue-600 border border-gray-200 rounded-full text-sm font-medium transition-all whitespace-nowrap">Teknologi</button>
+                    <button
+                        class="px-4 py-1.5 bg-white text-gray-600 hover:text-blue-600 border border-gray-200 rounded-full text-sm font-medium transition-all whitespace-nowrap">Sains</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+
+                <article
+                    class="flex flex-col bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                            alt="Thumb">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex justify-between items-center mb-2">
+                            <span
+                                class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">PRODUKTIVITAS</span>
+                            <span class="text-[10px] text-gray-400">6 min baca</span>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">
+                            Teknik Pomodoro: Atur Waktu Belajar
+                        </h3>
+                        <p class="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">
+                            Pelajari teknik manajemen waktu legendaris untuk produktivitas maksimal.
+                        </p>
+                        <div class="flex items-center gap-2 pt-3 border-t border-gray-50 mt-auto">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=30&h=30&fit=crop&crop=face"
+                                class="w-6 h-6 rounded-full" alt="Avatar">
+                            <span class="text-xs font-medium text-gray-700">Budi Santoso</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="flex flex-col bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                            alt="Thumb">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex justify-between items-center mb-2">
+                            <span
+                                class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded">TEKNOLOGI</span>
+                            <span class="text-[10px] text-gray-400">15 min baca</span>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">
+                            Platform Belajar Online Terbaik
+                        </h3>
+                        <p class="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">
+                            Review lengkap platform edukasi digital untuk karir Anda.
+                        </p>
+                        <div class="flex items-center gap-2 pt-3 border-t border-gray-50 mt-auto">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=30&h=30&fit=crop&crop=face"
+                                class="w-6 h-6 rounded-full" alt="Avatar">
+                            <span class="text-xs font-medium text-gray-700">Ahmad Rizki</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="flex flex-col bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                            alt="Thumb">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex justify-between items-center mb-2">
+                            <span
+                                class="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded">KREATIF</span>
+                            <span class="text-[10px] text-gray-400">7 min baca</span>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">
+                            Cara Mencatat Aesthetic & Efektif
+                        </h3>
+                        <p class="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">
+                            Teknik note-taking yang indah dan meningkatkan daya ingat.
+                        </p>
+                        <div class="flex items-center gap-2 pt-3 border-t border-gray-50 mt-auto">
+                            <img src="https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=30&h=30&fit=crop&crop=face"
+                                class="w-6 h-6 rounded-full" alt="Avatar">
+                            <span class="text-xs font-medium text-gray-700">Dewi Lestari</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article
+                    class="flex flex-col bg-white rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300 border border-gray-100 group">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                            alt="Thumb">
+                    </div>
+                    <div class="p-5 flex flex-col flex-grow">
+                        <div class="flex justify-between items-center mb-2">
+                            <span
+                                class="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded">PARENTING</span>
+                            <span class="text-[10px] text-gray-400">10 min baca</span>
+                        </div>
+                        <h3
+                            class="text-lg font-bold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors">
+                            Peran Orang Tua dalam Prestasi
+                        </h3>
+                        <p class="text-gray-500 text-sm line-clamp-2 mb-4 flex-grow">
+                            Strategi membangun lingkungan belajar positif di rumah.
+                        </p>
+                        <div class="flex items-center gap-2 pt-3 border-t border-gray-50 mt-auto">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=30&h=30&fit=crop&crop=face"
+                                class="w-6 h-6 rounded-full" alt="Avatar">
+                            <span class="text-xs font-medium text-gray-700">Linda Permata</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+
             <div class="text-center mt-12">
                 <button
-                    class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-medium hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
-                    <i class="fas fa-plus-circle mr-2"></i>
-                    Muat Lebih Banyak Artikel
+                    class="px-6 py-2.5 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 hover:text-blue-600 hover:border-blue-400 transition-all shadow-sm">
+                    Muat Lebih Banyak
                 </button>
             </div>
         </div>
