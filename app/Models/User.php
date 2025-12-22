@@ -20,6 +20,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'photo',
+        'username',
+        'role',
         'password',
     ];
 
@@ -44,5 +47,17 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdmin(){
+        return $this->role === 'admin';
+    }
+
+    public function isGuru(){
+        return $this->role === 'guru';
+    }
+
+    public function isSiswa(){
+        return $this->role === 'siswa';
     }
 }

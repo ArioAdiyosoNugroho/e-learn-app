@@ -314,7 +314,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Notification Toast -->
   <div id="toast" class="fixed top-4 -right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg transform translate-x-full transition-transform duration-300 z-50">
     <div class="flex items-center space-x-2">
