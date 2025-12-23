@@ -1,418 +1,426 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - LKPD App</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-  <script
-  src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js"
-  type="module"
-></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: {
-              50: '#eff6ff',
-              100: '#dbeafe',
-              500: '#3b82f6',
-              600: '#2563eb',
-              700: '#1d4ed8',
-              800: '#1e40af',
-              900: '#1e3a8a',
-            },
-            accent: '#06b6d4',
-            dark: '#1e293b',
-            light: '#f8fafc',
-          },
-          animation: {
-            'pulse-delay-2000': 'pulse 2s ease-in-out 2s infinite',
-            'pulse-delay-4000': 'pulse 2s ease-in-out 4s infinite',
-            'float': 'float 6s ease-in-out infinite',
-            'slide-in': 'slideIn 0.8s ease-out forwards',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' }
-            },
-            slideIn: {
-              from: {
-                opacity: '0',
-                transform: 'translateY(30px)'
-              },
-              to: {
-                opacity: '1',
-                transform: 'translateY(0)'
-              }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - LKPD App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        accent: '#06b6d4',
+                        dark: '#1e293b',
+                        light: '#f8fafc',
+                    },
+                    animation: {
+                        'pulse-delay-2000': 'pulse 2s ease-in-out 2s infinite',
+                        'pulse-delay-4000': 'pulse 2s ease-in-out 4s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'slide-in': 'slideIn 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': {
+                                transform: 'translateY(0)'
+                            },
+                            '50%': {
+                                transform: 'translateY(-10px)'
+                            }
+                        },
+                        slideIn: {
+                            from: {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            to: {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
-    }
-  </script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-    * {
-      font-family: 'Inter', sans-serif;
-    }
+        * {
+            font-family: 'Inter', sans-serif;
+        }
 
-    .gradient-bg {
-      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
-    }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+        }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        .gradient-text {
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
 
-    .pulse-glow {
-      animation: pulse-glow 2s ease-in-out infinite alternate;
-    }
+        .pulse-glow {
+            animation: pulse-glow 2s ease-in-out infinite alternate;
+        }
 
-    @keyframes pulse-glow {
-      from { box-shadow: 0 0 20px rgba(37, 99, 235, 0.5); }
-      to { box-shadow: 0 0 30px rgba(37, 99, 235, 0.8); }
-    }
+        @keyframes pulse-glow {
+            from {
+                box-shadow: 0 0 20px rgba(37, 99, 235, 0.5);
+            }
 
-    .typewriter {
-      overflow: hidden;
-      border-right: .15em solid #2563eb;
-      white-space: nowrap;
-      margin: 0 auto;
-      animation:
-        typing 3.5s steps(40, end),
-        blink-caret .75s step-end infinite;
-    }
+            to {
+                box-shadow: 0 0 30px rgba(37, 99, 235, 0.8);
+            }
+        }
 
-    @keyframes typing {
-      from { width: 0 }
-      to { width: 100% }
-    }
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #2563eb;
+            white-space: nowrap;
+            margin: 0 auto;
+            animation:
+                typing 3.5s steps(40, end),
+                blink-caret .75s step-end infinite;
+        }
 
-    @keyframes blink-caret {
-      from, to { border-color: transparent }
-      50% { border-color: #2563eb; }
-    }
+        @keyframes typing {
+            from {
+                width: 0
+            }
 
-    .input-focus:focus {
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
+            to {
+                width: 100%
+            }
+        }
 
-    .btn-hover {
-      transition: all 0.3s ease;
-      background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
-    }
+        @keyframes blink-caret {
 
-    .btn-hover:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
-    }
-  </style>
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #2563eb;
+            }
+        }
+
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn-hover {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+        }
+
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen flex items-center justify-center p-4">
-  <!-- Background Elements -->
-  <div class="fixed inset-0 overflow-hidden -z-10">
-    <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
-    <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse-delay-2000"></div>
-    <div class="absolute top-40 left-1/2 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse-delay-4000"></div>
-  </div>
 
-  <!-- Main Container -->
-  <div class="w-full max-w-6xl mx-auto">
-    <div class="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl overflow-hidden border border-white/50">
-      <div class="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+    @if ($errors->has('login'))
+        <div x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 4000)"
+            class="fixed top-5 right-5 bg-red-600 text-white px-6 py-4 rounded-lg shadow-lg z-50">
 
-        <!-- Left Panel - Brand & Features -->
-        <div class="gradient-bg p-8 lg:p-12 flex flex-col justify-between text-white relative overflow-hidden">
-          <!-- Background Pattern -->
-          <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-10 left-10 w-20 h-20 rounded-full bg-white"></div>
-            <div class="absolute bottom-10 right-10 w-32 h-32 rounded-full bg-white"></div>
-            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-white"></div>
-          </div>
-
-          <div class="relative z-10">
-            <!-- Logo & Brand -->
-            <div class="flex items-center space-x-4 mb-8">
-              <div class="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center shadow-lg">
-                <img src="asset/logo/logo.png" alt="">
-              </div>
-              <div>
-                <h1 class="text-3xl font-bold">EduQuiz</h1>
-                <p class="text-blue-100 text-sm">Platform Belajar Interaktif</p>
-              </div>
-            </div>
-
-            <!-- Hero Content -->
-            <div class="mb-8">
-              <h2 class="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-                Mari Wujudkan
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-100 to-cyan-200">Mimpi Belajarmu</span>
-              </h2>
-              <p class="text-lg text-blue-100 max-w-md">
-                Tingkatkan pemahaman dengan quiz interaktif, materi berkualitas, dan komunitas belajar yang solid.
-              </p>
-            </div>
-
-            <!-- Lottie Animation -->
-            <div class="mb-8 flex justify-center">
-              <div class="w-64 h-64">
-                <dotlottie-wc
-                  src="https://lottie.host/b4c12aa2-801c-429a-968b-20a41db17a85/EMe4JMplYw.lottie"
-                  style="width: 300px;height: 300px"
-                  autoplay
-                  loop
-                ></dotlottie-wc>
-              </div>
-            </div>
-          </div>
-
-          <!-- Features -->
-          <div class="relative z-10 grid grid-cols-2 gap-4">
-            <div class="flex items-center space-x-3 p-3 bg-white/10 rounded-xl backdrop-blur-sm">
-              <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                <i class="fas fa-brain text-white"></i>
-              </div>
-              <span class="font-medium">Quiz Interaktif</span>
-            </div>
-            <div class="flex items-center space-x-3 p-3 bg-white/10 rounded-xl backdrop-blur-sm">
-              <div class="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
-                <i class="fas fa-chart-line text-white"></i>
-              </div>
-              <span class="font-medium">Progress Tracking</span>
-            </div>
-          </div>
+            <strong>Error Login</strong>
+            <p class="text-sm mt-1">{{ $errors->first('login') }}</p>
         </div>
+    @endif
 
-        <!-- Right Panel - Login Form -->
-        <div class="p-8 lg:p-12 flex items-center justify-center">
-          <div class="w-full max-w-md">
-            <!-- Form Header -->
-            <div class="text-center mb-8">
-              <h3 class="text-3xl font-bold text-gray-800 mb-3">Masuk ke Akun</h3>
-              <p class="text-gray-600">Selamat datang kembali! Lanjutkan perjalanan belajarmu</p>
-            </div>
-
-            <!-- Login Form -->
-            <form method="POST" action="{{ route('login.post') }}" class="space-y-6" id="loginForm">
-              <!-- Username Field -->
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center">
-                  <i class="fas fa-user mr-2 text-primary-600"></i>
-                  Nama Pengguna
-                </label>
-                <div class="relative">
-                  <input
-                    type="text"
-                    name="name"
-                    required
-                    class="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition duration-200 input-focus"
-                    placeholder="Masukkan nama pengguna"
-                    id="username"
-                  >
-                  <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
-                    <i class="fas fa-check-circle text-green-500 opacity-0 transition-opacity duration-300" id="username-valid"></i>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Password Field -->
-              <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center">
-                  <i class="fas fa-lock mr-2 text-primary-600"></i>
-                  Kata Sandi
-                </label>
-                <div class="relative">
-                  <input
-                    type="password"
-                    name="password"
-                    required
-                    class="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition duration-200 input-focus pr-12"
-                    placeholder="Masukkan kata sandi"
-                    id="password"
-                  >
-                  <button type="button" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors" id="togglePassword">
-                    <i class="fas fa-eye"></i>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Remember & Forgot -->
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <input type="checkbox" id="remember" name="remember" class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
-                  <label for="remember" class="ml-2 text-sm text-gray-700">Ingat saya</label>
-                </div>
-                <a href="#" class="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">Lupa kata sandi?</a>
-              </div>
-
-              <!-- Submit Button -->
-              <button
-                type="submit"
-                class="w-full py-4 px-6 text-white font-semibold rounded-xl shadow-lg btn-hover transition-all duration-300 flex items-center justify-center group relative overflow-hidden"
-                id="loginButton"
-              >
-                <span class="relative z-10 flex items-center">
-                  <i class="fas fa-sign-in-alt mr-3"></i>
-                  <span id="loginText">Masuk ke Akun</span>
-                  <i class="fas fa-spinner fa-spin ml-3 hidden" id="loadingIcon"></i>
-                </span>
-                <div class="absolute inset-0 bg-gradient-to-r from-primary-700 to-primary-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </button>
-
-              <!-- Demo Account Info -->
-              <div class="bg-primary-50 border border-primary-200 rounded-xl p-4">
-                <div class="flex items-start space-x-3">
-                  <i class="fas fa-info-circle text-primary-600 mt-0.5"></i>
-                  <div>
-                    <h4 class="text-primary-800 font-medium text-sm mb-1">Akun Demo</h4>
-                    <p class="text-primary-700 text-xs">
-                      <span class="font-mono bg-primary-100 px-2 py-1 rounded">admin</span> /
-                      <span class="font-mono bg-primary-100 px-2 py-1 rounded">password</span>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Divider -->
-              <div class="relative flex items-center justify-center my-6">
-                <div class="border-t border-gray-300 w-full"></div>
-                <span class="absolute bg-white px-4 text-sm text-gray-500">atau lanjutkan dengan</span>
-              </div>
-
-              <!-- Social Login -->
-              <div class="flex justify-center space-x-4">
-                <button type="button" class="w-12 h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-red-500 hover:text-red-500 hover:bg-red-50 transition-all duration-300 social-btn">
-                  <i class="fab fa-google text-xl"></i>
-                </button>
-                <button type="button" class="w-12 h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 social-btn">
-                  <i class="fab fa-facebook-f text-xl"></i>
-                </button>
-                <button type="button" class="w-12 h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-gray-800 hover:text-gray-800 hover:bg-gray-100 transition-all duration-300 social-btn">
-                  <i class="fab fa-apple text-xl"></i>
-                </button>
-              </div>
-            </form>
-
-            <!-- Registration Prompt -->
-            <div class="text-center mt-8 pt-6 border-t border-gray-200">
-              <p class="text-gray-600 text-sm">
-                Belum punya akun?
-                <a href="#" class="text-primary-600 font-medium hover:text-primary-700 ml-1 transition-colors">Daftar sekarang</a>
-              </p>
-            </div>
-          </div>
+    <!-- Background Elements -->
+    <div class="fixed inset-0 overflow-hidden -z-10">
+        <div
+            class="absolute -top-40 -right-40 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse">
         </div>
-      </div>
+        <div
+            class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse-delay-2000">
+        </div>
+        <div
+            class="absolute top-40 left-1/2 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse-delay-4000">
+        </div>
     </div>
-  </div>
 
-  <!-- Notification Toast -->
-  <div id="toast" class="fixed top-4 -right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg transform translate-x-full transition-transform duration-300 z-50">
-    <div class="flex items-center space-x-2">
-      <i class="fas fa-check-circle"></i>
-      <span>Login berhasil! Mengarahkan...</span>
+    <!-- Main Container -->
+    <div class="w-screen h-screen">
+        <div class="grid grid-cols-1 lg:grid-cols-2 h-full">
+
+            <!-- Left Panel - Brand & Features -->
+            <div
+                class="relative hidden lg:flex flex-col justify-center items-center h-full w-full text-white bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 overflow-hidden">
+
+                <div class="absolute inset-0 z-0">
+                    <div
+                        class="absolute -top-20 -left-20 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob">
+                    </div>
+                    <div
+                        class="absolute -bottom-32 -right-32 w-96 h-96 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000">
+                    </div>
+                </div>
+
+                <div class="relative z-10 flex flex-col items-center justify-center p-12 text-center w-full max-w-5xl">
+                    <div class="w-full mb-8 transform hover:scale-105 transition-transform duration-500 ease-in-out">
+                        <dotlottie-wc src="https://lottie.host/b4c12aa2-801c-429a-968b-20a41db17a85/EMe4JMplYw.lottie"
+                            style="width: 100%; height: auto;" autoplay loop>
+                        </dotlottie-wc>
+                    </div>
+
+
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-center space-x-3 mb-2">
+                            <div
+                                class="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/20">
+                                <img src="{{ asset('tamp/asset/logo/logo.png') }}" alt="Logo"
+                                    class="w-10 object-contain">
+                            </div>
+                            <h1 class="text-4xl font-bold tracking-tight text-white">EduQuiz</h1>
+                        </div>
+
+                        <p class="text-lg text-blue-100/80 font-light tracking-wide max-w-sm mx-auto">
+                            Platform belajar interaktif masa depan.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="absolute bottom-0 w-full h-24 bg-gradient-to-t from-indigo-900/50 to-transparent"></div>
+            </div>
+
+            <!-- Right Panel - Login Form -->
+            <div
+                class="relative bg-white flex items-center justify-center h-full z-10
+                lg:-ml-[3rem]
+                lg:rounded-l-[3rem]
+                lg:shadow-[-20px_0_50px_rgba(0,0,0,0.12)]">
+
+                <div
+                    class="
+                w-full
+                max-w-md
+                sm:max-w-lg
+                lg:max-w-xl
+                xl:max-w-2xl
+                2xl:max-w-3xl
+                px-6
+                sm:px-8
+                lg:px-12
+            ">
+                    <!-- Form Header -->
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold text-gray-800 mb-3">Masuk ke Akun</h3>
+                        <p class="text-gray-600">Selamat datang kembali! Lanjutkan perjalanan belajarmu</p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <form method="POST" action="{{ route('login.post') }}" class="space-y-6" id="loginForm">
+                        @csrf
+                        <!-- login Field -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700 flex items-center">
+                                <i class="fas fa-user mr-2 text-primary-600"></i>
+                                Nama/Email
+                            </label>
+                            <div class="relative">
+                                <input type="text" name="login" required
+                                    class="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition duration-200 input-focus"
+                                    placeholder="Masukkan nama atau email" id="login">
+                                <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                    <i class="fas fa-check-circle text-green-500 opacity-0 transition-opacity duration-300"
+                                        id="login-valid"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-700 flex items-center">
+                                <i class="fas fa-lock mr-2 text-primary-600"></i>
+                                Kata Sandi
+                            </label>
+                            <div class="relative">
+                                <input type="password" name="password" required
+                                    class="w-full px-4 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition duration-200 input-focus pr-12"
+                                    placeholder="Masukkan kata sandi" id="password">
+                                <button type="button"
+                                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                    id="togglePassword">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Remember & Forgot -->
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="remember" name="remember"
+                                    class="w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
+                                <label for="remember" class="ml-2 text-sm text-gray-700">Ingat saya</label>
+                            </div>
+                            <a href="#"
+                                class="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors">Lupa
+                                kata sandi?</a>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit"
+                            class="w-full py-4 px-6 text-white font-semibold rounded-xl shadow-lg btn-hover transition-all duration-300 flex items-center justify-center group relative overflow-hidden"
+                            id="loginButton">
+                            <span class="relative z-10 flex items-center">
+                                <i class="fas fa-sign-in-alt mr-3"></i>
+                                <span id="loginText">Masuk ke Akun</span>
+                                <i class="fas fa-spinner fa-spin ml-3 hidden" id="loadingIcon"></i>
+                            </span>
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-primary-700 to-primary-800 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            </div>
+                        </button>
+
+                        <!-- Divider -->
+                        <div class="relative flex items-center justify-center my-6">
+                            <div class="border-t border-gray-300 w-full"></div>
+                            <span class="absolute bg-white px-4 text-sm text-gray-500">atau lanjutkan dengan</span>
+                        </div>
+
+                        <!-- Social Login -->
+                        <div class="flex justify-center space-x-4">
+                            <button type="button"
+                                class="w-12 h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-red-500 hover:text-red-500 hover:bg-red-50 transition-all duration-300 social-btn">
+                                <i class="fab fa-google text-xl"></i>
+                            </button>
+                            <button type="button"
+                                class="w-12 h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 social-btn">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </button>
+                            <button type="button"
+                                class="w-12 h-12 rounded-xl border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-gray-800 hover:text-gray-800 hover:bg-gray-100 transition-all duration-300 social-btn">
+                                <i class="fab fa-apple text-xl"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Registration Prompt -->
+                    <div class="text-center mt-8 pt-6 border-t border-gray-200">
+                        <p class="text-gray-600 text-sm">
+                            Belum punya akun?
+                            <a href="{{ route('register') }}"
+                                class="text-primary-600 font-medium hover:text-primary-700 ml-1 transition-colors">Daftar
+                                sekarang</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Elements
-      const loginForm = document.getElementById('loginForm');
-      const usernameInput = document.getElementById('username');
-      const passwordInput = document.getElementById('password');
-      const togglePasswordBtn = document.getElementById('togglePassword');
-      const loginButton = document.getElementById('loginButton');
-      const loadingIcon = document.getElementById('loadingIcon');
-      const usernameValidIcon = document.getElementById('username-valid');
-      const toast = document.getElementById('toast');
+    <!-- Notification Toast -->
+    <div id="toast"
+        class="fixed top-4 -right-4 bg-green-500 text-white px-6 py-3 rounded-xl shadow-lg transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-check-circle"></i>
+            <span>Login berhasil! Mengarahkan...</span>
+        </div>
+    </div>
 
-      // Toggle password visibility
-      togglePasswordBtn.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        this.querySelector('i').classList.toggle('fa-eye');
-        this.querySelector('i').classList.toggle('fa-eye-slash');
-      });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const loginForm = document.getElementById('loginForm');
+            const loginInput = document.getElementById('login');
+            const passwordInput = document.getElementById('password');
+            const togglePasswordBtn = document.getElementById('togglePassword');
+            const loginButton = document.getElementById('loginButton');
+            const loadingIcon = document.getElementById('loadingIcon');
+            const loginValidIcon = document.getElementById('login-valid');
+            const toast = document.getElementById('toast');
 
-      // Username validation
-      usernameInput.addEventListener('input', function() {
-        if (this.value.length >= 3) {
-          usernameValidIcon.classList.add('opacity-100');
-        } else {
-          usernameValidIcon.classList.remove('opacity-100');
-        }
-      });
+            // Toggle password visibility
+            togglePasswordBtn.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.querySelector('i').classList.toggle('fa-eye');
+                this.querySelector('i').classList.toggle('fa-eye-slash');
+            });
 
-      // Form submission with animation
-      loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+            // login validation
+            loginInput.addEventListener('input', function() {
+                if (this.value.length >= 3) {
+                    loginValidIcon.classList.add('opacity-100');
+                } else {
+                    loginValidIcon.classList.remove('opacity-100');
+                }
+            });
 
-        // Show loading state
-        loginButton.disabled = true;
-        loadingIcon.classList.remove('hidden');
-        document.getElementById('loginText').textContent = 'Memproses...';
+            // Form submission with animation then real submit
+            loginForm.addEventListener('submit', function(e) {
+                // Show loading state (don't prevent default permanently)
+                e.preventDefault();
 
-        // Simulate API call delay
-        setTimeout(() => {
-          // Show success toast
-          toast.classList.remove('translate-x-full');
+                loginButton.disabled = true;
+                loadingIcon.classList.remove('hidden');
+                document.getElementById('loginText').textContent = 'Memproses...';
 
-          // Reset form after a delay
-          setTimeout(() => {
-            loginButton.disabled = false;
-            loadingIcon.classList.add('hidden');
-            document.getElementById('loginText').textContent = 'Masuk ke Akun';
+                // Short delay to show animation, then submit to server
+                setTimeout(() => {
+                    // Programmatic submit will not re-trigger this handler
+                    this.submit();
+                }, 500);
+            });
 
-            // Hide toast
-            toast.classList.add('translate-x-full');
-          }, 2000);
-        }, 1500);
-      });
+            // Add interactive effects to inputs
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('ring-2', 'ring-primary-200');
+                });
 
-      // Add interactive effects to inputs
-      const inputs = document.querySelectorAll('input');
-      inputs.forEach(input => {
-        input.addEventListener('focus', function() {
-          this.parentElement.classList.add('ring-2', 'ring-primary-200');
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('ring-2', 'ring-primary-200');
+                });
+            });
+
+            // Add hover effect to social buttons
+            document.querySelectorAll('.social-btn').forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add typewriter effect to welcome message
+            const welcomeText = document.querySelector('.gradient-text');
+            const originalText = welcomeText.textContent;
+            welcomeText.textContent = '';
+            welcomeText.classList.add('typewriter');
+
+            setTimeout(() => {
+                welcomeText.textContent = originalText;
+                welcomeText.classList.remove('typewriter');
+                welcomeText.style.borderRight = 'none';
+            }, 3500);
         });
-
-        input.addEventListener('blur', function() {
-          this.parentElement.classList.remove('ring-2', 'ring-primary-200');
-        });
-      });
-
-      // Add hover effect to social buttons
-      document.querySelectorAll('.social-btn').forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateY(-2px)';
-        });
-
-        btn.addEventListener('mouseleave', function() {
-          this.style.transform = 'translateY(0)';
-        });
-      });
-
-      // Add typewriter effect to welcome message
-      const welcomeText = document.querySelector('.gradient-text');
-      const originalText = welcomeText.textContent;
-      welcomeText.textContent = '';
-      welcomeText.classList.add('typewriter');
-
-      setTimeout(() => {
-        welcomeText.textContent = originalText;
-        welcomeText.classList.remove('typewriter');
-        welcomeText.style.borderRight = 'none';
-      }, 3500);
-    });
-  </script>
+    </script>
 </body>
+
 </html>

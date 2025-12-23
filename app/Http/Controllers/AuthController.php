@@ -13,9 +13,10 @@ class AuthController extends Controller
     {
         return view('Auth.login');
     }
+
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'login'    => 'required|string',
             'password' => 'required|min:6',
         ]);
@@ -25,9 +26,9 @@ class AuthController extends Controller
             ->orWhere('email', $login)
             ->first();
 
-        if (!$user || Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return back()->withErrors([
-                'login' => 'Username atau Email salah',
+                'login' => 'Username, Email, atau password salah',
             ])->withInput();
         }
 
@@ -36,13 +37,15 @@ class AuthController extends Controller
 
         return match ($user->role) {
             'admin' => redirect()->route('admin.dashboard'),
+            'guru' => redirect()->route('home'),
+            'siswa' => redirect()->route('home'),
             default => redirect()->route('home'),
         };
     }
 
-    public function registerForm(Request $request)
+    public function showRegisterForm(Request $request)
     {
-        return redirect()->view('Auth.register');
+        return view('Auth.register');
     }
 
     public function register(Request $request)
