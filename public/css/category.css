@@ -1,0 +1,29 @@
+        /* Custom style untuk color picker agar lebih menarik */
+        #colorPreviewBox {
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #colorPreviewBox:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        #colorPicker {
+            cursor: pointer;
+        }
+
+        #colorPicker::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        #colorPicker::-webkit-color-swatch {
+            border: none;
+            border-radius: 8px;
+        }
+
+        #textPreview {
+            transition: all 0.2s ease;
+            min-width: 70px;
+            text-align: center;
+        }

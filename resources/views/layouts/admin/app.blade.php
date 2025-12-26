@@ -14,6 +14,8 @@
     <title>@yield('title')</title>
     <!-- BEGIN: CSS Assets-->
     <link rel="stylesheet" href="{{ asset('midone/dist/css/app.css') }}" />
+    @stack('styles')
+    @stack('scripts')
     <!-- END: CSS Assets-->
 </head>
 <!-- END: Head -->

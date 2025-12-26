@@ -12,7 +12,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('Admin.category.index');
+        $category = Category::all();
+        return view('Admin.category.index' , compact('category'));
     }
 
     /**
@@ -29,16 +30,16 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'color' => 'nullable|string'
         ]);
 
         Category::create([
             'name' => $request->name,
+            'color' => $request->color ?? '#1d4ed8'
         ]);
 
         return redirect()->back();
-
-
     }
 
     /**
@@ -62,7 +63,17 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'color' => 'nullable|string'
+        ]);
+
+        $category->update([
+            'name' => $request->name,
+            'color' => $request->color ?? '#1d4ed8'
+        ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -70,6 +81,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->back();
     }
 }
