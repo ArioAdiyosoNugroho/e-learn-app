@@ -1,5 +1,5 @@
 @extends('layouts.admin.app')
-@section('title', 'Dashboard - EduQuiz Admin')
+@section('title', 'Dashboard | EduQuiz Admin')
 @section('content')
 <div class="grid grid-cols-12 gap-6">
     <div class="col-span-12 xxl:col-span-9 grid grid-cols-12 gap-6">
@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                             <div class="text-3xl font-bold leading-8 mt-6">4.510</div>
-                            <div class="text-base text-gray-600 mt-1">Item Sales</div>
+                            <div class="text-base text-gray-600 mt-1">Total Materi</div>
                         </div>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="text-3xl font-bold leading-8 mt-6">3.521</div>
-                            <div class="text-base text-gray-600 mt-1">New Orders</div>
+                            <div class="text-base text-gray-600 mt-1">Materi Published</div>
                         </div>
                     </div>
                 </div>
@@ -56,8 +56,8 @@
                                             class="w-4 h-4"></i> </div>
                                 </div>
                             </div>
-                            <div class="text-3xl font-bold leading-8 mt-6">2.145</div>
-                            <div class="text-base text-gray-600 mt-1">Total Products</div>
+                            <div class="text-3xl font-bold leading-8 mt-6">12</div>
+                            <div class="text-base text-gray-600 mt-1">Kategori/mapel</div>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                                 </div>
                             </div>
                             <div class="text-3xl font-bold leading-8 mt-6">152.000</div>
-                            <div class="text-base text-gray-600 mt-1">Unique Visitor</div>
+                            <div class="text-base text-gray-600 mt-1">Total User</div>
                         </div>
                     </div>
                 </div>

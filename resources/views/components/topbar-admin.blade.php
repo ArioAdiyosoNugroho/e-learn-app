@@ -492,7 +492,8 @@
                 <!-- BEGIN: Breadcrumb -->
                 <div class="-intro-x breadcrumb breadcrumb--light mr-auto"> <a href=""
                         class="">Application</a> <i data-feather="chevron-right" class="breadcrumb__icon"></i>
-                    <a href="" class="breadcrumb--active">Dashboard</a> </div>
+                    <a href="" class="breadcrumb--active">Dashboard</a>
+                </div>
                 <!-- END: Breadcrumb -->
                 <!-- BEGIN: Search -->
                 <div class="intro-x relative mr-3 sm:mr-6">
@@ -510,19 +511,22 @@
                                 <a href="" class="flex items-center">
                                     <div
                                         class="w-8 h-8 bg-theme-18 text-theme-9 flex items-center justify-center rounded-full">
-                                        <i class="w-4 h-4" data-feather="inbox"></i> </div>
+                                        <i class="w-4 h-4" data-feather="inbox"></i>
+                                    </div>
                                     <div class="ml-3">Mail Settings</div>
                                 </a>
                                 <a href="" class="flex items-center mt-2">
                                     <div
                                         class="w-8 h-8 bg-theme-17 text-theme-11 flex items-center justify-center rounded-full">
-                                        <i class="w-4 h-4" data-feather="users"></i> </div>
+                                        <i class="w-4 h-4" data-feather="users"></i>
+                                    </div>
                                     <div class="ml-3">Users & Permissions</div>
                                 </a>
                                 <a href="" class="flex items-center mt-2">
                                     <div
                                         class="w-8 h-8 bg-theme-14 text-theme-10 flex items-center justify-center rounded-full">
-                                        <i class="w-4 h-4" data-feather="credit-card"></i> </div>
+                                        <i class="w-4 h-4" data-feather="credit-card"></i>
+                                    </div>
                                     <div class="ml-3">Transactions Report</div>
                                 </a>
                             </div>
@@ -607,7 +611,8 @@
                 <!-- BEGIN: Notifications -->
                 <div class="intro-x dropdown relative mr-4 sm:mr-6">
                     <div class="dropdown-toggle notification notification--light notification--bullet cursor-pointer">
-                        <i data-feather="bell" class="notification__icon"></i> </div>
+                        <i data-feather="bell" class="notification__icon"></i>
+                    </div>
                     <div class="notification-content dropdown-box mt-8 absolute top-0 right-0 z-10 -mr-10 sm:mr-0">
                         <div class="notification-content__box dropdown-box__content box">
                             <div class="notification-content__title">Notifications</div>
@@ -752,38 +757,25 @@
         <nav class="top-nav">
             <ul>
                 <li>
-                    <a href="top-menu-dashboard.html" class="top-menu top-menu--active">
-                        <div class="top-menu__icon"> <i data-feather="home"></i> </div>
-                        <div class="top-menu__title"> Dashboard </div>
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="top-menu {{ request()->routeIs('admin.dashboard') ? 'top-menu--active' : '' }}">
+                        <div class="top-menu__icon">
+                            <i data-feather="home"></i>
+                        </div>
+                        <div class="top-menu__title">Dashboard</div>
                     </a>
                 </li>
+
                 <li>
-                    <a href="javascript:;" class="top-menu">
-                        <div class="top-menu__icon"> <i data-feather="box"></i> </div>
-                        <div class="top-menu__title"> Menu Layout <i data-feather="chevron-down"
-                                class="top-menu__sub-icon"></i> </div>
+                    <a href="{{ route('category.index') }}"
+                        class="top-menu {{ request()->routeIs('category.*') ? 'top-menu--active' : '' }}">
+                        <div class="top-menu__icon">
+                            <i data-feather="box"></i>
+                        </div>
+                        <div class="top-menu__title">Category</div>
                     </a>
-                    <ul class="">
-                        <li>
-                            <a href="index.html" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="activity"></i> </div>
-                                <div class="top-menu__title"> Side Menu </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="simple-menu-dashboard.html" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="activity"></i> </div>
-                                <div class="top-menu__title"> Simple Menu </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="top-menu-dashboard.html" class="top-menu">
-                                <div class="top-menu__icon"> <i data-feather="activity"></i> </div>
-                                <div class="top-menu__title"> Top Menu </div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
+
                 <li>
                     <a href="javascript:;" class="top-menu">
                         <div class="top-menu__icon"> <i data-feather="activity"></i> </div>
