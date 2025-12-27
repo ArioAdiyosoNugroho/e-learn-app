@@ -14,12 +14,25 @@ return new class extends Migration
         Schema::create('materis', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->text('description');
+
+            $table->string('cover_image')->nullable();
+            $table->string('pdf_file')->nullable();
+            $table->string('video_url')->nullable();
+
+
             $table->unsignedInteger('views')->default(0);
-            $table->string('content')->nullable();
-            $table->string('url')->nullable();
+            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->timestamp('published_at')->nullable();
+
+            //opsional
+            $table->string('topic')->nullable();
+            $table->boolean('allow_comments')->default(false)->nullable();
+
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('guru_id')->constrained('users')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

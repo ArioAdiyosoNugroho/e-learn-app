@@ -1,0 +1,188 @@
+@extends('layouts.materi.app')
+@section('content')
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Utility untuk menyembunyikan scrollbar pada iframe jika perlu */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <form id="publishForm">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                <div class="lg:col-span-8 space-y-6">
+
+                    <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex items-start gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-5 h-5 text-blue-600 mt-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                        <div>
+                            <h4 class="text-sm font-semibold text-blue-800">Mode Pratinjau</h4>
+                            <p class="text-sm text-blue-600/80 mt-1">Ini adalah tampilan materi Anda yang akan dilihat
+                                oleh siswa. Pastikan video/file dapat dimuat dengan benar.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/60 overflow-hidden">
+
+                        <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-rose-50 text-rose-600 rounded-lg">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                        stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                                    </svg>
+                                </div>
+                                <h2 class="text-lg font-bold text-slate-800">Konten Materi</h2>
+                            </div>
+                            <span
+                                class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold border border-slate-200">Video</span>
+                        </div>
+
+                        <div class="p-6 md:p-8 space-y-8">
+
+                            <div class="relative w-full rounded-2xl overflow-hidden bg-slate-900 shadow-lg group">
+
+                                <div class="aspect-video w-full">
+                                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/jfKfPfyJRdk"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+
+                            </div>
+
+                            <div class="space-y-4 border-t border-slate-100 pt-6">
+                                <div>
+                                    <div class="flex gap-2 mb-3">
+                                        <span
+                                            class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Fisika</span>
+                                        <span
+                                            class="inline-flex items-center rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">Bab
+                                            1</span>
+                                    </div>
+                                    <h1 class="text-2xl md:text-3xl font-bold text-slate-900 leading-tight">Pengantar
+                                        Fisika Kuantum: Dualitas Gelombang</h1>
+                                </div>
+
+                                <div
+                                    class="flex items-center gap-4 text-sm text-slate-500 border-b border-slate-100 pb-4">
+                                    <div class="flex items-center gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>15 Menit</span>
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <span>Preview Mode</span>
+                                    </div>
+                                </div>
+
+                                <div class="prose prose-slate text-slate-600 text-sm leading-relaxed max-w-none">
+                                    <p>Dalam materi ini, kita akan mempelajari dasar-dasar mekanika kuantum, dimulai
+                                        dari eksperimen celah ganda yang membuktikan sifat ganda cahaya sebagai partikel
+                                        dan gelombang. Materi ini mencakup sejarah penemuan, rumus dasar Planck, dan
+                                        interpretasi Copenhagen.</p>
+                                    <p class="mt-2">Silakan tonton video di atas dengan seksama sebelum mengerjakan
+                                        kuis.</p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="lg:col-span-4 space-y-6">
+
+                    <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-6 top-24">
+                        <div class="flex justify-between items-end mb-4">
+                            <div>
+                                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Kesiapan</h3>
+                            </div>
+                            <span class="text-2xl font-bold text-green-600">100%</span>
+                        </div>
+
+                        <div class="w-full bg-slate-100 rounded-full h-2 mb-8 overflow-hidden">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <a href="materi-step-1.html"
+                                class="flex items-center justify-center gap-2 py-3.5 px-4 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                                </svg>
+                                <span>Kembali</span>
+                            </a>
+
+                            <button type="submit"
+                                class="flex items-center justify-center gap-2 py-3.5 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl shadow-lg shadow-green-500/30 transition-all transform hover:-translate-y-0.5">
+                                <span>Publish</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                                    stroke="currentColor" class="w-4 h-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                                </svg>
+                            </button>
+                        </div>
+
+
+                        <!-- Tombol Simpan Draft -->
+                        <button type="button"
+                            class="w-full py-3.5 px-4 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5 text-slate-400">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                            </svg>
+                            <span>Simpan Draft</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-indigo-50/50 rounded-2xl p-5 border border-indigo-100">
+                        <div class="flex items-center gap-2 mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5 text-indigo-600">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                            </svg>
+                            <span class="font-semibold text-indigo-900 text-sm">Cek Terakhir</span>
+                        </div>
+                        <ul class="space-y-2 text-xs font-medium text-indigo-800/80">
+                            <li class="flex gap-2">
+                                <span class="text-indigo-400">✓</span>
+                                Pastikan video tidak privat.
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-indigo-400">✓</span>
+                                Cek penulisan judul dan deskripsi.
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </main>
+@endsection
