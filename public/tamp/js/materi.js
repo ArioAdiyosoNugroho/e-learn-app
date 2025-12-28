@@ -244,14 +244,61 @@ document.addEventListener('DOMContentLoaded', function () {
     // Validasi URL video
     videoUrl.addEventListener('blur', function () {
         const url = this.value.trim();
-        if (url && isValidUrl(url)) {
-            // Simulasi validasi URL video
-            videoPreview.classList.remove('hidden');
-            showNotification('URL video valid', 'success');
-        } else if (url) {
-            showNotification('URL tidak valid', 'error');
+        const previewArea = document.getElementById('videoPreview');
+        const container = document.getElementById('videoPreviewContainer');
+
+        if (url) {
+            const embedUrl = getYoutubeEmbedUrl(url);
+
+            if (embedUrl) {
+                // Tampilkan Preview dengan Iframe
+                container.innerHTML = `
+                <iframe class="w-full h-full"
+                        src="${embedUrl}"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                </iframe>`;
+                previewArea.classList.remove('hidden');
+                showNotification('Video YouTube berhasil dimuat', 'success');
+            } else if (isValidUrl(url)) {
+                // Jika URL valid tapi bukan YouTube (Misal Direct Link MP4)
+                if (url.match(/\.(mp4|webm|ogg)$/i)) {
+                    container.innerHTML = `
+                    <video controls class="w-full h-full">
+                        <source src="${url}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>`;
+                    previewArea.classList.remove('hidden');
+                    showNotification('Video berhasil dimuat', 'success');
+                } else {
+                    // Link web biasa tapi bukan format video yang dikenal
+                    showNotification('URL valid, tapi format video tidak didukung untuk preview', 'info');
+                    previewArea.classList.add('hidden');
+                }
+            } else {
+                showNotification('URL tidak valid', 'error');
+                previewArea.classList.add('hidden');
+            }
         }
     });
+
+    const validateBtn = videoUrlArea.querySelector('button');
+    validateBtn.addEventListener('click', function () {
+        videoUrl.dispatchEvent(new Event('blur')); // Memicu fungsi validasi di atas
+    });
+
+    function getYoutubeEmbedUrl(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+
+        if (match && match[2].length === 11) {
+            return `https://www.youtube.com/embed/${match[2]}`;
+        }
+        return null;
+    }
+
 
     function isValidUrl(string) {
         try {

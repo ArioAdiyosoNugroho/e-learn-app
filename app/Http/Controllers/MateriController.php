@@ -16,173 +16,104 @@ class MateriController extends Controller
      */
     public function index()
     {
-        $materi = Materi::with('category')->latest()->get();
+        $materi = Materi::with('category')
+        ->where('status', 'published')
+        ->latest()
+        ->paginate(12)
+        ->get();
+
         return view('page.materi', compact('materi'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createStep1()
     {
         $categories = Category::all();
-        return view('materi.materi-step-1', compact('categories'));
+
+        return view('materi.create.step1', compact('categories'));
+    }
+
+    public function createStep2($id)
+    {
+        $materi = Materi::findOrFail($id);
+
+        return view('materi.create.step2', compact('materi'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function storeStep1(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'category_id' => 'required|exists:categories,id',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'pdf_file' => 'nullable|mimes:pdf|max:5120', // 5MB
-            'video_url' => 'nullable|url',
             'topic' => 'nullable|string|max:255',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
             'allow_comments' => 'nullable|boolean',
-            'status' => 'required|in:draft,published',
-            'published_at' => 'nullable|date',
         ]);
 
-        $slug = Str::slug($request->title);
-        $originalSlug = $slug;
-        $counter = 1;
-
-        // Cek jika slug sudah ada
-        while (Materi::where('slug', $slug)->exists()) {
-            $slug = $originalSlug . '-' . $counter;
-            $counter++;
-        }
-
-        // Handle file uploads
-        $coverImagePath = null;
         if ($request->hasFile('cover_image')) {
-            $coverImagePath = $request->file('cover_image')->store('materi/cover', 'public');
+            $path = $request->file('cover_image')->store('covers', 'public');
+            $validated['cover_image'] = $path;
         }
 
-        $pdfFilePath = null;
-        if ($request->hasFile('pdf_file')) {
-            $pdfFilePath = $request->file('pdf_file')->store('materi/pdf', 'public');
-        }
+        $validated['slug'] = Str::slug($validated['title']).'-'.uniqid();
+        $validated['guru_id'] = Auth::id();
+        $validated['status'] = 'draft';
 
-        // Buat data materi
-        $materiData = [
-            'title' => $request->title,
-            'slug' => $slug,
-            'description' => $request->description,
-            'category_id' => $request->category_id,
-            'guru_id' => Auth::id(),
-            'cover_image' => $coverImagePath,
-            'pdf_file' => $pdfFilePath,
-            'video_url' => $request->video_url,
-            'topic' => $request->topic,
-            'allow_comments' => $request->has('allow_comments'),
-            'status' => $request->status,
-            'published_at' => $request->status === 'published'
-                ? ($request->published_at ?? now())
-                : null,
-        ];
+        $materi = Materi::create($validated);
 
-        // Simpan materi
-        Materi::create($materiData);
-
-        return redirect()->route('materi.index')
-            ->with('success', 'Materi berhasil ditambahkan.');
+        return redirect()->route('materi.create.step2', $materi->id);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Materi $materi)
+    public function storeStep2(Request $request, Materi $materi)
     {
-        $materi->load('category', 'guru');
-        return view('materi.materi-step-3', compact('materi'));
-    }
+        abort_if($materi->guru_id !== Auth::id(), 403, 'Unauthorized action.');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Materi $materi)
-    {
-        $categories = Category::all();
-        return view('page.materi.edit', compact('materi', 'categories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Materi $materi)
-    {
-        // Validasi data
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'category_id' => 'required|exists:categories,id',
-            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'pdf_file' => 'nullable|mimes:pdf|max:5120',
             'video_url' => 'nullable|url',
-            'topic' => 'nullable|string|max:255',
-            'allow_comments' => 'nullable|boolean',
+        ]);
+
+        if ($request->hasFile('pdf_file')) {
+            $validated['pdf_file'] = $request->file('pdf_file')->store('materi-pdf', 'public');
+        }
+        $materi->update($validated);
+
+        if ($request->action === 'back') {
+            return redirect()->route('materi.edit.step1', $materi);
+        }
+
+        return redirect()->route('materi.preview', $materi);
+    }
+
+    public function preview(Request $request, Materi $materi)
+    {
+        abort_if($materi->guru_id !== Auth::id(), 403, 'Unauthorized action.');
+
+        return view('materi.create.preview', compact('materi'));
+    }
+
+    public function publish(Request $request, Materi $materi)
+    {
+        abort_if($materi->guru_id !== Auth::id(), 403, 'Unauthorized action.');
+
+        $validated = $request->validate([
             'status' => 'required|in:draft,published',
             'published_at' => 'nullable|date',
         ]);
 
-        // Update slug jika title berubah
-        if ($request->title !== $materi->title) {
-            $slug = Str::slug($request->title);
-            $originalSlug = $slug;
-            $counter = 1;
+        $materi->update([
+            'status' => $validated['status'],
+            'published_at' => $validated['status'] === 'published' ? ($validated['published_at'] ?? now()) : null,
+        ]);
 
-            while (Materi::where('slug', $slug)->where('id', '!=', $materi->id)->exists()) {
-                $slug = $originalSlug . '-' . $counter;
-                $counter++;
-            }
-            $materi->slug = $slug;
-        }
-
-        // Handle cover image upload
-        if ($request->hasFile('cover_image')) {
-            // Hapus cover image lama jika ada
-            if ($materi->cover_image) {
-                Storage::disk('public')->delete($materi->cover_image);
-            }
-            $materi->cover_image = $request->file('cover_image')->store('materi/cover', 'public');
-        }
-
-        // Handle PDF file upload
-        if ($request->hasFile('pdf_file')) {
-            // Hapus PDF lama jika ada
-            if ($materi->pdf_file) {
-                Storage::disk('public')->delete($materi->pdf_file);
-            }
-            $materi->pdf_file = $request->file('pdf_file')->store('materi/pdf', 'public');
-        }
-
-        // Update fields lainnya
-        $materi->title = $request->title;
-        $materi->description = $request->description;
-        $materi->category_id = $request->category_id;
-        $materi->video_url = $request->video_url;
-        $materi->topic = $request->topic;
-        $materi->allow_comments = $request->has('allow_comments');
-        $materi->status = $request->status;
-
-        // Update published_at berdasarkan status
-        if ($request->status === 'published' && !$materi->published_at) {
-            $materi->published_at = $request->published_at ?? now();
-        } elseif ($request->status === 'draft') {
-            $materi->published_at = null;
-        } else {
-            $materi->published_at = $request->published_at;
-        }
-
-        $materi->save();
-
-        return redirect()->route('materi.index')
-            ->with('success', 'Materi berhasil diperbarui.');
+        return redirect()->route('materi', $materi->slug)
+            ->with('success', 'Materi berhasil dipublikasikan');
     }
 
     /**
@@ -201,8 +132,47 @@ class MateriController extends Controller
 
         $materi->delete();
 
-        return redirect()->route('materi.index')
+        return redirect()->route('materi')
             ->with('success', 'Materi berhasil dihapus.');
+    }
+
+    public function editStep1(Materi $materi)
+    {
+        abort_if($materi->guru_id !== Auth::id(), 403, 'Unauthorized action.');
+        $categories = Category::all();
+
+        return view('materi.edit.step1', compact('categories', 'materi'));
+    }
+
+    public function updateStep1(Request $request, Materi $materi)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'topic' => 'nullable|string|max:255',
+            'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'allow_comments' => 'nullable|boolean',
+        ]);
+        if ($request->hasFile('cover_image')) {
+            if ($materi->cover_image) {
+                Storage::disk('public')->delete($materi->cover_image);
+            }
+
+            $path = $request->file('cover_image')->store('covers', 'public');
+            $validated['cover_image'] = $path;
+        } elseif ($request->has('remove_cover_image')) {
+            if ($materi->cover_image) {
+                Storage::delete($materi->cover_image);
+            }
+            $validated['cover_image'] = null;
+        } elseif (! $request->hasFile('cover_image') && ! $request->has('remove_cover_image')) {
+            unset($validated['cover_image']);
+        }
+
+        $materi->update($validated);
+
+        return redirect()->route('materi.create.step2', $materi->id);
     }
 
     /**
@@ -211,6 +181,7 @@ class MateriController extends Controller
     public function incrementViews(Materi $materi)
     {
         $materi->increment('views');
+
         return response()->json(['views' => $materi->views]);
     }
 }
