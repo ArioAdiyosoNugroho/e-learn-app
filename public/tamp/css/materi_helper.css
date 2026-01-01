@@ -1,0 +1,33 @@
+/* public/tamp/css/materi-dinamis.css */
+
+/* Card hover styles dinamis akan di-generate oleh PHP */
+.card-hover-dinamis {
+    transition: all 0.3s ease;
+}
+
+/* Default colors saat tidak di-hover */
+.card-title {
+    color: #1f2937 !important; /* gray-900 */
+    transition: color 0.3s ease;
+}
+
+.file-badge {
+    color: #2563eb !important; /* blue-600 */
+    background-color: #eff6ff !important; /* blue-50 */
+    transition: all 0.3s ease;
+}
+
+.author-initials {
+    background-color: #2563eb !important; /* blue-600 */
+    color: white !important;
+    transition: all 0.3s ease;
+}
+
+.category-badge {
+    transition: all 0.3s ease;
+}
+
+.action-button i {
+    color: #2563eb !important; /* blue-600 */
+    transition: color 0.3s ease;
+}

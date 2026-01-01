@@ -5,7 +5,7 @@
 
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <form action="{{ route('materi.store.step2', $materi->id) }}" id="uploadContentForm" method="POST">
+        <form action="{{ route('materi.store.step2', $materi->id) }}" id="uploadContentForm" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 <!-- Konten Utama -->
@@ -156,9 +156,38 @@
                                         Rekomendasi: Upload file PDF untuk hasil terbaik
                                     </p>
                                 </div>
-                                <input type="file" id="fileInput" class="hidden"
+                                <input type="file" id="fileInput" name="pdf_file" class="hidden"  accept="application/pdf"
                                     accept=".pdf,.ppt,.pptx,.doc,.docx,.txt" />
                             </div>
+
+                            <script>
+                            document.querySelector('input[name="pdf_file"]').addEventListener('change', function (e) {
+                                const file = e.target.files[0];
+
+                                if (!file) return;
+
+                                if (file.type !== 'application/pdf') {
+                                    alert('File harus dalam format PDF.\nSilakan convert Word/PPT ke PDF terlebih dahulu.');
+                                    e.target.value = '';
+                                }
+
+                                if (file.size > 5 * 1024 * 1024) {
+                                    alert('Ukuran file maksimal 5MB');
+                                    e.target.value = '';
+                                }
+                            });
+                            </script>
+                            <p class="text-xs text-slate-500 mt-2">
+                                📄 Format yang diterima: <strong>PDF</strong><br>
+                                💡 Convert Word/PPT ke PDF melalui:
+                                <a href="https://www.ilovepdf.com/word_to_pdf" target="_blank"
+                                   class="text-blue-600 underline">
+                                    ilovepdf.com
+                                </a>
+                            </p>
+
+
+
 
                             <!-- Preview File yang diupload -->
                             <div id="filePreview" class="hidden">
@@ -243,9 +272,18 @@
 
                     <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-6 top-24">
 
-                        <div class="w-full bg-slate-100 rounded-full h-2 mb-8 overflow-hidden">
-                            <div class="bg-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
-                                style="width: 30%"></div>
+                        <div class="flex items-center gap-2 mb-8">
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.create.step1') || Route::is('materi.edit.step1') ? 'bg-blue-600 shadow-sm shadow-blue-200' : 'bg-blue-600' }}">
+                            </div>
+
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.create.step2') || Route::is('materi.preview') ? 'bg-blue-600 shadow-sm shadow-blue-200' : 'bg-slate-200' }}">
+                            </div>
+
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.preview') ? 'bg-blue-600 shadow-sm shadow-blue-200' : 'bg-slate-200' }}">
+                            </div>
                         </div>
 
                         <div class="space-y-3">
@@ -276,17 +314,6 @@
                                     </svg>
                                 </button>
                             </div>
-
-                            <!-- Tombol Simpan Draft -->
-                            <button type="button"
-                                class="w-full py-3.5 px-4 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-slate-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-                                </svg>
-                                <span>Simpan Draft</span>
-                            </button>
 
                         </div>
 

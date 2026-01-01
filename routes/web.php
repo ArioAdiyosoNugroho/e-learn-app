@@ -41,6 +41,7 @@ Route::middleware('auth')->group(function () {
         // Step 2
         Route::get('/create/step2/{materi}', 'createStep2')->name('.create.step2');
         Route::post('/create/step2/{materi}', 'storeStep2')->name('.store.step2');
+
         // Step 3
         Route::get('/preview/{materi}', 'preview')->name('.preview');
         Route::post('/publish/{materi}', 'publish')->name('.publish');
@@ -51,6 +52,9 @@ Route::middleware('auth')->group(function () {
 
         //publish
         Route::post('/publish/{materi}', 'publish')->name('.publish');
+
+        //view materi
+        Route::get('/view/{materi:slug}', 'show')->name('.show');
     });
 
 });

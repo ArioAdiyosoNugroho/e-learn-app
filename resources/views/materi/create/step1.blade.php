@@ -243,19 +243,23 @@
                 <div class="lg:col-span-4 space-y-6">
 
                     <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-6 top-24">
-                        <div class="flex justify-between items-end mb-4">
-                            <div>
-                                <h3 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Kelengkapan</h3>
+
+                        <div class="flex items-center gap-2 mb-8">
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.create.step1') || Route::is('materi.edit.step1') ? 'bg-blue-600 shadow-sm shadow-blue-200' : 'bg-blue-600' }}">
                             </div>
-                            <span class="text-2xl font-bold text-blue-600">30%</span>
-                        </div>
-                        <div class="w-full bg-slate-100 rounded-full h-2 mb-8 overflow-hidden">
-                            <div class="bg-blue-600 h-2 rounded-full transition-all duration-500 ease-out"
-                                style="width: 30%"></div>
+
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.create.step2') || Route::is('materi.preview') ? 'bg-blue-600 shadow-sm shadow-blue-200' : 'bg-slate-200' }}">
+                            </div>
+
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.preview') ? 'bg-blue-600 shadow-sm shadow-blue-200' : 'bg-slate-200' }}">
+                            </div>
                         </div>
 
                         <div class="space-y-3">
-                            <button href="" type="submit"
+                            <button type="submit" name="action" value="next"
                                 class="group w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                 <span>Lanjut ke Konten</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -264,16 +268,6 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                                 </svg>
-                            </button>
-
-                            <button type="button"
-                                class="w-full py-3.5 px-4 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-slate-400">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
-                                </svg>
-                                <span>Simpan Draft</span>
                             </button>
                         </div>
                     </div>

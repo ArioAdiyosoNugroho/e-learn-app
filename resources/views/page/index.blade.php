@@ -136,7 +136,107 @@
             </div>
         </div>
     </section>
+        <!-- marqueee -->
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --border-radius-lg: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
+        .carousel {
+            background: linear-gradient(to right,
+                var(--primary-dark) 0%,
+                var(--primary) 80%,
+                var(--primary) 20%,
+                var(--primary-dark) 100%
+            );
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            padding: 15px 0;
+        }
+
+        .groub {
+            display: flex;
+            align-items: center;
+            /* background-color: #2563eb; */
+            gap: 1.5rem;
+            animation: marquee-spin 25s linear infinite;
+            flex-shrink: 0;
+            padding-right: 1.5rem;
+        }
+
+        .card {
+            flex: 0 0 auto;
+            padding: 0.75rem 1.5rem;
+            color: var(--light);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition);
+            cursor: default;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Efek Hover: Berhenti dan sedikit membesar */
+        .carousel:hover .groub {
+            animation-play-state: paused;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+            background-color: var(--light);
+        }
+
+        @keyframes marquee-spin {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
+        }
+    </style>
+
+    <div class="carousel">
+        <div class="groub">
+            <div class="card">Matematika</div>
+            <div class="card">Bahasa Inggris</div>
+            <div class="card">Bahasa Indonesia</div>
+            <div class="card">Sejarah Dunia</div>
+            <div class="card">Fisika</div>
+            <div class="card">Kimia Organik</div>
+            <div class="card">Biologi</div>
+            <div class="card">Ekonomi</div>
+        </div>
+        <div aria-hidden="true" class="groub">
+            <div class="card">Matematika</div>
+            <div class="card">Bahasa Inggris</div>
+            <div class="card">Bahasa Indonesia</div>
+            <div class="card">Sejarah Dunia</div>
+            <div class="card">Fisika</div>
+            <div class="card">Kimia Organik</div>
+            <div class="card">Biologi</div>
+            <div class="card">Ekonomi</div>
+        </div>
+        <div aria-hidden="true" class="groub">
+            <div class="card">Matematika</div>
+            <div class="card">Bahasa Inggris</div>
+            <div class="card">Bahasa Indonesia</div>
+            <div class="card">Sejarah Dunia</div>
+            <div class="card">Fisika</div>
+            <div class="card">Kimia Organik</div>
+            <div class="card">Biologi</div>
+            <div class="card">Ekonomi</div>
+        </div>
+    </div>
     <!-- Divider -->
     <div class="section-divider"></div>
 

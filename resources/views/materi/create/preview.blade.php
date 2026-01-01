@@ -34,30 +34,71 @@
 
                         <div class="p-6 border-b border-slate-100 flex items-center justify-between">
                             <div class="flex items-center gap-3">
-                                <div class="p-2 bg-rose-50 text-rose-600 rounded-lg">
+                                <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                                            d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                                     </svg>
                                 </div>
-                                <h2 class="text-lg font-bold text-slate-800">Konten Materi</h2>
+                                <h2 class="text-lg font-bold text-slate-800">Preview Materi</h2>
                             </div>
-                            <span
-                                class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold border border-slate-200">Video</span>
+                            @if ($materi->video_url)
+                                <span
+                                    class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold border border-slate-200">
+                                    Video
+                                </span>
+                            @elseif ($materi->pdf_file)
+                                <span
+                                    class="px-3 py-1 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold border border-slate-200">
+                                    File PDF
+                                </span>
+                            @endif
                         </div>
 
                         <div class="p-6 md:p-8 space-y-8">
 
                             <div class="relative w-full rounded-2xl overflow-hidden bg-slate-900 shadow-lg group">
+                                @if($materi->video_url)
+                                    <div class="w-full">
+                                        <div class="aspect-video w-full overflow-hidden rounded-xl border">
+                                            <iframe
+                                                src="{{ embedVideo($materi->video_url) }}"
+                                                class="w-full h-full"
+                                                frameborder="0"
+                                                allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                    </div>
+                                @endif
 
-                                <div class="aspect-video w-full">
-                                    <iframe class="w-full h-full" src="{{ embedVideo($materi->video_url) }}"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowfullscreen>
-                                    </iframe>
-                                </div>
+                                @if($materi->pdf_file)
+                                    <div class="w-full space-y-2">
+
+                                        {{-- Preview PDF --}}
+                                        <div class="aspect-[3/4] w-full overflow-hidden rounded-xl border">
+                                            <iframe
+                                                src="{{ asset('storage/'.$materi->pdf_file) }}"
+                                                class="w-full h-full"
+                                                loading="lazy">
+                                            </iframe>
+                                        </div>
+
+                                        {{-- Open in new tab --}}
+                                        <div class="bg-white p-2">
+                                            <a href="{{ asset('storage/'.$materi->pdf_file) }}"
+                                                target="_blank"
+                                                class="inline-flex items-center gap-2 px-3 py-1.5
+                                                text-sm font-medium text-slate-700
+                                                rounded-md
+                                                hover:text-slate-900 hover:bg-slate-100
+                                                transition">
+                                                Buka PDF di tab baru
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endif
+
 
                             </div>
 
@@ -69,7 +110,7 @@
                                         @endphp
 
                                         <span
-                                            class="inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold ring-1 ring-inset"
+                                            class="inline-flex items-center rounded-md px-2 py-1 text-xs font-semibold uppercase"
                                             style="
                                                     background-color: {{ $style['background'] }};
                                                     color: {{ $style['text'] }};">
@@ -107,8 +148,18 @@
                 <div class="lg:col-span-4 space-y-6">
 
                     <div class="bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-6 top-24">
-                        <div class="w-full bg-slate-100 rounded-full h-2 mb-8 overflow-hidden">
-                            <div class="bg-green-500 h-2 rounded-full" style="width: 100%"></div>
+                        <div class="flex items-center gap-2 mb-8">
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.preview') ? 'bg-emerald-500' : 'bg-blue-600' }}">
+                            </div>
+
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.preview') ? 'bg-emerald-500' : (Route::is('materi.create.step2') ? 'bg-blue-600' : 'bg-slate-200') }}">
+                            </div>
+
+                            <div class="flex-1 h-2 rounded-full transition-all duration-500
+                                {{ Route::is('materi.preview') ? 'bg-emerald-500 shadow-sm shadow-emerald-200' : 'bg-slate-200' }}">
+                            </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-3 mb-3">
@@ -121,8 +172,8 @@
                                 </svg>
                                 <span>Kembali</span>
                             </a>
-
-                            <button type="submit" name="status" value="published"
+                            <input type="hidden" name="status" value="published">
+                            <button type="submit" name="action" value="published"
                                 class="flex items-center justify-center gap-2 py-3.5 px-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl shadow-lg shadow-green-500/30 transition-all transform hover:-translate-y-0.5">
                                 <span>Publish</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -135,15 +186,19 @@
 
 
                         <!-- Tombol Simpan Draft -->
-                        <button type="button"
-                            class="w-full py-3.5 px-4 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center gap-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-5 h-5 text-slate-400">
+                        <div
+                            class="w-full py-3 px-4 bg-yellow-50 border border-yellow-200
+           text-yellow-800 rounded-xl flex items-center gap-3 text-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-yellow-500" fill="none"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z" />
+                                    d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span>Simpan Draft</span>
-                        </button>
+                            <span>
+                                Materi ini masih <strong>tersimpan sebagai draft</strong>
+                            </span>
+                        </div>
+
                     </div>
 
                     <div class="bg-indigo-50/50 rounded-2xl p-5 border border-indigo-100">

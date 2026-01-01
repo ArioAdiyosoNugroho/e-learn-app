@@ -368,3 +368,64 @@ document.addEventListener('DOMContentLoaded', function () {
     progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
     progressCircle.style.strokeDashoffset = offset;
 });
+
+
+// Fungsi sederhana untuk membuka dan menutup modal
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    const backdrop = modal.querySelector('.fixed.inset-0.bg-gray-900\\/60');
+    const panel = modal.querySelector('.relative.transform');
+
+    modal.classList.remove('hidden');
+
+    // Trigger reflow untuk memastikan animasi berjalan
+    void modal.offsetWidth;
+
+    // Hilangkan animasi masuk
+    backdrop.classList.remove('opacity-0', 'translate-y-4');
+    panel.classList.remove('opacity-0', 'scale-95');
+    panel.classList.add('opacity-100', 'scale-100');
+
+    // Tambahkan overflow hidden ke body
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    const backdrop = modal.querySelector('.fixed.inset-0.bg-gray-900\\/60');
+    const panel = modal.querySelector('.relative.transform');
+
+    // Animasi keluar
+    backdrop.classList.add('opacity-0');
+    panel.classList.remove('opacity-100', 'scale-100');
+    panel.classList.add('opacity-0', 'scale-95');
+
+    setTimeout(() => {
+        modal.classList.add('hidden');
+        // Kembalikan overflow body
+        document.body.style.overflow = '';
+    }, 300);
+}
+
+// Close modal dengan ESC key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        // Cari semua modal yang terbuka
+        const openModals = document.querySelectorAll('[id^="modal"].fixed.inset-0:not(.hidden)');
+        openModals.forEach(modal => {
+            closeModal(modal.id);
+        });
+    }
+});
+
+// Close modal ketika klik di backdrop
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('fixed') &&
+        e.target.classList.contains('bg-gray-900/60') &&
+        e.target.classList.contains('backdrop-blur-sm')) {
+        const modal = e.target.closest('.fixed.inset-0.z-\\[9999\\]');
+        if (modal) {
+            closeModal(modal.id);
+        }
+    }
+});

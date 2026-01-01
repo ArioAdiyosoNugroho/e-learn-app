@@ -16,13 +16,26 @@ class MateriController extends Controller
      */
     public function index()
     {
-        $materi = Materi::with('category')
-        ->where('status', 'published')
-        ->latest()
-        ->paginate(12)
-        ->get();
+        // Tambahkan 'guru' ke dalam array with()
+        $materi = Materi::with(['category', 'guru'])
+            ->where('status', 'published')
+            ->latest()
+            ->paginate(12);
 
         return view('page.materi', compact('materi'));
+    }
+
+    public function show($slug)
+    {
+        $materi = Materi::with(['category', 'guru'])
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        if ($materi->status !== 'published') {
+            abort(404);
+        }
+
+        return view('materi.show', compact('materi'));
     }
 
     /**
@@ -169,7 +182,6 @@ class MateriController extends Controller
         } elseif (! $request->hasFile('cover_image') && ! $request->has('remove_cover_image')) {
             unset($validated['cover_image']);
         }
-
         $materi->update($validated);
 
         return redirect()->route('materi.create.step2', $materi->id);

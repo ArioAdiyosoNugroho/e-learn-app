@@ -1,312 +1,63 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marquee Modern dengan Tailwind CSS</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    animation: {
-                        'marquee': 'marquee 25s linear infinite',
-                        'marquee-reverse': 'marquee-reverse 25s linear infinite',
-                        'marquee-vertical': 'marquee-vertical 20s linear infinite',
-                    },
-                    keyframes: {
-                        'marquee': {
-                            '0%': { transform: 'translateX(0%)' },
-                            '100%': { transform: 'translateX(-100%)' }
-                        },
-                        'marquee-reverse': {
-                            '0%': { transform: 'translateX(-100%)' },
-                            '100%': { transform: 'translateX(0%)' }
-                        },
-                        'marquee-vertical': {
-                            '0%': { transform: 'translateY(0%)' },
-                            '100%': { transform: 'translateY(-100%)' }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .pause-animation:hover .marquee-content {
-                animation-play-state: paused;
-            }
-
-            .gradient-mask {
-                mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-                -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            }
-
-            .gradient-mask-vertical {
-                mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-                -webkit-mask-image: linear-gradient(to bottom, transparent, black 10%, black 90%, transparent);
-            }
-        }
-    </style>
+    <title>Document</title>
 </head>
-<body class="bg-gray-50 min-h-screen py-12 px-4">
-    <div class="max-w-6xl mx-auto">
-        <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-2">Efek Marquee Modern</h1>
-        <p class="text-center text-gray-600 mb-10">Dengan Tailwind CSS - Lebih Profesional & Interaktif</p>
-
-        <!-- Marquee Horizontal 1 - Default -->
-        <div class="mb-12">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Marquee Horizontal</h2>
-            <div class="bg-white rounded-xl shadow-md overflow-hidden pause-animation gradient-mask">
-                <div class="marquee-content flex animate-marquee py-4">
-                    <div class="flex space-x-8">
-                        <div class="flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-lg">
-                            <i class="fas fa-rocket text-blue-500"></i>
-                            <span class="font-medium text-gray-700">Teknologi Terkini</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-green-50 px-4 py-2 rounded-lg">
-                            <i class="fas fa-chart-line text-green-500"></i>
-                            <span class="font-medium text-gray-700">Analisis Data</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-purple-50 px-4 py-2 rounded-lg">
-                            <i class="fas fa-code text-purple-500"></i>
-                            <span class="font-medium text-gray-700">Pengembangan Web</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-yellow-50 px-4 py-2 rounded-lg">
-                            <i class="fas fa-paint-brush text-yellow-500"></i>
-                            <span class="font-medium text-gray-700">Desain UI/UX</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-red-50 px-4 py-2 rounded-lg">
-                            <i class="fas fa-mobile-alt text-red-500"></i>
-                            <span class="font-medium text-gray-700">Aplikasi Mobile</span>
-                        </div>
-                        <!-- Duplikat konten untuk efek berkelanjutan -->
-                        <div class="flex items-center space-x-2 bg-blue-50 px-4 py-2 rounded-lg">
-                            <i class="fas fa-rocket text-blue-500"></i>
-                            <span class="font-medium text-gray-700">Teknologi Terkini</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-green-50 px-4 py-2 rounded-lg">
-                            <i class="fas fa-chart-line text-green-500"></i>
-                            <span class="font-medium text-gray-700">Analisis Data</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-purple-50 px-4 py-2 rounded-lg">
-                            <i class="fas fa-code text-purple-500"></i>
-                            <span class="font-medium text-gray-700">Pengembangan Web</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="text-sm text-gray-500 mt-2">Hover untuk menjeda animasi</p>
-        </div>
-
-        <!-- Marquee Horizontal 2 - Reverse -->
-        <div class="mb-12">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Marquee Horizontal (Arah Terbalik)</h2>
-            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl shadow-lg overflow-hidden pause-animation gradient-mask">
-                <div class="marquee-content flex animate-marquee-reverse py-4">
-                    <div class="flex space-x-8">
-                        <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-white">
-                            <i class="fas fa-cloud text-white"></i>
-                            <span class="font-medium">Komputasi Awan</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-white">
-                            <i class="fas fa-brain text-white"></i>
-                            <span class="font-medium">Kecerdasan Buatan</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-white">
-                            <i class="fas fa-shield-alt text-white"></i>
-                            <span class="font-medium">Keamanan Siber</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-white">
-                            <i class="fas fa-network-wired text-white"></i>
-                            <span class="font-medium">Internet of Things</span>
-                        </div>
-                        <!-- Duplikat konten untuk efek berkelanjutan -->
-                        <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-white">
-                            <i class="fas fa-cloud text-white"></i>
-                            <span class="font-medium">Komputasi Awan</span>
-                        </div>
-                        <div class="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg text-white">
-                            <i class="fas fa-brain text-white"></i>
-                            <span class="font-medium">Kecerdasan Buatan</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="text-sm text-gray-500 mt-2">Hover untuk menjeda animasi</p>
-        </div>
-
-        <!-- Marquee Vertikal -->
-        <div class="mb-12">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Marquee Vertikal</h2>
-            <div class="bg-white rounded-xl shadow-md overflow-hidden h-40 pause-animation gradient-mask-vertical">
-                <div class="marquee-content animate-marquee-vertical py-4">
-                    <div class="space-y-4">
-                        <div class="bg-gradient-to-r from-cyan-50 to-blue-50 p-4 rounded-lg border-l-4 border-cyan-500">
-                            <h3 class="font-semibold text-gray-800">Pengumuman Penting</h3>
-                            <p class="text-sm text-gray-600">Rilis fitur baru akan dilaksanakan minggu depan.</p>
-                        </div>
-                        <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-lg border-l-4 border-amber-500">
-                            <h3 class="font-semibold text-gray-800">Maintenance Sistem</h3>
-                            <p class="text-sm text-gray-600">Akan dilakukan maintenance pada hari Sabtu pukul 00:00 - 04:00.</p>
-                        </div>
-                        <div class="bg-gradient-to-r from-emerald-50 to-green-50 p-4 rounded-lg border-l-4 border-emerald-500">
-                            <h3 class="font-semibold text-gray-800">Pencapaian Tim</h3>
-                            <p class="text-sm text-gray-600">Tim pengembangan berhasil menyelesaikan proyek tepat waktu.</p>
-                        </div>
-                        <!-- Duplikat konten untuk efek berkelanjutan -->
-                        <div class="bg-gradient-to-r from-cyan-50 to-blue-50 p-4 rounded-lg border-l-4 border-cyan-500">
-                            <h3 class="font-semibold text-gray-800">Pengumuman Penting</h3>
-                            <p class="text-sm text-gray-600">Rilis fitur baru akan dilaksanakan minggu depan.</p>
-                        </div>
-                        <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-lg border-l-4 border-amber-500">
-                            <h3 class="font-semibold text-gray-800">Maintenance Sistem</h3>
-                            <p class="text-sm text-gray-600">Akan dilakukan maintenance pada hari Sabtu pukul 00:00 - 04:00.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p class="text-sm text-gray-500 mt-2">Hover untuk menjeda animasi</p>
-        </div>
-<marquee behavior="scroll" direction="left" scrollamount="5" loop="infinite">
-    <class= class="flex-1">Matematika Matematika </p>
-</marquee>
-
-<div class="overflow-hidden relative bg-white py-6">
-  <div class="flex animate-marquee whitespace-nowrap">
-    <!-- Deretan logo (1) -->
-    <div class="flex space-x-16">
-      <img src="logo1.png" alt="logo1" class="h-12 w-auto" />
-      <img src="logo2.png" class="h-12 w-auto" />
-      <img src="logo3.png" class="h-12 w-auto" />
-      <img src="logo4.png" class="h-12 w-auto" />
-      <img src="logo5.png" class="h-12 w-auto" />
-    </div>
-
-    <!-- Duplikat logo (2) agar looping halus -->
-    <div class="flex space-x-16">
-      <img src="logo1.png" alt="logo1 ke 2" class="h-12 w-auto" />
-      <img src="logo2.png" class="h-12 w-auto" />
-      <img src="logo3.png" class="h-12 w-auto" />
-      <img src="logo4.png" class="h-12 w-auto" />
-      <img src="logo5.png" class="h-12 w-auto" />
-    </div>
-  </div>
-</div>
-
 <style>
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
+    .carousel{
+        margin: 100px auto;
+        width: 100%;
+        display: flex;
+        overflow-x: auto;
+    }
 
-.animate-marquee {
-  display: flex;
-  width: max-content;
-  animation: marquee 25s linear infinite;
-}
+    .carousel::-webkit-scrollbar{
+        display: none;
+    }
+    .groub{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
+        animation: spin 5s infinite linear;
+        padding-right: 1em;
+    }
+    .card{
+        flex: 0 0 5em;
+        height: 5em;
+        padding: 1em;
+        background: blue;
+        font-size: 3em;
+        border-radius: .2em;
+        text-align: center;
+        align-content: center;
+    }
+
+    @keyframes spin{
+        from {translate: 0;}
+        to {translate: -100%;}
+    }
 </style>
-
-
-
-
-        <!-- Marquee dengan Kontrol -->
-        <div class="mb-12">
-            <h2 class="text-xl font-semibold text-gray-700 mb-4">Marquee dengan Kontrol Interaktif</h2>
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="flex justify-between items-center p-4 border-b">
-                    <span class="font-medium text-gray-700">Berita Terkini</span>
-                    <div class="flex space-x-2">
-                        <button id="pauseBtn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-lg transition-colors">
-                            <i class="fas fa-pause"></i>
-                        </button>
-                        <button id="playBtn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-lg transition-colors">
-                            <i class="fas fa-play"></i>
-                        </button>
-                        <button id="speedUpBtn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-lg transition-colors">
-                            <i class="fas fa-forward"></i>
-                        </button>
-                        <button id="speedDownBtn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1 rounded-lg transition-colors">
-                            <i class="fas fa-backward"></i>
-                        </button>
-                    </div>
-                </div>
-                <div id="controlledMarquee" class="gradient-mask">
-                    <div id="marqueeContent" class="flex animate-marquee py-4" style="animation-duration: 20s;">
-                        <div class="flex space-x-6">
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span class="text-gray-700">Pasar saham naik 2% hari ini</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <span class="text-gray-700">Teknologi baru dalam pengembangan aplikasi mobile</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-                                <span class="text-gray-700">Konferensi teknologi akan diadakan bulan depan</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-red-500 rounded-full"></div>
-                                <span class="text-gray-700">Perusahaan meluncurkan produk inovatif</span>
-                            </div>
-                            <!-- Duplikat konten untuk efek berkelanjutan -->
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                                <span class="text-gray-700">Pasar saham naik 2% hari ini</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <span class="text-gray-700">Teknologi baru dalam pengembangan aplikasi mobile</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<body>
+    <div class="carousel">
+        <div class="groub">
+            <div class="card">1</div>
+            <div class="card">2</div>
+            <div class="card">3</div>
+            <div class="card">4</div>
+            <div class="card">5</div>
+            <div class="card">6</div>
         </div>
-
-        <div class="text-center text-gray-500 text-sm mt-12">
-            <p>Dibuat dengan Tailwind CSS • Efek Marquee Modern</p>
+        <div aria-hidden class="groub">
+            <div class="card">1</div>
+            <div class="card">2</div>
+            <div class="card">3</div>
+            <div class="card">4</div>
+            <div class="card">5</div>
+            <div class="card">6</div>
         </div>
     </div>
-
-    <script>
-        // Kontrol interaktif untuk marquee
-        const marqueeContent = document.getElementById('marqueeContent');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const playBtn = document.getElementById('playBtn');
-        const speedUpBtn = document.getElementById('speedUpBtn');
-        const speedDownBtn = document.getElementById('speedDownBtn');
-
-        let animationSpeed = 20; // detik
-
-        pauseBtn.addEventListener('click', () => {
-            marqueeContent.style.animationPlayState = 'paused';
-        });
-
-        playBtn.addEventListener('click', () => {
-            marqueeContent.style.animationPlayState = 'running';
-        });
-
-        speedUpBtn.addEventListener('click', () => {
-            if (animationSpeed > 5) {
-                animationSpeed -= 5;
-                marqueeContent.style.animationDuration = `${animationSpeed}s`;
-            }
-        });
-
-        speedDownBtn.addEventListener('click', () => {
-            if (animationSpeed < 40) {
-                animationSpeed += 5;
-                marqueeContent.style.animationDuration = `${animationSpeed}s`;
-            }
-        });
-    </script>
 </body>
 </html>

@@ -46,7 +46,7 @@ if (!function_exists('categoryBadgeStyle')) {
     {
         if (!$color) {
             return [
-                'background' => '#e5e7eb', // gray-200
+                'background' => '#2563eb', // gray-200
                 'text'       => '#111827', // gray-900
                 'ring'       => '#d1d5db',
             ];
