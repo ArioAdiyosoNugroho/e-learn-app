@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MateriController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuizController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -50,11 +53,32 @@ Route::middleware('auth')->group(function () {
         Route::get('/create/step1/{materi}', 'editStep1')->name('.edit.step1');
         Route::put('/create/step1/{materi}', 'updateStep1')->name('.update.step1');
 
-        //publish
+        // publish
         Route::post('/publish/{materi}', 'publish')->name('.publish');
 
-        //view materi
+        // view materi
         Route::get('/view/{materi:slug}', 'show')->name('.show');
+    });
+
+    Route::prefix('quiz')->name('quiz.')->controller(QuizController::class)->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{quiz}/edit', 'edit')->name('edit');
+        Route::put('/{quiz}', 'update')->name('update');
+        Route::patch('/{quiz}/toggle', 'toggleStatus')->name('toggle');
+
+        Route::get('/{quiz}/questions', [QuestionController::class, 'index'])->name('questions.index');
+    });
+
+    Route::prefix('quiz/{quiz}')->name('questions.')->group(function () {
+        Route::resource('questions', QuestionController::class)->except(['index']);
+    });
+
+    Route::prefix('quiz/{quiz}')->name('quiz.')->controller(AnswerController::class)->group(function () {
+        Route::get('/start', 'start')->name('start');
+        Route::post('/submit', 'submit')->name('submit');
+        Route::get('/result', 'result')->name('result');
     });
 
 });

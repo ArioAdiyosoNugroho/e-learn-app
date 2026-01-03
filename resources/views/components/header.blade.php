@@ -27,7 +27,7 @@
                         <div class="nav-indicator"></div>
                         <div class="nav-wave"></div>
                     </a>
-                    <a href="quiz.html" class="nav-item" data-nav="quizzes">
+                    <a href="{{ route('quiz.index') }}" class="nav-item  {{ request()->routeIs('quiz') ? 'active' : '' }}" data-nav="quizzes">
                         <span class="nav-text">Kuiz</span>
                         <div class="nav-indicator"></div>
                         <div class="nav-wave"></div>
